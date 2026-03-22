@@ -44,3 +44,34 @@ html, body, #root {
   background: #333333;
   border-radius: 3px;
 }
+
+/* Touch-friendly button styles for iPad/tablet */
+.touch-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Prevent text selection on buttons during touch */
+button {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* iPad landscape optimization */
+@media (min-width: 768px) and (max-width: 1366px) {
+  .touch-btn {
+    min-height: 36px;
+  }
+}
+
+/* iPad portrait */
+@media (max-width: 767px) {
+  .touch-btn {
+    min-height: 40px;
+  }
+}

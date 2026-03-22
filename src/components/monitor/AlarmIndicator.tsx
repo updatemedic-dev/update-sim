@@ -84,7 +84,7 @@ export function useAlarmStatus(): AlarmStatus {
   return status;
 }
 
-export default function AlarmIndicator() {
+export default function AlarmIndicator({ compact }: { compact?: boolean }) {
   const { alarmsOff, alarmsSilenced, alarmsSilencedUntil } = useSettingsStore();
   const [blinkOn, setBlinkOn] = useState(true);
 
