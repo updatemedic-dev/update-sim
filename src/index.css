@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", "Courier New", monospace;
+  --color-monitor-bg: #000000;
+  --color-ecg-green: #00ff00;
+  --color-spo2-cyan: #00ffff;
+  --color-capno-yellow: #ffff00;
+  --color-arterial-red: #ff0000;
+  --color-nibp-white: #ffffff;
+  --color-alarm-high: #ff0000;
+  --color-alarm-medium: #ffaa00;
+  --color-alarm-low: #00cccc;
+  --color-text-dim: #888888;
+  --color-panel-bg: #111111;
+  --color-panel-border: #333333;
+  --color-brand-blue: #0066cc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: "JetBrains Mono", "IBM Plex Mono", "Courier New", monospace;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 3px;
+}
