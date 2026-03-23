@@ -410,7 +410,7 @@ function App() {
                 </button>
               </div>
               <button onClick={() => { defib.disarm(); audioEngine.stopChargedBeep(); }}
-                className="mt-1 py-2.5 rounded-xl text-sm font-bold text-white border-2 border-cyan-600 bg-gradient-to-b from-cyan-600 to-cyan-900 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-cyan-500 hover:to-cyan-800 active:translate-y-[1px] transition-all">
+                className="mt-1 py-4 rounded-xl text-lg font-bold text-white border-2 border-cyan-600 bg-gradient-to-b from-cyan-600 to-cyan-900 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-cyan-500 hover:to-cyan-800 active:translate-y-[1px] transition-all">
                 {t('disarm', language)}
               </button>
             </div>
