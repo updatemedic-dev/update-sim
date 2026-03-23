@@ -67,13 +67,17 @@ function App() {
     }
 
     switch (e.key.toLowerCase()) {
-      case 'n': // NEXT STEP + stop compressions
+      case 'n': // NEXT STEP + stop compressions + stop pacer
         e.preventDefault();
         // Stop compressions if active
         if (v.cprActive) {
           vs.setVital('cprActive', false);
           audioEngine.stopMetronome();
           useCodeTrackStore.getState().addEntry('cpr_stop', 'RCP detenida');
+        }
+        // Stop pacer if active
+        if (df.pacerOn) {
+          df.togglePacer();
         }
         if (sc.activeScenario) {
           const step = sc.nextStep();
