@@ -32,7 +32,18 @@ export class AudioEngine {
 
   private ensureContext(): AudioContext {
     if (!this.ctx || !this.isInitialized) {
-      throw new Error('AudioEngine not initialized');
+      // Auto-init if not initialized (iOS Safari workaround)
+      this.ctx = new AudioContext();
+      this.masterGain = this.ctx.createGain();
+      this.masterGain.gain.value = 0.5;
+      this.masterGain.connect(this.ctx.destination);
+      this.beepGain = this.ctx.createGain();
+      this.beepGain.gain.value = 0.3;
+      this.beepGain.connect(this.masterGain);
+      this.alarmGain = this.ctx.createGain();
+      this.alarmGain.gain.value = 0.5;
+      this.alarmGain.connect(this.masterGain);
+      this.isInitialized = true;
     }
     if (this.ctx.state === 'suspended') {
       this.ctx.resume();

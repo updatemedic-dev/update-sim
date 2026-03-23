@@ -15,20 +15,37 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <title>UPDATE SIM — Monitor Multiparamétrico</title>
     <style>
-      body {
-        margin: 0;
-        padding: 0;
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
         background: #000;
         overflow: hidden;
-        width: 100vw;
-        height: 100vh;
-        height: 100dvh;
-      }
-      #root {
         width: 100%;
         height: 100%;
       }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #root {
+        width: 1024px;
+        height: 768px;
+        transform-origin: center center;
+        overflow: hidden;
+      }
     </style>
+    <script>
+      function scaleApp() {
+        var r = document.getElementById('root');
+        if (!r) return;
+        var s = Math.min(window.innerWidth / 1024, window.innerHeight / 768);
+        r.style.transform = 'scale(' + s + ')';
+      }
+      window.addEventListener('load', scaleApp);
+      window.addEventListener('resize', scaleApp);
+      window.addEventListener('orientationchange', function(){ setTimeout(scaleApp, 300); });
+      setInterval(scaleApp, 2000);
+    </script>
   </head>
   <body>
     <div id="root"></div>

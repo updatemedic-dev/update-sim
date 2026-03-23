@@ -250,8 +250,8 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col w-full h-screen bg-black overflow-hidden"
-      style={{ fontFamily: '"JetBrains Mono", "IBM Plex Mono", monospace' }}>
+    <div className="flex flex-col bg-black overflow-hidden"
+      style={{ fontFamily: '"JetBrains Mono", "IBM Plex Mono", monospace', width: 1024, height: 768 }}>
 
       {/* ===== MONITOR AREA ===== */}
       <div className="flex-1 min-h-0">
@@ -398,6 +398,10 @@ function App() {
                     audioEngine.playShockSound();
                     useCodeTrackStore.getState().addEntry('shock', `Descarga ${record.energy}J${record.synchronized ? ' SYNC' : ''}`);
                     useVitalSignsStore.getState().shockPause();
+                    // Auto-disable SYNC after shock
+                    if (useDefibStore.getState().syncMode) {
+                      useDefibStore.getState().toggleSync();
+                    }
                   }
                 }}
                   disabled={!defib.isCharged}

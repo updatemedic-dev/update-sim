@@ -189,12 +189,12 @@ export default function WaveformCanvas({
 
           // Draw if peak found above threshold
           if (bestVal > 0.1 && bestY > 0 && bestY < midY) {
-            const sz = 6;
-            const tipY = bestY - 4;
+            const sz = 7;
+            const tipY = bestY - 16;
             ctx.beginPath();
             ctx.moveTo(bestX, tipY);
-            ctx.lineTo(bestX - sz, tipY - sz * 1.5);
-            ctx.lineTo(bestX + sz, tipY - sz * 1.5);
+            ctx.lineTo(bestX - sz, tipY - sz * 1.8);
+            ctx.lineTo(bestX + sz, tipY - sz * 1.8);
             ctx.closePath();
             ctx.fill();
           }
