@@ -237,7 +237,7 @@ export default function MonitorScreen() {
 
           {/* Stop */}
           <button
-            onClick={() => { useVitalSignsStore.getState().stop(); useDefibStore.getState().reset(); useScenarioStore.getState().reset(); useMedicationStore.getState().clearAdministered(); }}
+            onClick={() => { useVitalSignsStore.getState().stop(); useDefibStore.getState().reset(); useScenarioStore.getState().reset(); useMedicationStore.getState().clearAdministered(); audioEngine.stopChargedBeep(); audioEngine.stopMetronome(); audioEngine.stopAlarm(); }}
             className="w-14 h-14 rounded-xl bg-gradient-to-b from-gray-300 to-gray-500 border border-gray-400 shadow-[0_4px_10px_rgba(0,0,0,0.6),inset_0_2px_0_rgba(255,255,255,0.5)] hover:from-gray-200 hover:to-gray-400 active:from-gray-500 active:to-gray-600 active:shadow-[0_1px_3px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(0,0,0,0.2)] active:translate-y-[1px] flex items-center justify-center transition-all"
             title="Stop"
           >

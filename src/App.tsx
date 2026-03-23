@@ -60,6 +60,7 @@ function App() {
       useMedicationStore.getState().clearAdministered();
       audioEngine.stopChargedBeep();
       audioEngine.stopMetronome();
+      audioEngine.stopAlarm();
       sc.loadScenario(scenarioId);
       aKeyRef.current = false;
       return;
@@ -172,6 +173,7 @@ function App() {
         useMedicationStore.getState().clearAdministered();
         audioEngine.stopChargedBeep();
         audioEngine.stopMetronome();
+        audioEngine.stopAlarm();
         break;
       case 'p':
         e.preventDefault();
