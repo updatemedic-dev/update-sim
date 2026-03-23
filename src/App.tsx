@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import MonitorScreen, { applyStep } from './components/monitor/MonitorScreen';
 import ScenarioSelector from './components/scenarios/ScenarioSelector';
+import JarvisPanel from './components/jarvis/JarvisPanel';
+import JarvisOrb from './components/jarvis/JarvisOrb';
 // Settings integrated into gear panel
 import { useVitalSignsStore } from './stores/vitalSignsStore';
 import { useSettingsStore } from './stores/settingsStore';
@@ -8,6 +10,7 @@ import { useDefibStore } from './stores/defibStore';
 import { useScenarioStore } from './stores/scenarioStore';
 import { useCodeTrackStore } from './stores/codeTrackStore';
 import { useMedicationStore } from './stores/medicationStore';
+import { useJarvisStore } from './stores/jarvisStore';
 import { audioEngine } from './engine/audio/AudioEngine';
 import { CardiacRhythm } from './types/rhythms';
 import { RHYTHM_DEFINITIONS } from './engine/rhythms/rhythmDefinitions';
@@ -187,6 +190,10 @@ function App() {
       case 'h':
         e.preventDefault();
         setShowControls((v) => !v);
+        break;
+      case 'j':
+        e.preventDefault();
+        useJarvisStore.getState().toggle();
         break;
       case 'escape':
         e.preventDefault();
@@ -441,6 +448,10 @@ function App() {
 
       {/* Medications Overlay */}
       {showMeds && <MedsOverlay onClose={() => setShowMeds(false)} />}
+
+      {/* J.A.R.V.I.S. AI Assistant */}
+      <JarvisOrb />
+      <JarvisPanel />
     </div>
   );
 }
