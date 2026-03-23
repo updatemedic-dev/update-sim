@@ -67,8 +67,14 @@ function App() {
     }
 
     switch (e.key.toLowerCase()) {
-      case 'n': // NEXT STEP
+      case 'n': // NEXT STEP + stop compressions
         e.preventDefault();
+        // Stop compressions if active
+        if (v.cprActive) {
+          vs.setVital('cprActive', false);
+          audioEngine.stopMetronome();
+          useCodeTrackStore.getState().addEntry('cpr_stop', 'RCP detenida');
+        }
         if (sc.activeScenario) {
           const step = sc.nextStep();
           if (step) {
@@ -740,6 +746,8 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
       audioEngine.playSyncBeep();
       setLastAdminId(medId);
       setTimeout(() => setLastAdminId(''), 600);
+      // Close menu after selecting medication
+      setTimeout(() => onClose(), 300);
     }
   };
 
