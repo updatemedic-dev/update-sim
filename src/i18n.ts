@@ -44,10 +44,10 @@ const translations = {
     temperature: 'Temperatura',
     respiration: 'Respiración',
     energySelected: 'Energía Seleccionada',
-    charge: 'Cargar',
-    charging: 'Cargando...',
-    chargedBtn: 'Cargado ✓',
-    shock: 'Shock',
+    charge: 'CARGAR',
+    charging: 'CARGANDO...',
+    chargedBtn: 'CARGADO ✓',
+    shock: 'SHOCK',
     disarm: 'Desarmar',
 
     // Disclaimer
@@ -105,10 +105,10 @@ const translations = {
     temperature: 'Temperature',
     respiration: 'Respiration',
     energySelected: 'Energy Selected',
-    charge: 'Charge',
-    charging: 'Charging...',
-    chargedBtn: 'Charged ✓',
-    shock: 'Shock',
+    charge: 'CHARGE',
+    charging: 'CHARGING...',
+    chargedBtn: 'CHARGED ✓',
+    shock: 'SHOCK',
     disarm: 'Disarm',
 
     // Disclaimer

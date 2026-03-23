@@ -188,7 +188,7 @@ export default function WaveformCanvas({
           // Draw triangle at fixed height (aligned row at top of canvas)
           if (bestVal > 0.1) {
             const sz = 6;
-            const fixedY = 22; // fixed height from top
+            const fixedY = 35; // fixed height from top
             ctx.beginPath();
             ctx.moveTo(bestX, fixedY + sz);      // tip pointing down
             ctx.lineTo(bestX - sz, fixedY - sz);  // top-left

@@ -304,13 +304,13 @@ function App() {
             {/* Column 4: Sync + Meds */}
             <div className="flex flex-col gap-1.5 p-1.5 w-[100px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
               <button onClick={() => { defib.toggleSync(); audioEngine.playSyncBeep(); }}
-                className={`flex-1 rounded-xl font-bold text-sm border transition-all active:translate-y-[1px] ${defib.syncMode
+                className={`flex-1 rounded-xl font-bold text-lg border transition-all active:translate-y-[1px] ${defib.syncMode
                   ? 'bg-gradient-to-b from-purple-400 to-purple-700 text-white border-purple-400 shadow-[0_0_16px_rgba(168,85,247,0.5),0_3px_6px_rgba(0,0,0,0.4),inset_0_2px_0_rgba(255,255,255,0.3)]'
                   : 'bg-gradient-to-b from-purple-500 to-purple-800 text-purple-100 border-purple-600 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-purple-400 hover:to-purple-700'}`}>
                 SYNC {defib.syncMode ? '✓' : ''}
               </button>
               <button onClick={() => setShowMeds(!showMeds)}
-                className="flex-1 rounded-xl font-bold text-sm border transition-all active:translate-y-[1px] bg-gradient-to-b from-green-500 to-green-800 text-white border-green-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-green-400 hover:to-green-700">
+                className="flex-1 rounded-xl font-bold text-lg border transition-all active:translate-y-[1px] bg-gradient-to-b from-green-500 to-green-800 text-white border-green-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-green-400 hover:to-green-700">
                 MEDS
               </button>
             </div>
@@ -410,7 +410,7 @@ function App() {
                 </button>
               </div>
               <button onClick={() => { defib.disarm(); audioEngine.stopChargedBeep(); }}
-                className="mt-0.5 py-1 rounded-lg text-[10px] font-bold text-white border border-cyan-700 bg-gradient-to-b from-cyan-700 to-cyan-900 shadow-[0_2px_4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] hover:from-cyan-600 hover:to-cyan-800 active:translate-y-[1px] transition-all">
+                className="mt-1 py-2.5 rounded-xl text-sm font-bold text-white border-2 border-cyan-600 bg-gradient-to-b from-cyan-600 to-cyan-900 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-cyan-500 hover:to-cyan-800 active:translate-y-[1px] transition-all">
                 {t('disarm', language)}
               </button>
             </div>
@@ -761,7 +761,7 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
         <div className="grid grid-cols-3 gap-2 max-h-60 overflow-y-auto p-1">
           {filtered.map((med) => (
             <button key={med.id} onClick={() => handleAdmin(med.id)}
-              className={`px-3 py-3 rounded-xl text-sm text-left text-white font-medium border transition-all active:scale-95 ${lastAdminId === med.id
+              className={`px-4 py-5 rounded-xl text-base text-left text-white font-bold border transition-all active:scale-95 ${lastAdminId === med.id
                 ? 'ring-2 ring-green-400 scale-95'
                 : 'hover:brightness-125'}`}
               style={{
