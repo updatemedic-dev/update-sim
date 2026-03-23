@@ -8,7 +8,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Normal Sinus Rhythm",
     nameEs: "Ritmo Sinusal Normal",
     category: "sinus",
-    defaultHR: 72,
+    defaultHR: 71,
     hrRange: [60, 100],
     hasPulse: true,
     isShockable: false,
@@ -24,7 +24,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 120, diastolicBP: 80, spo2: 98, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 119, diastolicBP: 81, spo2: 97, etco2: 34, respiratoryRate: 17, temperature: 36.4 },
   },
 
   [CardiacRhythm.SINUS_BRADYCARDIA]: {
@@ -32,7 +32,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus Bradycardia",
     nameEs: "Bradicardia Sinusal",
     category: "sinus",
-    defaultHR: 48,
+    defaultHR: 49,
     hrRange: [30, 59],
     hasPulse: true,
     isShockable: false,
@@ -48,7 +48,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 100, diastolicBP: 65, spo2: 96, etco2: 38, respiratoryRate: 14, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 99, diastolicBP: 64, spo2: 95, etco2: 37, respiratoryRate: 13, temperature: 36.4 },
   },
 
   [CardiacRhythm.SINUS_TACHYCARDIA]: {
@@ -56,7 +56,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus Tachycardia",
     nameEs: "Taquicardia Sinusal",
     category: "sinus",
-    defaultHR: 120,
+    defaultHR: 119,
     hrRange: [101, 150],
     hasPulse: true,
     isShockable: false,
@@ -72,7 +72,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 140, diastolicBP: 85, spo2: 97, etco2: 30, respiratoryRate: 22, temperature: 37.2 },
+    physiologicalDefaults: { systolicBP: 139, diastolicBP: 84, spo2: 96, etco2: 31, respiratoryRate: 23, temperature: 37.3 },
   },
 
   [CardiacRhythm.SINUS_ARRHYTHMIA]: {
@@ -80,7 +80,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus Arrhythmia",
     nameEs: "Arritmia Sinusal",
     category: "sinus",
-    defaultHR: 72,
+    defaultHR: 73,
     hrRange: [55, 100],
     hasPulse: true,
     isShockable: false,
@@ -96,7 +96,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.25,
       baselineWander: 0.015,
     },
-    physiologicalDefaults: { systolicBP: 120, diastolicBP: 80, spo2: 98, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 119, diastolicBP: 81, spo2: 97, etco2: 34, respiratoryRate: 17, temperature: 36.6 },
   },
 
   [CardiacRhythm.SINUS_EXIT_BLOCK]: {
@@ -104,7 +104,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus Exit Block",
     nameEs: "Bloqueo de Salida Sinusal",
     category: "sinus",
-    defaultHR: 60,
+    defaultHR: 61,
     hrRange: [40, 80],
     hasPulse: true,
     isShockable: false,
@@ -120,7 +120,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.15,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 110, diastolicBP: 70, spo2: 97, etco2: 36, respiratoryRate: 15, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 109, diastolicBP: 71, spo2: 98, etco2: 37, respiratoryRate: 16, temperature: 36.6 },
   },
 
   // === SUPRAVENTRICULAR ===
@@ -129,7 +129,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Supraventricular Tachycardia",
     nameEs: "Taquicardia Supraventricular",
     category: "supraventricular",
-    defaultHR: 180,
+    defaultHR: 179,
     hrRange: [150, 250],
     hasPulse: true,
     isShockable: false,
@@ -145,7 +145,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.005,
     },
-    physiologicalDefaults: { systolicBP: 100, diastolicBP: 70, spo2: 96, etco2: 28, respiratoryRate: 24, temperature: 36.8 },
+    physiologicalDefaults: { systolicBP: 99, diastolicBP: 69, spo2: 97, etco2: 27, respiratoryRate: 25, temperature: 36.9 },
   },
 
   [CardiacRhythm.PEDIATRIC_SVT]: {
@@ -153,7 +153,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Pediatric SVT",
     nameEs: "TSV Pediátrica",
     category: "supraventricular",
-    defaultHR: 240,
+    defaultHR: 241,
     hrRange: [220, 300],
     hasPulse: true,
     isShockable: false,
@@ -169,7 +169,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.005,
     },
-    physiologicalDefaults: { systolicBP: 80, diastolicBP: 50, spo2: 95, etco2: 25, respiratoryRate: 30, temperature: 37.0 },
+    physiologicalDefaults: { systolicBP: 79, diastolicBP: 51, spo2: 94, etco2: 26, respiratoryRate: 31, temperature: 36.9 },
   },
 
   [CardiacRhythm.ATRIAL_FIBRILLATION]: {
@@ -177,7 +177,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Atrial Fibrillation",
     nameEs: "Fibrilación Auricular",
     category: "supraventricular",
-    defaultHR: 110,
+    defaultHR: 109,
     hrRange: [60, 180],
     hasPulse: true,
     isShockable: false,
@@ -193,7 +193,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.6,
       baselineWander: 0.02,
     },
-    physiologicalDefaults: { systolicBP: 115, diastolicBP: 75, spo2: 96, etco2: 33, respiratoryRate: 18, temperature: 36.6 },
+    physiologicalDefaults: { systolicBP: 116, diastolicBP: 74, spo2: 95, etco2: 34, respiratoryRate: 17, temperature: 36.7 },
   },
 
   [CardiacRhythm.ATRIAL_FLUTTER]: {
@@ -201,7 +201,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Atrial Flutter",
     nameEs: "Flutter Auricular",
     category: "supraventricular",
-    defaultHR: 150,
+    defaultHR: 151,
     hrRange: [75, 300],
     hasPulse: true,
     isShockable: false,
@@ -217,7 +217,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 110, diastolicBP: 70, spo2: 96, etco2: 32, respiratoryRate: 20, temperature: 36.7 },
+    physiologicalDefaults: { systolicBP: 109, diastolicBP: 69, spo2: 97, etco2: 33, respiratoryRate: 21, temperature: 36.6 },
   },
 
   [CardiacRhythm.WANDERING_ATRIAL_PACEMAKER]: {
@@ -225,7 +225,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Wandering Atrial Pacemaker",
     nameEs: "Marcapasos Auricular Errante",
     category: "supraventricular",
-    defaultHR: 65,
+    defaultHR: 64,
     hrRange: [50, 100],
     hasPulse: true,
     isShockable: false,
@@ -241,7 +241,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.2,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 118, diastolicBP: 78, spo2: 97, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 117, diastolicBP: 79, spo2: 98, etco2: 36, respiratoryRate: 17, temperature: 36.4 },
   },
 
   [CardiacRhythm.MULTIFOCAL_ATRIAL_TACHYCARDIA]: {
@@ -249,7 +249,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Multifocal Atrial Tachycardia",
     nameEs: "Taquicardia Auricular Multifocal",
     category: "supraventricular",
-    defaultHR: 130,
+    defaultHR: 129,
     hrRange: [100, 180],
     hasPulse: true,
     isShockable: false,
@@ -265,7 +265,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.4,
       baselineWander: 0.015,
     },
-    physiologicalDefaults: { systolicBP: 125, diastolicBP: 80, spo2: 94, etco2: 30, respiratoryRate: 22, temperature: 37.0 },
+    physiologicalDefaults: { systolicBP: 124, diastolicBP: 79, spo2: 93, etco2: 31, respiratoryRate: 23, temperature: 36.9 },
   },
 
   // === AV BLOCKS ===
@@ -274,7 +274,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "First Degree AV Block",
     nameEs: "BAV 1er Grado",
     category: "av_block",
-    defaultHR: 68,
+    defaultHR: 67,
     hrRange: [50, 100],
     hasPulse: true,
     isShockable: false,
@@ -290,7 +290,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 118, diastolicBP: 76, spo2: 97, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 119, diastolicBP: 75, spo2: 96, etco2: 36, respiratoryRate: 15, temperature: 36.6 },
   },
 
   [CardiacRhythm.SECOND_DEGREE_TYPE_1]: {
@@ -298,7 +298,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Second Degree Type I (Wenckebach)",
     nameEs: "BAV 2do Grado Tipo I (Wenckebach)",
     category: "av_block",
-    defaultHR: 60,
+    defaultHR: 59,
     hrRange: [40, 80],
     hasPulse: true,
     isShockable: false,
@@ -314,7 +314,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.3,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 110, diastolicBP: 70, spo2: 96, etco2: 36, respiratoryRate: 15, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 109, diastolicBP: 69, spo2: 95, etco2: 37, respiratoryRate: 16, temperature: 36.6 },
   },
 
   [CardiacRhythm.SECOND_DEGREE_TYPE_2]: {
@@ -322,7 +322,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Second Degree Type II",
     nameEs: "BAV 2do Grado Tipo II",
     category: "av_block",
-    defaultHR: 55,
+    defaultHR: 54,
     hrRange: [30, 70],
     hasPulse: true,
     isShockable: false,
@@ -338,7 +338,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.2,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 105, diastolicBP: 65, spo2: 95, etco2: 36, respiratoryRate: 14, temperature: 36.4 },
+    physiologicalDefaults: { systolicBP: 106, diastolicBP: 64, spo2: 94, etco2: 35, respiratoryRate: 13, temperature: 36.3 },
   },
 
   [CardiacRhythm.THIRD_DEGREE_AV_BLOCK]: {
@@ -346,7 +346,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Third Degree AV Block",
     nameEs: "BAV 3er Grado (Completo)",
     category: "av_block",
-    defaultHR: 38,
+    defaultHR: 39,
     hrRange: [25, 50],
     hasPulse: true,
     isShockable: false,
@@ -362,7 +362,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 90, diastolicBP: 60, spo2: 94, etco2: 38, respiratoryRate: 14, temperature: 36.3 },
+    physiologicalDefaults: { systolicBP: 91, diastolicBP: 61, spo2: 93, etco2: 39, respiratoryRate: 15, temperature: 36.4 },
   },
 
   // === JUNCTIONAL ===
@@ -371,7 +371,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Junctional Rhythm",
     nameEs: "Ritmo de la Unión",
     category: "junctional",
-    defaultHR: 50,
+    defaultHR: 51,
     hrRange: [40, 60],
     hasPulse: true,
     isShockable: false,
@@ -387,7 +387,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 105, diastolicBP: 68, spo2: 96, etco2: 36, respiratoryRate: 15, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 104, diastolicBP: 67, spo2: 95, etco2: 37, respiratoryRate: 14, temperature: 36.6 },
   },
 
   [CardiacRhythm.JUNCTIONAL_TACHYCARDIA]: {
@@ -395,7 +395,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Junctional Tachycardia",
     nameEs: "Taquicardia de la Unión",
     category: "junctional",
-    defaultHR: 110,
+    defaultHR: 111,
     hrRange: [60, 150],
     hasPulse: true,
     isShockable: false,
@@ -411,7 +411,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 115, diastolicBP: 75, spo2: 96, etco2: 33, respiratoryRate: 18, temperature: 36.7 },
+    physiologicalDefaults: { systolicBP: 114, diastolicBP: 74, spo2: 97, etco2: 32, respiratoryRate: 17, temperature: 36.8 },
   },
 
   // === VENTRICULAR ===
@@ -420,7 +420,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Idioventricular Rhythm",
     nameEs: "Ritmo Idioventricular",
     category: "ventricular",
-    defaultHR: 35,
+    defaultHR: 34,
     hrRange: [20, 40],
     hasPulse: true,
     isShockable: false,
@@ -436,7 +436,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.1,
       baselineWander: 0.015,
     },
-    physiologicalDefaults: { systolicBP: 80, diastolicBP: 50, spo2: 90, etco2: 25, respiratoryRate: 12, temperature: 36.0 },
+    physiologicalDefaults: { systolicBP: 81, diastolicBP: 51, spo2: 91, etco2: 24, respiratoryRate: 11, temperature: 36.1 },
   },
 
   [CardiacRhythm.ACCELERATED_IDIOVENTRICULAR]: {
@@ -444,7 +444,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Accelerated Idioventricular Rhythm",
     nameEs: "Ritmo Idioventricular Acelerado",
     category: "ventricular",
-    defaultHR: 75,
+    defaultHR: 74,
     hrRange: [40, 100],
     hasPulse: true,
     isShockable: false,
@@ -460,7 +460,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.05,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 100, diastolicBP: 65, spo2: 94, etco2: 30, respiratoryRate: 14, temperature: 36.3 },
+    physiologicalDefaults: { systolicBP: 101, diastolicBP: 66, spo2: 95, etco2: 31, respiratoryRate: 13, temperature: 36.4 },
   },
 
   [CardiacRhythm.VENTRICULAR_TACHYCARDIA]: {
@@ -468,7 +468,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Ventricular Tachycardia",
     nameEs: "Taquicardia Ventricular",
     category: "ventricular",
-    defaultHR: 180,
+    defaultHR: 179,
     hrRange: [120, 250],
     hasPulse: false,
     isShockable: true,
@@ -484,7 +484,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.05,
       baselineWander: 0.02,
     },
-    physiologicalDefaults: { systolicBP: 60, diastolicBP: 40, spo2: 80, etco2: 15, respiratoryRate: 0, temperature: 36.0 },
+    physiologicalDefaults: { systolicBP: 61, diastolicBP: 41, spo2: 81, etco2: 16, respiratoryRate: 0, temperature: 36.1 },
   },
 
   [CardiacRhythm.POLYMORPHIC_VT]: {
@@ -492,7 +492,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Polymorphic VT",
     nameEs: "TV Polimórfica",
     category: "ventricular",
-    defaultHR: 200,
+    defaultHR: 199,
     hrRange: [150, 300],
     hasPulse: false,
     isShockable: true,
@@ -508,7 +508,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.5,
       baselineWander: 0.03,
     },
-    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 70, etco2: 10, respiratoryRate: 0, temperature: 36.0 },
+    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 69, etco2: 9, respiratoryRate: 0, temperature: 35.9 },
   },
 
   [CardiacRhythm.VENTRICULAR_FIBRILLATION]: {
@@ -532,7 +532,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 1,
       baselineWander: 0,
     },
-    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 5, respiratoryRate: 0, temperature: 36.0 },
+    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 4, respiratoryRate: 0, temperature: 36.1 },
   },
 
   [CardiacRhythm.TORSADES_DE_POINTES]: {
@@ -540,7 +540,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Torsades de Pointes",
     nameEs: "Torsades de Pointes",
     category: "ventricular",
-    defaultHR: 200,
+    defaultHR: 199,
     hrRange: [150, 300],
     hasPulse: false,
     isShockable: true,
@@ -556,7 +556,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 1,
       baselineWander: 0,
     },
-    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 5, respiratoryRate: 0, temperature: 36.0 },
+    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 4, respiratoryRate: 0, temperature: 35.9 },
   },
 
   [CardiacRhythm.AGONAL_RHYTHM]: {
@@ -564,7 +564,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Agonal Rhythm",
     nameEs: "Ritmo Agonal",
     category: "ventricular",
-    defaultHR: 20,
+    defaultHR: 21,
     hrRange: [5, 30],
     hasPulse: false,
     isShockable: false,
@@ -580,7 +580,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.5,
       baselineWander: 0.02,
     },
-    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 5, respiratoryRate: 0, temperature: 35.5 },
+    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 6, respiratoryRate: 0, temperature: 35.4 },
   },
 
   [CardiacRhythm.ASYSTOLE]: {
@@ -604,7 +604,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.005,
     },
-    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 3, respiratoryRate: 0, temperature: 35.0 },
+    physiologicalDefaults: { systolicBP: 0, diastolicBP: 0, spo2: 0, etco2: 4, respiratoryRate: 0, temperature: 34.9 },
   },
 
   // === ST CHANGES ===
@@ -613,7 +613,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus with ST Elevation",
     nameEs: "Sinusal con Elevación ST",
     category: "st_changes",
-    defaultHR: 80,
+    defaultHR: 79,
     hrRange: [60, 100],
     hasPulse: true,
     isShockable: false,
@@ -629,7 +629,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 130, diastolicBP: 85, spo2: 96, etco2: 34, respiratoryRate: 18, temperature: 36.6 },
+    physiologicalDefaults: { systolicBP: 129, diastolicBP: 86, spo2: 97, etco2: 35, respiratoryRate: 17, temperature: 36.5 },
   },
 
   [CardiacRhythm.SINUS_TACHY_ST_ELEVATION]: {
@@ -637,7 +637,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus Tachy with ST Elevation",
     nameEs: "Taquicardia Sinusal con Elevación ST",
     category: "st_changes",
-    defaultHR: 115,
+    defaultHR: 114,
     hrRange: [100, 150],
     hasPulse: true,
     isShockable: false,
@@ -653,7 +653,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 140, diastolicBP: 90, spo2: 95, etco2: 30, respiratoryRate: 22, temperature: 37.0 },
+    physiologicalDefaults: { systolicBP: 141, diastolicBP: 91, spo2: 96, etco2: 31, respiratoryRate: 21, temperature: 37.1 },
   },
 
   [CardiacRhythm.SINUS_ST_DEPRESSION]: {
@@ -661,7 +661,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus with ST Depression",
     nameEs: "Sinusal con Depresión ST",
     category: "st_changes",
-    defaultHR: 85,
+    defaultHR: 84,
     hrRange: [60, 110],
     hasPulse: true,
     isShockable: false,
@@ -677,7 +677,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 135, diastolicBP: 88, spo2: 96, etco2: 33, respiratoryRate: 18, temperature: 36.6 },
+    physiologicalDefaults: { systolicBP: 134, diastolicBP: 89, spo2: 95, etco2: 34, respiratoryRate: 19, temperature: 36.5 },
   },
 
   // === EXTRASYSTOLES ===
@@ -686,7 +686,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus with PVCs",
     nameEs: "Sinusal con Extrasístoles Ventriculares",
     category: "extrasystoles",
-    defaultHR: 75,
+    defaultHR: 74,
     hrRange: [60, 100],
     hasPulse: true,
     isShockable: false,
@@ -702,7 +702,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.15,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 118, diastolicBP: 78, spo2: 97, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 117, diastolicBP: 79, spo2: 96, etco2: 34, respiratoryRate: 17, temperature: 36.6 },
   },
 
   [CardiacRhythm.SINUS_WITH_PACS]: {
@@ -710,7 +710,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Sinus with PACs",
     nameEs: "Sinusal con Extrasístoles Auriculares",
     category: "extrasystoles",
-    defaultHR: 75,
+    defaultHR: 76,
     hrRange: [60, 100],
     hasPulse: true,
     isShockable: false,
@@ -726,7 +726,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.1,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 120, diastolicBP: 80, spo2: 98, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 121, diastolicBP: 79, spo2: 97, etco2: 36, respiratoryRate: 15, temperature: 36.4 },
   },
 
   [CardiacRhythm.BIGEMINY]: {
@@ -734,7 +734,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Ventricular Bigeminy",
     nameEs: "Bigeminismo Ventricular",
     category: "extrasystoles",
-    defaultHR: 80,
+    defaultHR: 79,
     hrRange: [60, 100],
     hasPulse: true,
     isShockable: false,
@@ -750,7 +750,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 110, diastolicBP: 72, spo2: 96, etco2: 34, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 109, diastolicBP: 73, spo2: 95, etco2: 35, respiratoryRate: 15, temperature: 36.4 },
   },
 
   [CardiacRhythm.TRIGEMINY]: {
@@ -758,7 +758,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Ventricular Trigeminy",
     nameEs: "Trigeminismo Ventricular",
     category: "extrasystoles",
-    defaultHR: 80,
+    defaultHR: 81,
     hrRange: [60, 100],
     hasPulse: true,
     isShockable: false,
@@ -774,7 +774,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 112, diastolicBP: 74, spo2: 96, etco2: 34, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 113, diastolicBP: 75, spo2: 95, etco2: 35, respiratoryRate: 17, temperature: 36.4 },
   },
 
   [CardiacRhythm.COUPLET_PVCS]: {
@@ -782,7 +782,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Couplet PVCs",
     nameEs: "PVCs en Duplas",
     category: "extrasystoles",
-    defaultHR: 78,
+    defaultHR: 79,
     hrRange: [60, 100],
     hasPulse: true,
     isShockable: false,
@@ -798,7 +798,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0.15,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 115, diastolicBP: 75, spo2: 97, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 114, diastolicBP: 76, spo2: 96, etco2: 34, respiratoryRate: 17, temperature: 36.6 },
   },
 
   // === PREEXCITATION ===
@@ -807,7 +807,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Wolff-Parkinson-White",
     nameEs: "Wolff-Parkinson-White",
     category: "preexcitation",
-    defaultHR: 85,
+    defaultHR: 84,
     hrRange: [60, 200],
     hasPulse: true,
     isShockable: false,
@@ -823,7 +823,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 120, diastolicBP: 80, spo2: 98, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 119, diastolicBP: 79, spo2: 99, etco2: 36, respiratoryRate: 15, temperature: 36.6 },
   },
 
   [CardiacRhythm.BRUGADA_TYPE1]: {
@@ -831,7 +831,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Brugada Type 1",
     nameEs: "Patrón Brugada Tipo 1",
     category: "preexcitation",
-    defaultHR: 72,
+    defaultHR: 71,
     hrRange: [55, 100],
     hasPulse: true,
     isShockable: false,
@@ -847,7 +847,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.01,
     },
-    physiologicalDefaults: { systolicBP: 120, diastolicBP: 80, spo2: 98, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 121, diastolicBP: 79, spo2: 99, etco2: 34, respiratoryRate: 15, temperature: 36.6 },
   },
 
   // === PACED ===
@@ -856,7 +856,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Atrial Paced",
     nameEs: "Marcapasos Auricular",
     category: "paced",
-    defaultHR: 70,
+    defaultHR: 69,
     hrRange: [40, 180],
     hasPulse: true,
     isShockable: false,
@@ -872,7 +872,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.005,
     },
-    physiologicalDefaults: { systolicBP: 115, diastolicBP: 75, spo2: 97, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 116, diastolicBP: 76, spo2: 98, etco2: 34, respiratoryRate: 17, temperature: 36.4 },
   },
 
   [CardiacRhythm.PACED_VENTRICULAR]: {
@@ -880,7 +880,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "Ventricular Paced",
     nameEs: "Marcapasos Ventricular",
     category: "paced",
-    defaultHR: 70,
+    defaultHR: 69,
     hrRange: [40, 180],
     hasPulse: true,
     isShockable: false,
@@ -896,7 +896,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.005,
     },
-    physiologicalDefaults: { systolicBP: 110, diastolicBP: 70, spo2: 96, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 111, diastolicBP: 71, spo2: 95, etco2: 34, respiratoryRate: 15, temperature: 36.4 },
   },
 
   [CardiacRhythm.PACED_AV_SEQUENTIAL]: {
@@ -904,7 +904,7 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
     name: "AV Sequential Paced",
     nameEs: "Marcapasos AV Secuencial",
     category: "paced",
-    defaultHR: 70,
+    defaultHR: 69,
     hrRange: [40, 180],
     hasPulse: true,
     isShockable: false,
@@ -920,6 +920,6 @@ export const RHYTHM_DEFINITIONS: Record<CardiacRhythm, RhythmDefinition> = {
       irregularity: 0,
       baselineWander: 0.005,
     },
-    physiologicalDefaults: { systolicBP: 115, diastolicBP: 75, spo2: 97, etco2: 35, respiratoryRate: 16, temperature: 36.5 },
+    physiologicalDefaults: { systolicBP: 114, diastolicBP: 76, spo2: 98, etco2: 34, respiratoryRate: 17, temperature: 36.6 },
   },
 };
