@@ -98,7 +98,7 @@ export default function MonitorScreen() {
 
   const rhythmDef = RHYTHM_DEFINITIONS[rhythm];
   const rhythmName = language === 'es' ? rhythmDef.nameEs : rhythmDef.name;
-  const map = Math.round((vitals.systolic + 2 * vitals.diastolic) / 3);
+  const _map = Math.round((vitals.systolic + 2 * vitals.diastolic) / 3); void _map;
   const administered = useMedicationStore((s) => s.administered);
 
   // Abbreviation map for medication display

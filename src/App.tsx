@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import MonitorScreen, { applyStep } from './components/monitor/MonitorScreen';
 import ScenarioSelector from './components/scenarios/ScenarioSelector';
-import SettingsPanel from './components/settings/SettingsPanel';
+// Settings integrated into gear panel
 import { useVitalSignsStore } from './stores/vitalSignsStore';
 import { useSettingsStore } from './stores/settingsStore';
 import { useDefibStore } from './stores/defibStore';
@@ -15,7 +15,6 @@ import { MedicationCategory } from './types/medications';
 import { t } from './i18n';
 
 function App() {
-  const [showSettings, setShowSettings] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [showScenarios, setShowScenarios] = useState(false);
   const [showRhythmPad, setShowRhythmPad] = useState(false);

@@ -267,7 +267,6 @@ export class AudioEngine {
   startMetronome(rate: number): void {
     this.stopMetronome();
     const intervalMs = (60 / rate) * 1000;
-    let count = 0;
 
     this.metronomeInterval = setInterval(() => {
       try {
@@ -503,7 +502,7 @@ export class AudioEngine {
           // ====== PHASE 3: STEPPED DEFLATION / MEASUREMENT ======
           const measT = t - holdEnd;
           const measDuration = deflateEnd - holdEnd;
-          const measProgress = measT / measDuration;
+          void measDuration; // used for step calculation
 
           // Solenoid valve releases air in discrete steps
           // Real monitors step every ~0.4-0.6 seconds
