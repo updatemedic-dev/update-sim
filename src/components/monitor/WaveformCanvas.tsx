@@ -187,14 +187,14 @@ export default function WaveformCanvas({
             }
           }
 
-          // Draw if peak found above threshold
-          if (bestVal > 0.1 && bestY > 0 && bestY < midY) {
-            const sz = 7;
-            const tipY = bestY - 16;
+          // Draw triangle at fixed height (aligned row at top of canvas)
+          if (bestVal > 0.1) {
+            const sz = 6;
+            const fixedY = 22; // fixed height from top
             ctx.beginPath();
-            ctx.moveTo(bestX, tipY);
-            ctx.lineTo(bestX - sz, tipY - sz * 1.8);
-            ctx.lineTo(bestX + sz, tipY - sz * 1.8);
+            ctx.moveTo(bestX, fixedY + sz);      // tip pointing down
+            ctx.lineTo(bestX - sz, fixedY - sz);  // top-left
+            ctx.lineTo(bestX + sz, fixedY - sz);  // top-right
             ctx.closePath();
             ctx.fill();
           }
