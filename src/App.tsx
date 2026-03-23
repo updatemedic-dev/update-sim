@@ -468,6 +468,7 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
     if (record) {
       useCodeTrackStore.getState().addEntry('medication', `${record.name} ${record.dose}`);
     }
+    onClose();
   };
 
   return (
