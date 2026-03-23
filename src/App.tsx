@@ -281,7 +281,7 @@ function App() {
                   className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▼</button>
                 <div className="flex flex-col items-center">
                   <span className="text-[8px] text-gray-500">RATE SELECT</span>
-                  <span className="text-3xl font-bold text-cyan-400 tabular-nums">{defib.pacerRate}</span>
+                  <span className="text-4xl font-bold text-cyan-400 tabular-nums">{defib.pacerRate}</span>
                 </div>
                 <button onClick={() => { defib.setPacerRate(defib.pacerRate + 10); audioEngine.playTapClick(); }}
                   className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▲</button>
@@ -291,7 +291,7 @@ function App() {
                   className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▼</button>
                 <div className="flex flex-col items-center">
                   <span className="text-[8px] text-gray-500">mAMP SELECT</span>
-                  <span className="text-3xl font-bold text-cyan-400 tabular-nums">{defib.pacerCurrent}</span>
+                  <span className="text-4xl font-bold text-cyan-400 tabular-nums">{defib.pacerCurrent}</span>
                 </div>
                 <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent + 5); audioEngine.playTapClick(); }}
                   className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▲</button>
