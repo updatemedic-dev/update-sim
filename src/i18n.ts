@@ -48,7 +48,7 @@ const translations = {
     charging: 'CARGANDO...',
     chargedBtn: 'CARGADO ✓',
     shock: 'SHOCK',
-    disarm: 'Desarmar',
+    disarm: 'DESARMAR',
 
     // Disclaimer
     disclaimer: 'AVISO IMPORTANTE',
@@ -109,7 +109,7 @@ const translations = {
     charging: 'CHARGING...',
     chargedBtn: 'CHARGED ✓',
     shock: 'SHOCK',
-    disarm: 'Disarm',
+    disarm: 'DISARM',
 
     // Disclaimer
     disclaimer: 'IMPORTANT NOTICE',
