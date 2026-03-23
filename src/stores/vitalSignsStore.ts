@@ -23,6 +23,8 @@ interface VitalSignsStore {
     capnoWave: boolean;
     arterialWave: boolean;
   };
+  showDescription: boolean;
+  isStopped: boolean;
   isPaused: boolean;
   startTime: number;
 
@@ -34,8 +36,13 @@ interface VitalSignsStore {
   setAlarm: (index: number, config: Partial<AlarmConfig>) => void;
   toggleParamVisibility: (param: keyof VitalSignsStore['visibleParams']) => void;
   setAllParamsVisible: (visible: boolean) => void;
+  toggleDescription: () => void;
   togglePause: () => void;
+  stop: () => void;
+  play: () => void;
   reset: () => void;
+  resetToZero: () => void;
+  shockPause: () => void;
 }
 
 export const useVitalSignsStore = create<VitalSignsStore>((set) => ({
@@ -57,6 +64,8 @@ export const useVitalSignsStore = create<VitalSignsStore>((set) => ({
     capnoWave: true,
     arterialWave: true,
   },
+  showDescription: false,
+  isStopped: false,
   isPaused: false,
   startTime: Date.now(),
 
@@ -86,9 +95,15 @@ export const useVitalSignsStore = create<VitalSignsStore>((set) => ({
     }),
 
   toggleParamVisibility: (param) =>
-    set((s) => ({
-      visibleParams: { ...s.visibleParams, [param]: !s.visibleParams[param] },
-    })),
+    set((s) => {
+      const newVal = !s.visibleParams[param];
+      const updates: Partial<typeof s.visibleParams> = { [param]: newVal };
+      // Sync waveform visibility with param visibility
+      if (param === 'bp') updates.arterialWave = newVal;
+      if (param === 'spo2') updates.spo2Wave = newVal;
+      if (param === 'etco2') updates.capnoWave = newVal;
+      return { visibleParams: { ...s.visibleParams, ...updates } };
+    }),
 
   setAllParamsVisible: (visible) =>
     set(() => ({
@@ -106,7 +121,64 @@ export const useVitalSignsStore = create<VitalSignsStore>((set) => ({
       },
     })),
 
+  toggleDescription: () => set((s) => ({ showDescription: !s.showDescription })),
+
   togglePause: () => set((s) => ({ isPaused: !s.isPaused })),
+
+  stop: () =>
+    set({
+      isStopped: true,
+      isPaused: true,
+      vitals: {
+        ...DEFAULT_VITALS,
+        hr: 0,
+        systolic: 0,
+        diastolic: 0,
+        map: 0,
+        spo2: 0,
+        etco2: 0,
+        respiratoryRate: 0,
+        hasPulse: false,
+        nibpHasReading: false,
+      },
+      visibleParams: {
+        hr: true,
+        spo2: true,
+        etco2: true,
+        bp: true,
+        rr: true,
+        temp: true,
+        ecgWave: false,
+        spo2Wave: false,
+        capnoWave: false,
+        arterialWave: false,
+      },
+    }),
+
+  play: () =>
+    set({
+      isStopped: false,
+      isPaused: false,
+      vitals: { ...DEFAULT_VITALS },
+      rhythm: CardiacRhythm.NORMAL_SINUS,
+      previousRhythm: null,
+      rhythmTransitionProgress: 1,
+      capnographyWaveform: CapnographyWaveform.NORMAL,
+      visibleParams: {
+        hr: true,
+        spo2: true,
+        etco2: true,
+        bp: true,
+        rr: true,
+        temp: true,
+        ecgWave: true,
+        spo2Wave: true,
+        capnoWave: true,
+        arterialWave: true,
+      },
+      showDescription: false,
+      startTime: Date.now(),
+    }),
 
   reset: () =>
     set({
@@ -115,7 +187,45 @@ export const useVitalSignsStore = create<VitalSignsStore>((set) => ({
       previousRhythm: null,
       rhythmTransitionProgress: 1,
       capnographyWaveform: CapnographyWaveform.NORMAL,
+      showDescription: false,
+      isStopped: false,
       isPaused: false,
       startTime: Date.now(),
     }),
+
+  resetToZero: () =>
+    set((s) => ({
+      vitals: {
+        ...s.vitals,
+        hr: 0,
+        systolic: 0,
+        diastolic: 0,
+        map: 0,
+        spo2: 0,
+        etco2: 0,
+        hasPulse: false,
+      },
+    })),
+
+  shockPause: () => {
+    const state = useVitalSignsStore.getState();
+    const savedRhythm = state.rhythm;
+    const savedVitals = { ...state.vitals };
+    // Switch to asystole
+    set({
+      rhythm: CardiacRhythm.ASYSTOLE,
+      previousRhythm: savedRhythm,
+      rhythmTransitionProgress: 1,
+      vitals: { ...savedVitals, hr: 0, hasPulse: false },
+    });
+    // Restore after 2 seconds
+    setTimeout(() => {
+      set({
+        rhythm: savedRhythm,
+        previousRhythm: CardiacRhythm.ASYSTOLE,
+        rhythmTransitionProgress: 0,
+        vitals: savedVitals,
+      });
+    }, 2000);
+  },
 }));

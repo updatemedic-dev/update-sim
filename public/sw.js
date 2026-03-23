@@ -1,4 +1,4 @@
-const CACHE_NAME = 'update-sim-v1';
+const CACHE_NAME = 'update-sim-v2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -7,6 +7,12 @@ self.addEventListener('install', (event) => {
         '/',
         '/index.html',
         '/manifest.json',
+        '/logo-update-sim.jpeg',
+        '/icon-pni.png',
+        '/icon-comp.png',
+        '/icons/icon-192.png',
+        '/icons/icon-512.png',
+        '/icons/apple-touch-icon.png',
       ]);
     })
   );
@@ -26,18 +32,18 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request).then((response) => {
-        if (response.status === 200 && response.type === 'basic') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, clone);
-          });
-        }
-        return response;
-      });
+    fetch(event.request).then((response) => {
+      if (response.status === 200) {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, clone);
+        });
+      }
+      return response;
     }).catch(() => {
-      return caches.match('/index.html');
+      return caches.match(event.request).then((cached) => {
+        return cached || caches.match('/index.html');
+      });
     })
   );
 });

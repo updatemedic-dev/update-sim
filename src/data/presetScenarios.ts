@@ -924,17 +924,6 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         condition: 'Fibrilación ventricular. Desfibrilar.',
       },
       {
-        rhythm: CardiacRhythm.VENTRICULAR_FIBRILLATION,
-        hr: 0,
-        systolic: 0,
-        diastolic: 0,
-        spo2: 95,
-        etco2: 0,
-        rr: 0,
-        hasPulse: false,
-        condition: 'FV persistente. Desfibrilar, continuar RCP, epinefrina.',
-      },
-      {
         rhythm: CardiacRhythm.SINUS_ARRHYTHMIA,
         hr: 60,
         systolic: 0,

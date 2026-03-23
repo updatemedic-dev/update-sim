@@ -14,6 +14,7 @@ export interface VitalSigns {
   nibpTimer: number;
   nibpInterval: number;
   cprActive: boolean;
+  nibpHasReading: boolean;
 }
 
 export interface AlarmConfig {
@@ -52,6 +53,7 @@ export const DEFAULT_VITALS: VitalSigns = {
   nibpTimer: 0,
   nibpInterval: 180,
   cprActive: false,
+  nibpHasReading: false,
 };
 
 export const DEFAULT_ALARMS: AlarmConfig[] = [
