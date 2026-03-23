@@ -250,8 +250,8 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col bg-black overflow-hidden"
-      style={{ fontFamily: '"JetBrains Mono", "IBM Plex Mono", monospace', width: 1024, height: 768 }}>
+    <div className="flex flex-col w-full h-screen bg-black overflow-hidden"
+      style={{ fontFamily: '"JetBrains Mono", "IBM Plex Mono", monospace' }}>
 
       {/* ===== MONITOR AREA ===== */}
       <div className="flex-1 min-h-0">

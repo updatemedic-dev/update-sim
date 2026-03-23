@@ -7,9 +7,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="description" content="UPDATE SIM - Simulador de monitor multiparamétrico y desfibrilador para entrenamiento médico" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -22,32 +22,13 @@
         overflow: hidden;
         width: 100vw;
         height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        height: 100dvh;
       }
       #root {
-        width: 1024px;
-        height: 768px;
-        transform-origin: center center;
-        overflow: hidden;
+        width: 100%;
+        height: 100%;
       }
     </style>
-    <script>
-      function scaleApp() {
-        var root = document.getElementById('root');
-        if (!root) return;
-        var vw = window.innerWidth;
-        var vh = window.innerHeight;
-        var scale = Math.min(vw / 1024, vh / 768);
-        root.style.transform = 'scale(' + scale + ')';
-      }
-      window.addEventListener('load', scaleApp);
-      window.addEventListener('resize', scaleApp);
-      document.addEventListener('fullscreenchange', function() { setTimeout(scaleApp, 100); });
-      document.addEventListener('webkitfullscreenchange', function() { setTimeout(scaleApp, 100); });
-      setInterval(scaleApp, 1000);
-    </script>
   </head>
   <body>
     <div id="root"></div>
