@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.updatesim.app',
-  appName: 'Update Simulator',
+  appId: 'com.updatecapacitacion.updatesim',
+  appName: 'UPDATE SIM',
   webDir: 'dist'
 };
 

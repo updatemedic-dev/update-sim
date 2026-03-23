@@ -249,6 +249,17 @@ export default function MonitorScreen() {
           {/* Fast Forward / Next */}
           <button
             onClick={() => {
+              // Stop compressions if active
+              const vs = useVitalSignsStore.getState();
+              if (vs.vitals.cprActive) {
+                vs.setVital('cprActive', false);
+                audioEngine.stopMetronome();
+              }
+              // Stop pacer if active
+              const df = useDefibStore.getState();
+              if (df.pacerOn) {
+                df.togglePacer();
+              }
               if (activeScenario) {
                 const step = useScenarioStore.getState().nextStep();
                 if (step) applyStep(step);
