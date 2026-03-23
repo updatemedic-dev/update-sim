@@ -101,6 +101,13 @@ function App() {
           else audioEngine.stopMetronome();
         }
         break;
+      case 'n':
+        e.preventDefault();
+        if (v.cprActive) {
+          vs.setVital('cprActive', false);
+          audioEngine.stopMetronome();
+        }
+        break;
       case 'd':
         e.preventDefault();
         if (!df.isCharged && !df.isCharging) {
