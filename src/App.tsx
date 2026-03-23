@@ -233,7 +233,7 @@ function App() {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4">
         <div className="bg-[#111] border border-gray-700 rounded-lg p-6 max-w-lg text-center">
-          <img src="/logo-update-sim.jpeg" alt="UPDATE SIM" className="h-16 mx-auto mb-2" />
+          <img src={`${import.meta.env.BASE_URL}logo-update-sim.jpeg`} alt="UPDATE SIM" className="h-16 mx-auto mb-2" />
           <p className="text-sm text-gray-300 mb-1">by Update Medic</p>
           <div className="my-4 p-3 bg-red-900/30 border border-red-800 rounded text-xs text-red-300">
             <p className="font-bold mb-1">{t('disclaimer', language)}</p>
@@ -345,7 +345,7 @@ function App() {
                 }, 10000);
               }}
                 className="h-[calc(50%-4px)] rounded-xl font-bold text-sm border transition-all active:translate-y-[1px] bg-gradient-to-b from-blue-600 to-blue-900 text-white border-blue-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-blue-500 hover:to-blue-800 flex items-center justify-center p-2">
-                <img src="/icon-pni.png" alt="PNI" className="h-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-full object-contain" />
               </button>
               {/* COMP button */}
               <button onClick={() => {
@@ -358,7 +358,7 @@ function App() {
                 className={`h-[calc(50%-4px)] rounded-xl border transition-all active:translate-y-[1px] flex items-center justify-center p-2 ${vitals.cprActive
                   ? 'bg-gradient-to-b from-red-400 to-red-700 border-red-300 shadow-[0_0_20px_rgba(239,68,68,0.7),0_3px_6px_rgba(0,0,0,0.4),inset_0_2px_0_rgba(255,255,255,0.2)] animate-[compFlash_0.6s_ease-in-out_infinite]'
                   : 'bg-gradient-to-b from-red-600 to-red-900 border-red-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-red-500 hover:to-red-800'}`}>
-                <img src="/icon-comp.png" alt="COMP" className="h-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="COMP" className="h-full object-contain" />
               </button>
             </div>
 

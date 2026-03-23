@@ -38,9 +38,11 @@ export default function MonitorScreen() {
     const handler = () => initAudio();
     document.addEventListener('click', handler, { once: true });
     document.addEventListener('keydown', handler, { once: true });
+    document.addEventListener('touchstart', handler, { once: true });
     return () => {
       document.removeEventListener('click', handler);
       document.removeEventListener('keydown', handler);
+      document.removeEventListener('touchstart', handler);
     };
   }, [initAudio]);
 
@@ -159,7 +161,7 @@ export default function MonitorScreen() {
       <div className="flex items-center justify-between h-[76px] px-4 border-b border-gray-800 shrink-0 bg-[#0a0a0a]">
         <div className="flex items-center gap-3">
           {/* Logo UPDATE SIM */}
-          <img src="/logo-update-sim.jpeg" alt="UPDATE SIM" className="h-14" />
+          <img src={`${import.meta.env.BASE_URL}logo-update-sim.jpeg`} alt="UPDATE SIM" className="h-14" />
           {/* Settings gear - triggers parent callback */}
           <button
             onClick={() => {
