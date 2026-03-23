@@ -172,7 +172,6 @@ export default function WaveformCanvas({
           // Find peak in window around expected position
           let bestVal = -Infinity;
           let bestX = Math.floor(expectedX);
-          let bestY = midY;
 
           for (let dx = -searchWindow; dx <= searchWindow; dx++) {
             let px = Math.floor(expectedX) + dx;
@@ -183,7 +182,6 @@ export default function WaveformCanvas({
             if (val > bestVal && val >= 0) {
               bestVal = val;
               bestX = px;
-              bestY = bufferRef.current[px];
             }
           }
 
