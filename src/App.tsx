@@ -378,7 +378,7 @@ function App() {
                   className="w-12 h-12 rounded-xl font-bold text-xl text-white bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 hover:to-gray-600 active:translate-y-[1px] active:shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_3px_rgba(0,0,0,0.2)] transition-all">▲</button>
               </div>
               <span className="text-[10px] text-gray-500 text-center mb-1">Shock - {defib.shockCount}</span>
-              <div className="flex gap-2 flex-[2]">
+              <div className="flex gap-2 flex-[1.5]">
                 <button onClick={() => {
                   if (!defib.isCharged && !defib.isCharging) {
                     defib.startCharge();
