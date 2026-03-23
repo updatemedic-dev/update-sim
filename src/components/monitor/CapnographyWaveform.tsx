@@ -27,37 +27,43 @@ function generateCapnoSample(time: number, rr: number, etco2: number, waveform: 
   // Phase IV (0.5-0.55): rapid descent
   // Rest: inspiratory baseline
 
-  if (phase < 0.08) {
-    // Phase I: baseline
+  // Steep S-curve for nearly vertical transitions
+  const sCurve = (x: number) => {
+    const k = Math.min(1, Math.max(0, x));
+    return k * k * k * (k * (k * 6 - 15) + 10); // smoother step (quintic)
+  };
+
+  if (phase < 0.05) {
+    // Phase I: inspiratory baseline (zero)
     value = 0;
     if (waveform === CapnoType.REBREATHING) {
-      value = 0.15 * normalizedCO2; // Elevated baseline
+      value = 0.15 * normalizedCO2;
     }
-  } else if (phase < 0.18) {
-    // Phase II: upstroke
-    const t = (phase - 0.08) / 0.1;
-    value = normalizedCO2 * Math.pow(t, waveform === CapnoType.OBSTRUCTION ? 0.3 : 1.5);
+  } else if (phase < 0.10) {
+    // Phase II: rapid upstroke (very steep, nearly vertical)
+    const t = (phase - 0.05) / 0.05;
+    const curve = waveform === CapnoType.OBSTRUCTION ? Math.pow(t, 0.3) : sCurve(t);
+    value = normalizedCO2 * curve;
   } else if (phase < 0.48) {
-    // Phase III: plateau
-    const t = (phase - 0.18) / 0.3;
-    value = normalizedCO2;
+    // Phase III: alveolar plateau (flat top with slight upward slope)
+    const t = (phase - 0.10) / 0.38;
+    value = normalizedCO2 * (1.0 + 0.03 * t); // very slight rise like real capnogram
 
     if (waveform === CapnoType.BRONCHOSPASM || waveform === CapnoType.COPD) {
-      // Shark fin: ascending slope
-      value = normalizedCO2 * (0.7 + 0.3 * t);
+      value = normalizedCO2 * (0.6 + 0.4 * t); // shark fin
     } else if (waveform === CapnoType.CURARE_CLEFT) {
-      // Cleft in the plateau
       value = normalizedCO2 * (1 - 0.3 * Math.sin(t * Math.PI));
     } else if (waveform === CapnoType.CARDIOGENIC_OSCILLATIONS) {
       value = normalizedCO2 * (1 + 0.05 * Math.sin(t * 12 * Math.PI));
     } else if (waveform === CapnoType.AIR_LEAK) {
       value = normalizedCO2 * (1 - 0.2 * t);
     }
-  } else if (phase < 0.55) {
-    // Phase IV: downstroke
-    const t = (phase - 0.48) / 0.07;
-    value = normalizedCO2 * (1 - Math.pow(t, 1.5));
+  } else if (phase < 0.53) {
+    // Phase IV: rapid downstroke (very steep, nearly vertical)
+    const t = (phase - 0.48) / 0.05;
+    value = normalizedCO2 * (1 - sCurve(t));
   } else {
+    // Inspiratory baseline
     value = 0;
     if (waveform === CapnoType.REBREATHING) {
       value = 0.15 * normalizedCO2;
@@ -103,7 +109,8 @@ export default function CapnographyWaveformComponent() {
       sweepSpeed={pxPerSec}
       paused={isPaused}
       visible={visibleParams.capnoWave}
-      amplitude={0.8}
+      amplitude={1.5}
+      verticalOffset={0.15}
       label="CO₂"
       labelColor="#ffff00"
     />

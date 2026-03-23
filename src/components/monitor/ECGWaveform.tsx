@@ -31,23 +31,27 @@ export default function ECGWaveform() {
     );
   }, []);
 
-  const { isPaused, visibleParams } = useVitalSignsStore();
+  const { isPaused, visibleParams, vitals } = useVitalSignsStore();
   const { waveformSpeed } = useSettingsStore();
+  const syncMode = useDefibStore((s) => s.syncMode);
 
   // Convert mm/s to pixels/s (approximate: 1mm ≈ 3.78px at 96dpi)
   const pxPerSec = waveformSpeed * 3.78;
 
   return (
     <WaveformCanvas
-      color="#00ff00"
+      color="#00ffc8"
       lineWidth={2}
       sampleFn={sampleFn}
       sweepSpeed={pxPerSec}
       paused={isPaused}
       visible={visibleParams.ecgWave}
-      amplitude={1}
+      amplitude={0.85}
+      verticalOffset={0.15}
       label="II"
-      labelColor="#00ff00"
+      labelColor="#00ffc8"
+      showSyncMarkers={syncMode}
+      syncHR={vitals.hr}
     />
   );
 }

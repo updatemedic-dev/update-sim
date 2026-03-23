@@ -21,7 +21,7 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -45,33 +45,14 @@ html, body, #root {
   border-radius: 3px;
 }
 
-/* Touch-friendly button styles for iPad/tablet */
-.touch-btn {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  cursor: pointer;
+/* HR alarm background flash animation */
+@keyframes bgFlash {
+  0%, 100% { background-color: #050508; }
+  50% { background-color: #4a0000; }
 }
 
-.touch-manipulation {
-  touch-action: manipulation;
-}
-
-/* Prevent text selection on buttons during touch */
-button {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-/* iPad landscape optimization */
-@media (min-width: 768px) and (max-width: 1366px) {
-  .touch-btn {
-    min-height: 36px;
-  }
-}
-
-/* iPad portrait */
-@media (max-width: 767px) {
-  .touch-btn {
-    min-height: 40px;
-  }
+/* COMP button flash - more dramatic */
+@keyframes compFlash {
+  0%, 100% { opacity: 1; box-shadow: 0 0 20px rgba(239,68,68,0.7), 0 3px 6px rgba(0,0,0,0.4); }
+  50% { opacity: 0.4; box-shadow: 0 0 5px rgba(239,68,68,0.2), 0 1px 2px rgba(0,0,0,0.2); }
 }

@@ -48,8 +48,8 @@ export const useDefibStore = create<DefibStore>((set, get) => ({
   shockCount: 0,
   shockHistory: [],
   pacerOn: false,
-  pacerRate: 70,
-  pacerCurrent: 60,
+  pacerRate: 40,
+  pacerCurrent: 0,
   pacerCapture: false,
   pacerCaptureThreshold: 50,
 
@@ -127,8 +127,8 @@ export const useDefibStore = create<DefibStore>((set, get) => ({
       shockCount: 0,
       shockHistory: [],
       pacerOn: false,
-      pacerRate: 70,
-      pacerCurrent: 60,
+      pacerRate: 40,
+      pacerCurrent: 0,
       pacerCapture: false,
     }),
 }));

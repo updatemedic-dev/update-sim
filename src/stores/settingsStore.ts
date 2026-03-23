@@ -17,7 +17,6 @@ export interface AppSettings {
   alarmsSilenced: boolean;
   alarmsSilencedUntil: number;
   alarmsOff: boolean;
-  showRhythmName: boolean;
 }
 
 interface SettingsStore extends AppSettings {
@@ -43,7 +42,6 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
   alarmsSilenced: false,
   alarmsSilencedUntil: 0,
   alarmsOff: false,
-  showRhythmName: true,
 
   set: (key, value) => set({ [key]: value }),
 

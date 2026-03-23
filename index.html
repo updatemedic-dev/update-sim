@@ -2,20 +2,50 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="description" content="UPDATE SIM - Simulador de monitor multiparamétrico y desfibrilador para entrenamiento médico" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <title>UPDATE SIM — Monitor Multiparamétrico</title>
     <style>
-      body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        background: #000;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #root {
+        width: 1024px;
+        height: 768px;
+        transform-origin: center center;
+        overflow: hidden;
+      }
     </style>
+    <script>
+      function scaleApp() {
+        var r = document.getElementById('root');
+        if (!r) return;
+        var s = Math.min(window.innerWidth / 1024, window.innerHeight / 768);
+        r.style.transform = 'scale(' + s + ')';
+      }
+      window.addEventListener('load', scaleApp);
+      window.addEventListener('resize', scaleApp);
+      window.addEventListener('orientationchange', function(){ setTimeout(scaleApp, 300); });
+      setInterval(scaleApp, 2000);
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -12,7 +12,7 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
       >
         <div className="flex justify-between items-center mb-3">
           <span className="font-bold text-sm">Configuración</span>
-          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white text-xl touch-btn">✕</button>
+          <button onClick={onClose} className="text-gray-400 hover:text-white text-lg">✕</button>
         </div>
 
         <div className="space-y-3">
@@ -150,17 +150,6 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
               className={`px-3 py-1 rounded ${settings.wakeLockEnabled ? 'bg-green-700' : 'bg-gray-700'}`}
             >
               {settings.wakeLockEnabled ? 'ON' : 'OFF'}
-            </button>
-          </div>
-
-          {/* Show rhythm name */}
-          <div className="flex justify-between items-center">
-            <span>Mostrar nombre del ritmo</span>
-            <button
-              onClick={() => settings.set('showRhythmName', !settings.showRhythmName)}
-              className={`px-3 py-1 rounded touch-btn ${settings.showRhythmName ? 'bg-green-700' : 'bg-gray-700'}`}
-            >
-              {settings.showRhythmName ? 'ON' : 'OFF'}
             </button>
           </div>
 
