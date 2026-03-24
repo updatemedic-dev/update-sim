@@ -626,7 +626,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
 
       {/* Label */}
       <span
-        className="font-black text-sm tracking-widest transition-colors duration-300"
+        className="flex-1 text-center font-black text-sm tracking-widest transition-colors duration-300"
         style={{
           color: active ? '#67e8f9' : '#6b7280',
           textShadow: active ? '0 0 8px rgba(6,182,212,0.5)' : 'none',
@@ -636,7 +636,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
       </span>
 
       {/* Status badge */}
-      <div className="ml-auto flex-shrink-0">
+      <div className="flex-shrink-0">
         <span
           className="text-[9px] font-bold tracking-wider px-1.5 py-0.5 rounded transition-all duration-300"
           style={{
