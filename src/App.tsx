@@ -997,7 +997,7 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
         <div className="flex flex-wrap gap-1 mb-3">
           {Object.values(MedicationCategory).map((cat) => (
             <button key={cat} onClick={() => setSelectedCat(cat)}
-              className="relative px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-300 overflow-hidden"
+              className="relative px-3 py-1.5 rounded-lg text-base font-bold border transition-all duration-300 overflow-hidden"
               style={{
                 background: selectedCat === cat
                   ? 'linear-gradient(180deg, #3b1a5e 0%, #2d1050 50%, #1a0a30 100%)'
