@@ -1,6 +1,7 @@
 /**
  * Audio engine using Web Audio API.
  * Generates beeps, alarms, defib sounds, and CPR metronome in real time.
+ * Includes iOS PWA workarounds for AudioContext suspension.
  */
 export class AudioEngine {
   private ctx: AudioContext | null = null;
@@ -12,9 +13,8 @@ export class AudioEngine {
   private metronomeInterval: ReturnType<typeof setInterval> | null = null;
   private chargedBeepInterval: ReturnType<typeof setInterval> | null = null;
 
-  async init(): Promise<void> {
-    if (this.isInitialized) return;
-    this.ctx = new AudioContext();
+  private setupGains(): void {
+    if (!this.ctx) return;
     this.masterGain = this.ctx.createGain();
     this.masterGain.gain.value = 0.5;
     this.masterGain.connect(this.ctx.destination);
@@ -26,23 +26,47 @@ export class AudioEngine {
     this.alarmGain = this.ctx.createGain();
     this.alarmGain.gain.value = 0.5;
     this.alarmGain.connect(this.masterGain);
+  }
 
+  async init(): Promise<void> {
+    if (this.isInitialized && this.ctx && this.ctx.state !== 'closed') {
+      // Already initialized, just resume if suspended
+      if (this.ctx.state === 'suspended') {
+        await this.ctx.resume();
+      }
+      return;
+    }
+    // Create fresh context (must be called from user gesture on iOS)
+    this.ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+    this.setupGains();
     this.isInitialized = true;
+
+    // iOS PWA: play a silent buffer to unlock audio
+    try {
+      const silentBuffer = this.ctx.createBuffer(1, 1, this.ctx.sampleRate);
+      const source = this.ctx.createBufferSource();
+      source.buffer = silentBuffer;
+      source.connect(this.ctx.destination);
+      source.start(0);
+    } catch (_) { /* ignore */ }
+
+    if (this.ctx.state === 'suspended') {
+      await this.ctx.resume();
+    }
+
+    // Listen for visibility changes to resume audio on iOS PWA
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && this.ctx && this.ctx.state === 'suspended') {
+        this.ctx.resume();
+      }
+    });
   }
 
   private ensureContext(): AudioContext {
-    if (!this.ctx || !this.isInitialized) {
-      // Auto-init if not initialized (iOS Safari workaround)
-      this.ctx = new AudioContext();
-      this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.value = 0.5;
-      this.masterGain.connect(this.ctx.destination);
-      this.beepGain = this.ctx.createGain();
-      this.beepGain.gain.value = 0.3;
-      this.beepGain.connect(this.masterGain);
-      this.alarmGain = this.ctx.createGain();
-      this.alarmGain.gain.value = 0.5;
-      this.alarmGain.connect(this.masterGain);
+    if (!this.ctx || this.ctx.state === 'closed') {
+      // Recreate context if closed (iOS can close it)
+      this.ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      this.setupGains();
       this.isInitialized = true;
     }
     if (this.ctx.state === 'suspended') {

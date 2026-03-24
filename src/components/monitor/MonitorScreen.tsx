@@ -26,17 +26,16 @@ export default function MonitorScreen() {
   useWakeLock(wakeLockEnabled);
 
   const initAudio = useCallback(() => {
-    if (!audioInitRef.current) {
-      audioEngine.init();
-      audioInitRef.current = true;
-    }
+    audioEngine.init();
+    audioInitRef.current = true;
   }, []);
 
   useEffect(() => {
+    // iOS PWA requires audio init from user gesture; re-init on every touch to handle suspension
     const handler = () => initAudio();
-    document.addEventListener('click', handler, { once: true });
+    document.addEventListener('click', handler);
     document.addEventListener('keydown', handler, { once: true });
-    document.addEventListener('touchstart', handler, { once: true });
+    document.addEventListener('touchstart', handler);
     return () => {
       document.removeEventListener('click', handler);
       document.removeEventListener('keydown', handler);
