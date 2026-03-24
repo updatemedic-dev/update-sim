@@ -245,7 +245,7 @@ function App() {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4">
         <div className="bg-[#111] border border-gray-700 rounded-lg p-6 max-w-lg text-center">
-          <img src={`${import.meta.env.BASE_URL}logo-update-sim.jpeg`} alt="UPDATE SIM" className="h-16 mx-auto mb-2" />
+          <img src={`${import.meta.env.BASE_URL}logo-update-sim.png`} alt="UPDATE SIM" className="h-16 mx-auto mb-2" />
           <p className="text-sm text-gray-300 mb-1">by Update Medic</p>
           <div className="my-4 p-3 bg-red-900/30 border border-red-800 rounded text-xs text-red-300">
             <p className="font-bold mb-1">{t('disclaimer', language)}</p>
@@ -283,31 +283,45 @@ function App() {
             </div>
 
             {/* Column 3: MARCAPASO panel */}
-            <div className="flex flex-col p-1.5 w-[150px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
-              <span className="text-[10px] font-bold text-gray-400 text-center mb-0.5 tracking-wider">{t('pacemaker', language)}</span>
-              <ToggleSwitch label="PACER" color="#06b6d4" active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} large />
-              <div className="flex items-center justify-between mt-1">
-                <button onClick={() => { defib.setPacerRate(defib.pacerRate - 10); audioEngine.playTapClick(); }}
-                  className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▼</button>
-                <div className="flex flex-col items-center">
-                  <span className="text-[8px] text-gray-500">RATE SELECT</span>
-                  <span className="text-4xl font-bold text-cyan-400 tabular-nums">{defib.pacerRate}</span>
-                </div>
-                <button onClick={() => { defib.setPacerRate(defib.pacerRate + 10); audioEngine.playTapClick(); }}
-                  className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▲</button>
+            <div className="flex flex-col p-2 w-[260px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-bold text-gray-400 tracking-wider">{t('pacemaker', language)}</span>
+                <ToggleSwitch label="PACER" color="#06b6d4" active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} large />
               </div>
-              <div className="flex items-center justify-between mt-0.5">
-                <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent - 5); audioEngine.playTapClick(); }}
-                  className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▼</button>
-                <div className="flex flex-col items-center">
-                  <span className="text-[8px] text-gray-500">mAMP SELECT</span>
-                  <span className="text-4xl font-bold text-cyan-400 tabular-nums">{defib.pacerCurrent}</span>
+              <div className="flex gap-2">
+                {/* RATE SELECT */}
+                <div className="flex items-center gap-1 flex-1">
+                  <button onClick={() => { defib.setPacerRate(defib.pacerRate - 10); audioEngine.playTapClick(); }}
+                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                  <div className="flex flex-col items-center flex-1">
+                    <span className="text-[8px] text-gray-500">RATE SELECT</span>
+                    <span style={{ fontSize: '2.2rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerRate}</span>
+                  </div>
+                  <button onClick={() => { defib.setPacerRate(defib.pacerRate + 10); audioEngine.playTapClick(); }}
+                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
                 </div>
-                <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent + 5); audioEngine.playTapClick(); }}
-                  className="w-10 h-8 rounded-lg text-sm bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all">▲</button>
+                {/* mAMP SELECT */}
+                <div className="flex items-center gap-1 flex-1">
+                  <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent - 5); audioEngine.playTapClick(); }}
+                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                  <div className="flex flex-col items-center flex-1">
+                    <span className="text-[8px] text-gray-500">mAMP SELECT</span>
+                    <span style={{ fontSize: '2.2rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerCurrent}</span>
+                  </div>
+                  <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent + 5); audioEngine.playTapClick(); }}
+                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                </div>
               </div>
               {defib.pacerOn && (
-                <span className={`text-[10px] text-center font-bold mt-0.5 ${defib.pacerCapture ? 'text-green-400' : 'text-red-400'}`}>
+                <span className={`text-[11px] text-center font-bold mt-1 ${defib.pacerCapture ? 'text-green-400' : 'text-red-400'}`}>
                   {defib.pacerCapture ? t('capture', language) : t('noCapture', language)}
                 </span>
               )}
@@ -322,25 +336,16 @@ function App() {
                 SYNC {defib.syncMode ? '✓' : ''}
               </button>
               <button onClick={() => setShowMeds(!showMeds)}
-                className="flex-1 rounded-xl font-bold text-lg border transition-all active:translate-y-[1px] bg-gradient-to-b from-green-500 to-green-800 text-white border-green-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-green-400 hover:to-green-700">
-                MEDS
+                className="flex-1 rounded-xl font-bold text-lg border transition-all active:translate-y-[1px] bg-gradient-to-b from-green-500 to-green-800 text-white border-green-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-green-400 hover:to-green-700 flex flex-col items-center justify-center gap-1">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                  <rect x="6" y="3" width="12" height="18" rx="6" stroke="white" strokeWidth="2"/>
+                  <line x1="6" y1="12" x2="18" y2="12" stroke="white" strokeWidth="2"/>
+                </svg>
+                <span className="text-sm font-bold">MEDS</span>
               </button>
             </div>
 
-            {/* Column 5: Temperature + Respiration */}
-            <div className="flex flex-col p-1.5 w-[120px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
-              <div className="flex-1 flex flex-col items-center justify-center">
-                <span className="text-[10px] text-orange-400">{t('temperature', language)}</span>
-                <span className="text-3xl font-bold text-orange-300 tabular-nums">{vitals.temperature.toFixed(1)}</span>
-                <span className="text-[10px] text-orange-400">°C</span>
-              </div>
-              <div className="border-t border-gray-800 flex-1 flex flex-col items-center justify-center">
-                <span className="text-[10px] text-gray-400">{t('respiration', language)}</span>
-                <span className="text-3xl font-bold text-white tabular-nums">{vitals.respiratoryRate}</span>
-              </div>
-            </div>
-
-            {/* Column 5.5: PNI + COMP buttons (aligned with SYNC+MEDS) */}
+            {/* Column 5: PNI + COMP buttons (aligned with SYNC+MEDS) */}
             <div className="flex flex-col gap-1.5 p-1.5 w-[100px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)] justify-center">
               {/* PNI button */}
               <button onClick={() => {
@@ -357,7 +362,7 @@ function App() {
                 }, 10000);
               }}
                 className="h-[calc(50%-4px)] rounded-xl font-bold text-sm border transition-all active:translate-y-[1px] bg-gradient-to-b from-blue-600 to-blue-900 text-white border-blue-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-blue-500 hover:to-blue-800 flex items-center justify-center p-2">
-                <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-[70%] object-contain" />
               </button>
               {/* COMP button */}
               <button onClick={() => {
@@ -370,7 +375,7 @@ function App() {
                 className={`h-[calc(50%-4px)] rounded-xl border transition-all active:translate-y-[1px] flex items-center justify-center p-2 ${vitals.cprActive
                   ? 'bg-gradient-to-b from-red-400 to-red-700 border-red-300 shadow-[0_0_20px_rgba(239,68,68,0.7),0_3px_6px_rgba(0,0,0,0.4),inset_0_2px_0_rgba(255,255,255,0.2)] animate-[compFlash_0.6s_ease-in-out_infinite]'
                   : 'bg-gradient-to-b from-red-600 to-red-900 border-red-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-red-500 hover:to-red-800'}`}>
-                <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="COMP" className="h-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="COMP" className="h-[70%] object-contain" />
               </button>
             </div>
 
@@ -421,8 +426,9 @@ function App() {
                   ⚡ {t('shock', language)}
                 </button>
               </div>
+              <div className="flex-1" />
               <button onClick={() => { defib.disarm(); audioEngine.stopChargedBeep(); }}
-                className="mt-3 py-6 rounded-xl text-xl font-bold text-white border-2 border-cyan-600 bg-gradient-to-b from-cyan-600 to-cyan-900 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-cyan-500 hover:to-cyan-800 active:translate-y-[1px] transition-all">
+                className="py-6 rounded-xl text-xl font-bold text-white border-2 border-cyan-600 bg-gradient-to-b from-cyan-600 to-cyan-900 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-cyan-500 hover:to-cyan-800 active:translate-y-[1px] transition-all">
                 {t('disarm', language)}
               </button>
             </div>
@@ -461,7 +467,7 @@ function ToggleSwitch({ label, color, active, onToggle, large }: {
 }) {
   return (
     <button onClick={onToggle}
-      className={`flex items-center justify-between gap-1 px-3 rounded-lg border transition-all ${large ? 'py-2' : 'flex-1'} ${active
+      className={`flex items-center justify-between gap-1 px-3 rounded-lg border transition-all ${large ? 'py-1' : 'flex-1'} ${active
         ? 'bg-[#1a2a3a] border-gray-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_2px_4px_rgba(0,0,0,0.4)]'
         : 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] border-gray-700 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] hover:from-[#333348] hover:to-[#222236]'
       }`}>
@@ -480,7 +486,7 @@ function BottomBtn({ label, onClick, color }: { label: string; onClick?: () => v
   return (
     <button
       onClick={onClick}
-      className={`flex-1 px-2 rounded-lg text-[11px] font-bold text-gray-200 border border-gray-700 transition-all active:translate-y-[1px] active:shadow-none ${color ?? 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] hover:from-[#333348] hover:to-[#222236]'}`}
+      className={`flex-1 px-2 rounded-lg text-sm font-bold text-gray-200 border border-gray-700 transition-all active:translate-y-[1px] active:shadow-none ${color ?? 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] hover:from-[#333348] hover:to-[#222236]'}`}
     >
       {label}
     </button>

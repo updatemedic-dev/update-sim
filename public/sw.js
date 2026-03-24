@@ -1,4 +1,4 @@
-const CACHE_NAME = 'update-sim-v2';
+const CACHE_NAME = 'update-sim-v3';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -7,7 +7,7 @@ self.addEventListener('install', (event) => {
         '/',
         '/index.html',
         '/manifest.json',
-        '/logo-update-sim.jpeg',
+        '/logo-update-sim.png',
         '/icon-pni.png',
         '/icon-comp.png',
         '/icons/icon-192.png',

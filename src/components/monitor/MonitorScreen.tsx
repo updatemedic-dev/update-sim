@@ -158,32 +158,40 @@ export default function MonitorScreen() {
       onClick={initAudio}
     >
       {/* ===== TOP BAR ===== */}
-      <div className="flex items-center justify-between h-[76px] px-4 border-b border-gray-800 shrink-0 bg-[#0a0a0a]">
-        <div className="flex items-center gap-3">
-          {/* Logo UPDATE SIM */}
-          <img src={`${import.meta.env.BASE_URL}logo-update-sim.jpeg`} alt="UPDATE SIM" className="h-14" />
-          {/* Settings gear - triggers parent callback */}
-          <button
-            onClick={() => {
-              // Dispatch custom event to toggle settings panel
-              window.dispatchEvent(new CustomEvent('toggleSettings'));
-            }}
-            className="w-12 h-12 rounded-xl bg-gradient-to-b from-gray-300 to-gray-500 border border-gray-400 shadow-[0_4px_10px_rgba(0,0,0,0.6),inset_0_2px_0_rgba(255,255,255,0.5)] hover:from-gray-200 hover:to-gray-400 active:from-gray-500 active:to-gray-600 active:translate-y-[1px] flex items-center justify-center transition-all"
-            title="Ajustes"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="#333" strokeWidth="1.5"/>
-              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="#333" strokeWidth="1.5"/>
-            </svg>
-          </button>
-          {/* Clock in 3D box */}
-          <div className="px-4 py-1.5 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#0d0d18] border border-gray-700 shadow-[0_3px_8px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]">
-            <span className="text-4xl font-bold text-green-300 tabular-nums tracking-wider">{elapsedStr}</span>
+      <div className="flex items-center h-[76px] px-4 border-b border-gray-800 shrink-0 bg-[#0a0a0a]">
+        {/* Logo UPDATE SIM */}
+        <img src={`${import.meta.env.BASE_URL}logo-update-sim.png`} alt="UPDATE SIM" className="h-14 shrink-0" />
+        <div className="flex-1" />
+        {/* Settings gear */}
+        <button
+          onClick={() => { window.dispatchEvent(new CustomEvent('toggleSettings')); }}
+          className="w-12 h-12 rounded-xl bg-gradient-to-b from-gray-300 to-gray-500 border border-gray-400 shadow-[0_4px_10px_rgba(0,0,0,0.6),inset_0_2px_0_rgba(255,255,255,0.5)] hover:from-gray-200 hover:to-gray-400 active:from-gray-500 active:to-gray-600 active:translate-y-[1px] flex items-center justify-center transition-all"
+          style={{ marginLeft: 16 }}
+          title="Ajustes"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="#333" strokeWidth="1.5"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="#333" strokeWidth="1.5"/>
+          </svg>
+        </button>
+        {/* Clock */}
+        <div className="px-4 py-1.5 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#0d0d18] border border-gray-700 shadow-[0_3px_8px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]" style={{ marginLeft: 16 }}>
+          <span className="text-4xl font-bold text-green-300 tabular-nums tracking-wider">{elapsedStr}</span>
+        </div>
+        {/* Temperature & Respiration */}
+        <div className="flex items-center gap-4" style={{ marginLeft: 16 }}>
+          <div className="flex flex-col items-center">
+            <span className="text-[9px] text-orange-400">{t('temperature', language)}</span>
+            <span className="text-2xl font-bold text-orange-300 tabular-nums">{vitals.temperature.toFixed(1)}°</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-[9px] text-gray-400">{t('respiration', language)}</span>
+            <span className="text-2xl font-bold text-white tabular-nums">{vitals.respiratoryRate}</span>
           </div>
         </div>
 
-        {/* ===== TRANSPORT CONTROLS (3D square buttons) ===== */}
-        <div className="flex items-center gap-2">
+        {/* ===== TRANSPORT CONTROLS ===== */}
+        <div className="flex items-center gap-2" style={{ marginLeft: 24 }}>
           {/* Rewind / Previous */}
           <button
             onClick={() => {
@@ -275,7 +283,8 @@ export default function MonitorScreen() {
             </svg>
           </button>
 
-          {/* Fullscreen */}
+          {/* Fullscreen - ocultar en app nativa (Capacitor) */}
+          {!(window as any).Capacitor && (
           <button
             onClick={toggleFullscreen}
             className="w-14 h-14 rounded-xl bg-gradient-to-b from-gray-300 to-gray-500 border border-gray-400 shadow-[0_4px_10px_rgba(0,0,0,0.6),inset_0_2px_0_rgba(255,255,255,0.5)] hover:from-gray-200 hover:to-gray-400 active:from-gray-500 active:to-gray-600 active:shadow-[0_1px_3px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(0,0,0,0.2)] active:translate-y-[1px] flex items-center justify-center transition-all ml-2"
@@ -299,6 +308,7 @@ export default function MonitorScreen() {
               )}
             </svg>
           </button>
+          )}
         </div>
       </div>
 
@@ -317,7 +327,7 @@ export default function MonitorScreen() {
       {/* ===== MAIN AREA: waveforms + values ===== */}
       <div className="flex-1 flex flex-col min-h-0 gap-[2px] p-[2px]">
         {/* ECG Row - larger, 3D panel */}
-        <div className="flex-[2] flex min-h-0 rounded-lg border border-gray-800 bg-black shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_2px_4px_rgba(0,0,0,0.3)]">
+        <div className="flex-[1.7] flex min-h-0 rounded-lg border border-gray-800 bg-black shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_2px_4px_rgba(0,0,0,0.3)]">
           <div className="flex-1 min-w-0">
             <ECGWaveform />
           </div>
@@ -343,7 +353,7 @@ export default function MonitorScreen() {
 
         {/* Blood Pressure Row - compact, 3D panel */}
         {visibleParams.bp && (
-          <div className="flex-[0.7] flex min-h-0 rounded-lg border border-gray-700 bg-[#0e0e14] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_2px_4px_rgba(0,0,0,0.3)]">
+          <div className="flex-[1] flex min-h-0 rounded-lg border border-gray-700 bg-[#0e0e14] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_2px_4px_rgba(0,0,0,0.3)]">
             <div className="flex-1 min-w-0">
               <ArterialLineWaveform />
             </div>
