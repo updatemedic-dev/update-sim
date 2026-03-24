@@ -181,12 +181,8 @@ export default function MonitorScreen() {
         <div className="px-4 py-1.5 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#0d0d18] border border-gray-700 shadow-[0_3px_8px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]" style={{ marginLeft: 16 }}>
           <span className="text-4xl font-bold text-green-300 tabular-nums tracking-wider">{elapsedStr}</span>
         </div>
-        {/* Temperature & Respiration */}
+        {/* Respiration */}
         <div className="flex items-center gap-4" style={{ marginLeft: 16 }}>
-          <div className="flex flex-col items-center">
-            <span className="text-[9px] text-orange-400">{t('temperature', language)}</span>
-            <span className="text-2xl font-bold text-orange-300 tabular-nums">{vitals.temperature.toFixed(1)}°</span>
-          </div>
           <div className="flex flex-col items-center">
             <span className="text-[9px] text-gray-400">{t('respiration', language)}</span>
             <span className="text-2xl font-bold text-white tabular-nums">{vitals.respiratoryRate}</span>
