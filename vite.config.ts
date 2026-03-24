@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/update-sim/',
+  base: process.env.GITHUB_PAGES ? '/update-sim/' : '/',
   server: {
     port: 3000,
   },

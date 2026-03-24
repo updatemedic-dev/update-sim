@@ -393,6 +393,7 @@ function App() {
             <div className="flex flex-col gap-1.5 p-1.5 w-[100px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)] justify-center">
               {/* PNI button */}
               <button onClick={() => {
+                if (vitals.nibpActive) return;
                 useVitalSignsStore.getState().setVital('nibpActive', true);
                 audioEngine.playNIBPSound();
                 setTimeout(() => {
@@ -407,13 +408,37 @@ function App() {
               }}
                 className="relative h-[calc(50%-4px)] rounded-xl font-bold text-sm border transition-all duration-300 active:translate-y-[1px] flex flex-col items-center justify-center p-2 overflow-hidden"
                 style={{
-                  background: 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)',
-                  borderColor: '#3b82f6',
-                  boxShadow: '0 0 10px rgba(59,130,246,0.2), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+                  background: vitals.nibpActive
+                    ? 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)'
+                    : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+                  borderColor: vitals.nibpActive ? '#3b82f6' : '#374151',
+                  boxShadow: vitals.nibpActive
+                    ? '0 0 10px rgba(59,130,246,0.3), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
+                    : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
                 }}>
-                <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-[49%] object-contain" />
-                <span className="text-sm font-black tracking-wider text-blue-300 mt-0.5">{language === 'es' ? 'PNI' : 'NIBP'}</span>
-                <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />
+                {/* LED indicator */}
+                <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full"
+                  style={{
+                    background: vitals.nibpActive
+                      ? 'radial-gradient(circle at 35% 35%, #93c5fd, #3b82f6 50%, #2563eb 100%)'
+                      : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
+                    boxShadow: vitals.nibpActive
+                      ? '0 0 8px rgba(59,130,246,0.8), 0 0 16px rgba(59,130,246,0.4)'
+                      : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+                    animation: vitals.nibpActive ? 'pniLedBlink 0.8s ease-in-out infinite' : 'none',
+                  }}
+                />
+                <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI"
+                  className="h-[49%] object-contain transition-opacity duration-300"
+                  style={{ opacity: vitals.nibpActive ? 1 : 0.4 }}
+                />
+                <span className="text-sm font-black tracking-wider mt-0.5 transition-colors duration-300"
+                  style={{ color: vitals.nibpActive ? '#93c5fd' : '#6b7280' }}>
+                  {language === 'es' ? 'PNI' : 'NIBP'}
+                </span>
+                {vitals.nibpActive && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />
+                )}
               </button>
               {/* RCP button */}
               <button onClick={() => {
@@ -584,15 +609,15 @@ function ToggleSwitch({ label, color, active, onToggle, large }: {
 }) {
   return (
     <button onClick={onToggle}
-      className={`flex items-center justify-between gap-1 px-3 rounded-lg border transition-all ${large ? 'py-1' : 'flex-1'} ${active
+      className={`flex items-center justify-between gap-2 px-3 rounded-lg border transition-all ${large ? 'py-2' : 'flex-1'} ${active
         ? 'bg-[#1a2a3a] border-gray-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_2px_4px_rgba(0,0,0,0.4)]'
         : 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] border-gray-700 shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] hover:from-[#333348] hover:to-[#222236]'
       }`}>
-      <span className={`font-bold ${large ? 'text-sm' : 'text-[11px]'}`} style={{ color: active ? color : '#555' }}>
+      <span className={`font-bold ${large ? 'text-[14px]' : 'text-[11px]'}`} style={{ color: active ? color : '#555' }}>
         {label}
       </span>
-      <div className={`${large ? 'w-10 h-[22px]' : 'w-8 h-[18px]'} rounded-full relative transition-colors shadow-inner ${active ? 'bg-cyan-600' : 'bg-gray-700'}`}>
-        <div className={`${large ? 'w-[18px] h-[18px]' : 'w-[14px] h-[14px]'} rounded-full bg-gradient-to-b from-white to-gray-300 shadow-[0_1px_3px_rgba(0,0,0,0.4)] absolute top-[2px] transition-all ${active ? (large ? 'left-[20px]' : 'left-[14px]') : 'left-[2px]'}`} />
+      <div className={`${large ? 'w-11 h-[24px]' : 'w-8 h-[18px]'} rounded-full relative transition-colors shadow-inner ${active ? 'bg-cyan-600' : 'bg-gray-700'}`}>
+        <div className={`${large ? 'w-[20px] h-[20px]' : 'w-[14px] h-[14px]'} rounded-full bg-gradient-to-b from-white to-gray-300 shadow-[0_1px_3px_rgba(0,0,0,0.4)] absolute top-[2px] transition-all ${active ? (large ? 'left-[22px]' : 'left-[14px]') : 'left-[2px]'}`} />
       </div>
     </button>
   );
@@ -698,41 +723,44 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
   const settings = useSettingsStore();
 
   const SectionTitle = ({ children }: { children: string }) => (
-    <span className="text-[9px] text-gray-500 uppercase tracking-widest font-bold block mt-2 mb-1">{children}</span>
+    <div className="flex items-center gap-2 mt-4 mb-2">
+      <span className="text-[11px] text-gray-400 uppercase tracking-[0.2em] font-bold whitespace-nowrap">{children}</span>
+      <div className="flex-1 h-px bg-gradient-to-r from-gray-700 to-transparent" />
+    </div>
   );
 
   const SettingRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
-    <div className="flex items-center justify-between py-1.5 border-b border-gray-800/50">
-      <span className="text-[11px] text-gray-300">{label}</span>
+    <div className="flex items-center justify-between py-2.5 border-b border-gray-800/40">
+      <span className="text-[13px] text-gray-300">{label}</span>
       {children}
     </div>
   );
 
   const OnOffBtn = ({ on, onToggle }: { on: boolean; onToggle: () => void }) => (
     <button onClick={onToggle}
-      className={`w-10 h-[22px] rounded-full relative transition-colors shadow-inner ${on ? 'bg-green-600' : 'bg-gray-600'}`}>
-      <div className={`w-[18px] h-[18px] rounded-full bg-gradient-to-b from-white to-gray-300 shadow-[0_1px_3px_rgba(0,0,0,0.4)] absolute top-[2px] transition-all ${on ? 'left-[20px]' : 'left-[2px]'}`} />
+      className={`w-11 h-[24px] rounded-full relative transition-colors shadow-inner ${on ? 'bg-green-600' : 'bg-gray-600'}`}>
+      <div className={`w-[20px] h-[20px] rounded-full bg-gradient-to-b from-white to-gray-300 shadow-[0_1px_3px_rgba(0,0,0,0.4)] absolute top-[2px] transition-all ${on ? 'left-[22px]' : 'left-[2px]'}`} />
     </button>
   );
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <div
-        className="relative bg-[#1c1c2e] border border-gray-600 rounded-2xl p-4 w-[280px] max-h-[90%] overflow-y-auto shadow-2xl text-white"
+        className="relative bg-gradient-to-b from-[#1e1e32] to-[#16162a] border border-gray-600/50 rounded-2xl p-5 w-[340px] max-h-[92%] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.6)] text-white"
         style={{ backdropFilter: 'blur(20px)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-bold">{t('settings', language)}</span>
-          <button onClick={onClose} className="w-7 h-7 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-gray-400 hover:text-white text-sm">✕</button>
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-base font-bold tracking-wide">{t('settings', language)}</span>
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-700/80 hover:bg-gray-600 flex items-center justify-center text-gray-400 hover:text-white text-sm transition-colors">✕</button>
         </div>
 
         {/* Language */}
         <SectionTitle>{t('language', language).toUpperCase()}</SectionTitle>
-        <div className="flex gap-1 mb-1">
+        <div className="flex gap-2 mb-1">
           <button onClick={() => settings.set('language', 'es')}
-            className="relative flex-1 py-1.5 rounded-lg text-[11px] font-bold border transition-all duration-300 overflow-hidden"
+            className="relative flex-1 py-2 rounded-lg text-[13px] font-bold border transition-all duration-300 overflow-hidden"
             style={{
               background: language === 'es'
                 ? 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)'
@@ -747,7 +775,7 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
             {language === 'es' && <div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />}
           </button>
           <button onClick={() => settings.set('language', 'en')}
-            className="relative flex-1 py-1.5 rounded-lg text-[11px] font-bold border transition-all duration-300 overflow-hidden"
+            className="relative flex-1 py-2 rounded-lg text-[13px] font-bold border transition-all duration-300 overflow-hidden"
             style={{
               background: language === 'en'
                 ? 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)'
@@ -765,12 +793,12 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
 
         {/* Display */}
         <SectionTitle>{t('display', language).toUpperCase()}</SectionTitle>
-        <div className="flex flex-col gap-1">
-          <ToggleSwitch label="FC" color="#00ffc8" active={visibleParams.hr} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('hr')} />
-          <ToggleSwitch label="PA" color="#ff0000" active={visibleParams.bp} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('bp')} />
-          <ToggleSwitch label="SPO2" color="#00ffff" active={visibleParams.spo2} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('spo2')} />
-          <ToggleSwitch label="CO2" color="#ffff00" active={visibleParams.etco2} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('etco2')} />
-          <ToggleSwitch label="DESC" color="#888888" active={showDescription} onToggle={() => useVitalSignsStore.getState().toggleDescription()} />
+        <div className="flex flex-col gap-1.5">
+          <ToggleSwitch label="FC" color="#00ffc8" active={visibleParams.hr} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('hr')} large />
+          <ToggleSwitch label="PA" color="#ff0000" active={visibleParams.bp} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('bp')} large />
+          <ToggleSwitch label="SPO2" color="#00ffff" active={visibleParams.spo2} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('spo2')} large />
+          <ToggleSwitch label="CO2" color="#ffff00" active={visibleParams.etco2} onToggle={() => useVitalSignsStore.getState().toggleParamVisibility('etco2')} large />
+          <ToggleSwitch label="DESC" color="#888888" active={showDescription} onToggle={() => useVitalSignsStore.getState().toggleDescription()} large />
         </div>
 
         {/* Audio */}
@@ -778,17 +806,23 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         <SettingRow label={language === 'es' ? 'Sonido' : 'Sound'}>
           <OnOffBtn on={settings.soundEnabled} onToggle={() => settings.set('soundEnabled', !settings.soundEnabled)} />
         </SettingRow>
-        <div className="py-1.5 border-b border-gray-800/50">
-          <span className="text-[10px] text-gray-400">Beep: {settings.beepVolume}%</span>
+        <div className="py-2.5 border-b border-gray-800/40">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[12px] text-gray-400">Beep</span>
+            <span className="text-[12px] text-cyan-400 font-mono font-bold">{settings.beepVolume}%</span>
+          </div>
           <input type="range" min={0} max={100} value={settings.beepVolume}
             onChange={(e) => { settings.set('beepVolume', Number(e.target.value)); audioEngine.setBeepVolume(Number(e.target.value)); }}
-            className="w-full h-1.5 mt-1 accent-blue-500" />
+            className="w-full h-2 mt-0.5 accent-cyan-500 cursor-pointer" />
         </div>
-        <div className="py-1.5 border-b border-gray-800/50">
-          <span className="text-[10px] text-gray-400">{language === 'es' ? 'Alarmas' : 'Alarms'}: {settings.alarmVolume}%</span>
+        <div className="py-2.5 border-b border-gray-800/40">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[12px] text-gray-400">{language === 'es' ? 'Alarmas' : 'Alarms'}</span>
+            <span className="text-[12px] text-cyan-400 font-mono font-bold">{settings.alarmVolume}%</span>
+          </div>
           <input type="range" min={0} max={100} value={settings.alarmVolume}
             onChange={(e) => { settings.set('alarmVolume', Number(e.target.value)); audioEngine.setAlarmVolume(Number(e.target.value)); }}
-            className="w-full h-1.5 mt-1 accent-blue-500" />
+            className="w-full h-2 mt-0.5 accent-cyan-500 cursor-pointer" />
         </div>
 
         {/* Monitor */}
@@ -796,7 +830,7 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         <SettingRow label={language === 'es' ? 'Velocidad barrido' : 'Sweep speed'}>
           <select value={settings.waveformSpeed}
             onChange={(e) => settings.set('waveformSpeed', Number(e.target.value) as 12.5 | 25 | 50)}
-            className="bg-gray-800 border border-gray-700 rounded-lg px-2 py-1 text-[10px] text-white">
+            className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-1.5 text-[12px] text-white cursor-pointer">
             <option value={12.5}>12.5 mm/s</option>
             <option value={25}>25 mm/s</option>
             <option value={50}>50 mm/s</option>
@@ -805,7 +839,7 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         <SettingRow label={language === 'es' ? 'Tipo energía' : 'Energy type'}>
           <select value={settings.energyType}
             onChange={(e) => settings.set('energyType', e.target.value as 'biphasic' | 'monophasic')}
-            className="bg-gray-800 border border-gray-700 rounded-lg px-2 py-1 text-[10px] text-white">
+            className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-1.5 text-[12px] text-white cursor-pointer">
             <option value="biphasic">{language === 'es' ? 'Bifásica' : 'Biphasic'}</option>
             <option value="monophasic">{language === 'es' ? 'Monofásica' : 'Monophasic'}</option>
           </select>
@@ -813,7 +847,7 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         <SettingRow label={language === 'es' ? 'Temperatura' : 'Temperature'}>
           <select value={settings.temperatureUnit}
             onChange={(e) => settings.set('temperatureUnit', e.target.value as 'celsius' | 'fahrenheit')}
-            className="bg-gray-800 border border-gray-700 rounded-lg px-2 py-1 text-[10px] text-white">
+            className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-1.5 text-[12px] text-white cursor-pointer">
             <option value="celsius">°C</option>
             <option value="fahrenheit">°F</option>
           </select>
@@ -824,18 +858,18 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         <SettingRow label="Ratio">
           <select value={settings.cprRatio}
             onChange={(e) => settings.set('cprRatio', e.target.value as '30:2' | '15:2' | 'continuous')}
-            className="bg-gray-800 border border-gray-700 rounded-lg px-2 py-1 text-[10px] text-white">
+            className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-1.5 text-[12px] text-white cursor-pointer">
             <option value="30:2">30:2</option>
             <option value="15:2">15:2</option>
             <option value="continuous">{language === 'es' ? 'Continuas' : 'Continuous'}</option>
           </select>
         </SettingRow>
         <SettingRow label={language === 'es' ? 'Metrónomo' : 'Metronome'}>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <input type="number" min={80} max={140} value={settings.cprMetronomeRate}
               onChange={(e) => settings.set('cprMetronomeRate', Number(e.target.value))}
-              className="w-12 bg-gray-800 border border-gray-700 rounded-lg px-1 py-0.5 text-[10px] text-center text-white" />
-            <span className="text-[10px] text-gray-400">bpm</span>
+              className="w-14 bg-gray-800 border border-gray-600 rounded-lg px-2 py-1 text-[12px] text-center text-white" />
+            <span className="text-[12px] text-gray-400">bpm</span>
           </div>
         </SettingRow>
 
@@ -847,9 +881,9 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
 
         {/* Alarms */}
         <SectionTitle>{language === 'es' ? 'ALARMAS' : 'ALARMS'}</SectionTitle>
-        <div className="flex gap-1 mb-2">
+        <div className="flex gap-2 mb-2">
           <button onClick={() => settings.silenceAlarms()}
-            className="relative flex-1 py-1.5 rounded-lg text-[10px] font-bold border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
+            className="relative flex-1 py-2.5 rounded-lg text-[12px] font-bold border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
             style={{
               background: 'linear-gradient(180deg, #4a3a0a 0%, #3a2a00 50%, #2a1a00 100%)',
               borderColor: '#ca8a04',
@@ -860,7 +894,7 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
             <div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: 'linear-gradient(90deg, transparent, #ca8a04, #eab308, #ca8a04, transparent)' }} />
           </button>
           <button onClick={() => settings.toggleAlarmsOff()}
-            className="relative flex-1 py-1.5 rounded-lg text-[10px] font-bold border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
+            className="relative flex-1 py-2.5 rounded-lg text-[12px] font-bold border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
             style={{
               background: settings.alarmsOff
                 ? 'linear-gradient(180deg, #4a1a1a 0%, #3a0d0d 50%, #280808 100%)'
@@ -877,7 +911,7 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         </div>
 
         {/* Footer */}
-        <div className="mt-2 pt-2 border-t border-gray-800 text-[8px] text-gray-600 text-center">
+        <div className="mt-3 pt-3 border-t border-gray-700/50 text-[10px] text-gray-500 text-center leading-relaxed">
           UPDATE SIM — {language === 'es' ? 'Simulador de entrenamiento médico' : 'Medical training simulator'}<br />
           Update Medic — updatemedic.cl
         </div>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'update-sim-v4';
+const CACHE_NAME = 'update-sim-v5';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -13,6 +13,10 @@ self.addEventListener('install', (event) => {
         '/icons/icon-192.png',
         '/icons/icon-512.png',
         '/icons/apple-touch-icon.png',
+        '/favicon-32.png',
+        '/favicon-16.png',
+        '/favicon.ico',
+        '/favicon.png',
       ]);
     })
   );
