@@ -16,7 +16,7 @@ import { t } from '../../i18n';
 
 export default function MonitorScreen() {
   const { vitals, rhythm, isPaused, isStopped, visibleParams, showDescription } = useVitalSignsStore();
-  const { soundEnabled, language, wakeLockEnabled } = useSettingsStore();
+  const { soundEnabled, language, wakeLockEnabled, temperatureUnit } = useSettingsStore();
   const { syncMode, isCharged, shockCount } = useDefibStore();
   const { activeScenario, currentStepIndex } = useScenarioStore();
   const lastBeepTimeRef = useRef(0);
@@ -387,11 +387,20 @@ export default function MonitorScreen() {
             <div className="flex-1 min-w-0">
               <SpO2Waveform />
             </div>
-            <div className="w-48 flex flex-col items-end justify-center border-l border-gray-700 px-2 bg-[#0c0c12] rounded-r-lg">
-              <span className="text-[10px] text-gray-500">{t('spo2Level', language)}</span>
-              <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#c084fc' }}>
-                {isStopped ? '--' : (vitals.hasPulse ? vitals.spo2 : '--')}
-              </span>
+            <div className="w-48 flex items-center justify-end border-l border-gray-700 bg-[#0c0c12] rounded-r-lg">
+              <div className="flex flex-col items-end justify-center px-2">
+                <span className="text-[10px] text-gray-500">{t('spo2Level', language)}</span>
+                <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#c084fc' }}>
+                  {isStopped ? '--' : (vitals.hasPulse ? vitals.spo2 : '--')}
+                </span>
+              </div>
+              <div className="w-px self-stretch bg-gray-700 mx-1" />
+              <div className="flex flex-col items-center justify-center px-2">
+                <span className="text-[10px] text-gray-500">°{settings.temperatureUnit === 'celsius' ? 'C' : 'F'}</span>
+                <span className="text-2xl font-bold leading-none tabular-nums text-orange-300">
+                  {isStopped ? '--' : vitals.temperature.toFixed(1)}
+                </span>
+              </div>
             </div>
           </div>
         )}
