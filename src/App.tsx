@@ -593,7 +593,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
   return (
     <button
       onClick={onToggle}
-      className="group relative flex items-center gap-2.5 w-full px-3 py-1.5 rounded-lg border transition-all duration-300 overflow-hidden"
+      className="group relative flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg border transition-all duration-300 overflow-hidden"
       style={{
         background: active
           ? 'linear-gradient(180deg, #0c3a4a 0%, #062a35 50%, #0a1e28 100%)'
@@ -626,10 +626,12 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
 
       {/* Label */}
       <span
-        className="flex-1 text-center font-black text-sm tracking-widest transition-colors duration-300"
+        className="flex-1 font-black text-base tracking-widest transition-colors duration-300"
         style={{
           color: active ? '#67e8f9' : '#6b7280',
           textShadow: active ? '0 0 8px rgba(6,182,212,0.5)' : 'none',
+          textAlign: 'center',
+          marginLeft: '-12px',
         }}
       >
         PACER
