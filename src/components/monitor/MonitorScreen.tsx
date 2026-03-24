@@ -11,7 +11,6 @@ import { useScenarioStore } from '../../stores/scenarioStore';
 import { useMedicationStore } from '../../stores/medicationStore';
 import { audioEngine } from '../../engine/audio/AudioEngine';
 import { RHYTHM_DEFINITIONS } from '../../engine/rhythms/rhythmDefinitions';
-import { useFullscreen } from '../../hooks/useFullscreen';
 import { useWakeLock } from '../../hooks/useWakeLock';
 import { t } from '../../i18n';
 
@@ -20,7 +19,6 @@ export default function MonitorScreen() {
   const { soundEnabled, language, wakeLockEnabled } = useSettingsStore();
   const { syncMode, isCharged, shockCount } = useDefibStore();
   const { activeScenario, currentStepIndex } = useScenarioStore();
-  const { isFullscreen, toggleFullscreen } = useFullscreen();
   const lastBeepTimeRef = useRef(0);
   const [elapsedStr, setElapsedStr] = useState('00:00:00');
   const audioInitRef = useRef(false);
