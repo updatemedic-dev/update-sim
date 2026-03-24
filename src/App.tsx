@@ -283,42 +283,36 @@ function App() {
             </div>
 
             {/* Column 3: MARCAPASO panel */}
-            <div className="flex flex-col p-2 w-[260px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-bold text-gray-400 tracking-wider">{t('pacemaker', language)}</span>
-                <ToggleSwitch label="PACER" color="#06b6d4" active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} large />
+            <div className="flex flex-col p-2 w-[190px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
+              <span className="text-xs font-bold text-gray-400 text-center mb-0.5 tracking-wider">{t('pacemaker', language)}</span>
+              <ToggleSwitch label="PACER" color="#06b6d4" active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} large />
+              <div className="flex items-center justify-between" style={{ marginTop: 10 }}>
+                <button onClick={() => { defib.setPacerRate(defib.pacerRate - 10); audioEngine.playTapClick(); }}
+                  className="w-14 h-12 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <div className="flex flex-col items-center">
+                  <span className="text-[8px] text-gray-500">RATE SELECT</span>
+                  <span style={{ fontSize: '2.9rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerRate}</span>
+                </div>
+                <button onClick={() => { defib.setPacerRate(defib.pacerRate + 10); audioEngine.playTapClick(); }}
+                  className="w-14 h-12 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
               </div>
-              <div className="flex gap-2">
-                {/* RATE SELECT */}
-                <div className="flex items-center gap-1 flex-1">
-                  <button onClick={() => { defib.setPacerRate(defib.pacerRate - 10); audioEngine.playTapClick(); }}
-                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </button>
-                  <div className="flex flex-col items-center flex-1">
-                    <span className="text-[8px] text-gray-500">RATE SELECT</span>
-                    <span style={{ fontSize: '2.2rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerRate}</span>
-                  </div>
-                  <button onClick={() => { defib.setPacerRate(defib.pacerRate + 10); audioEngine.playTapClick(); }}
-                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </button>
+              <div className="flex items-center justify-between mt-1">
+                <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent - 5); audioEngine.playTapClick(); }}
+                  className="w-14 h-12 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <div className="flex flex-col items-center">
+                  <span className="text-[8px] text-gray-500">mAMP SELECT</span>
+                  <span style={{ fontSize: '2.9rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerCurrent}</span>
                 </div>
-                {/* mAMP SELECT */}
-                <div className="flex items-center gap-1 flex-1">
-                  <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent - 5); audioEngine.playTapClick(); }}
-                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </button>
-                  <div className="flex flex-col items-center flex-1">
-                    <span className="text-[8px] text-gray-500">mAMP SELECT</span>
-                    <span style={{ fontSize: '2.2rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerCurrent}</span>
-                  </div>
-                  <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent + 5); audioEngine.playTapClick(); }}
-                    className="w-10 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                    <svg width="14" height="10" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </button>
-                </div>
+                <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent + 5); audioEngine.playTapClick(); }}
+                  className="w-14 h-12 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
+                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
               </div>
               {defib.pacerOn && (
                 <span className={`text-[11px] text-center font-bold mt-1 ${defib.pacerCapture ? 'text-green-400' : 'text-red-400'}`}>
