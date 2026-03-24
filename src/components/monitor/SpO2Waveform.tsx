@@ -45,7 +45,7 @@ export default function SpO2Waveform() {
 
   return (
     <WaveformCanvas
-      color="#00ffff"
+      color="#c084fc"
       lineWidth={1.5}
       sampleFn={sampleFn}
       sweepSpeed={pxPerSec}
@@ -53,7 +53,7 @@ export default function SpO2Waveform() {
       visible={visibleParams.spo2Wave}
       amplitude={0.8}
       label="Pleth"
-      labelColor="#00ffff"
+      labelColor="#c084fc"
     />
   );
 }

@@ -423,7 +423,7 @@ export default function MonitorScreen() {
             </div>
             <div className="w-48 flex flex-col items-end justify-center border-l border-gray-700 px-2 bg-[#0c0c12] rounded-r-lg">
               <span className="text-[10px] text-gray-500">{t('spo2Level', language)}</span>
-              <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#00ffff' }}>
+              <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#c084fc' }}>
                 {isStopped ? '--' : (vitals.hasPulse ? vitals.spo2 : '--')}
               </span>
             </div>
@@ -438,7 +438,7 @@ export default function MonitorScreen() {
             </div>
             <div className="w-48 flex flex-col items-end justify-center border-l border-gray-700 px-2 bg-[#0c0c12] rounded-r-lg">
               <span className="text-[10px] text-gray-500">{t('co2Level', language)}</span>
-              <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#ffff00' }}>
+              <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#c084fc' }}>
                 {isStopped ? '--' : (vitals.etco2 > 0 ? vitals.etco2 : '--')}
               </span>
             </div>
