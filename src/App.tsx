@@ -189,6 +189,21 @@ function App() {
         e.preventDefault();
         df.togglePacer();
         break;
+      case 's':
+        e.preventDefault();
+        {
+          audioEngine.stopChargedBeep();
+          const record = df.deliverShock();
+          if (record) {
+            audioEngine.playShockSound();
+            useCodeTrackStore.getState().addEntry('shock', `Descarga ${record.energy}J${record.synchronized ? ' SYNC' : ''}`);
+            vs.shockPause();
+            if (useDefibStore.getState().syncMode) {
+              useDefibStore.getState().toggleSync();
+            }
+          }
+        }
+        break;
       case 'f':
         e.preventDefault();
         if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
