@@ -638,7 +638,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
       {/* Status badge */}
       <div className="flex-shrink-0">
         <span
-          className="text-[9px] font-bold tracking-wider px-1.5 py-0.5 rounded transition-all duration-300"
+          className="text-xs font-bold tracking-wider px-1.5 py-0.5 rounded transition-all duration-300"
           style={{
             background: active ? 'rgba(6,182,212,0.15)' : 'rgba(107,114,128,0.15)',
             color: active ? '#22d3ee' : '#4b5563',
