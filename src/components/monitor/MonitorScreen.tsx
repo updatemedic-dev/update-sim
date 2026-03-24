@@ -308,38 +308,6 @@ export default function MonitorScreen() {
             </svg>
           </button>
 
-          {/* Fullscreen - ocultar en app nativa (Capacitor) */}
-          {!(window as any).Capacitor && (
-          <button
-            onClick={toggleFullscreen}
-            className="w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-200 active:translate-y-[1px] disabled:opacity-30"
-            style={{
-              background: 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
-              border: '1px solid #374151',
-              boxShadow: '0 4px 10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)',
-              marginLeft: 8,
-            }}
-            title={isFullscreen ? 'Minimizar' : 'Maximizar'}
-          >
-            <svg width="22" height="22" viewBox="0 0 14 14" fill="none">
-              {isFullscreen ? (
-                <>
-                  <path d="M5 1V4H1" stroke="#9ca3af" strokeWidth="2"/>
-                  <path d="M9 1V4H13" stroke="#9ca3af" strokeWidth="2"/>
-                  <path d="M5 13V10H1" stroke="#9ca3af" strokeWidth="2"/>
-                  <path d="M9 13V10H13" stroke="#9ca3af" strokeWidth="2"/>
-                </>
-              ) : (
-                <>
-                  <path d="M1 5V1H5" stroke="#9ca3af" strokeWidth="2"/>
-                  <path d="M13 5V1H9" stroke="#9ca3af" strokeWidth="2"/>
-                  <path d="M1 9V13H5" stroke="#9ca3af" strokeWidth="2"/>
-                  <path d="M13 9V13H9" stroke="#9ca3af" strokeWidth="2"/>
-                </>
-              )}
-            </svg>
-          </button>
-          )}
         </div>
       </div>
 
