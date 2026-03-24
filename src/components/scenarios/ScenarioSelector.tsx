@@ -10,7 +10,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   ACLS_MEGA: 'ACLS MegaCódigo',
   PALS: 'PALS',
   NRP: 'NRP Neonatal',
-  MEGA_LAERDAL: 'MegaCódigo Laerdal',
+  MEGA_LAERDAL: 'Megacodes 10 Pacientes',
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
