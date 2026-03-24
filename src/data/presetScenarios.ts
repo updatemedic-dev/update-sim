@@ -672,7 +672,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
     id: 'mc-acls-2',
     name: 'MC ACLS 2 — Taquicardia',
     category: 'ACLS_MEGA',
-    description: 'Masculino 30 años | Consciente agitado | Dolor torácico intenso | Sin mórbidos',
+    description: 'Masculino 30 años | Consciente agitado | Sin mórbidos',
     steps: [
       {
         rhythm: CardiacRhythm.SVT,
@@ -726,7 +726,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
     id: 'mc-acls-3',
     name: 'MC ACLS 3 — PCR TVSP',
     category: 'ACLS_MEGA',
-    description: 'Masculino 50 años | Inconsciente | Dolor torácico | HTA, IAM con angioplastía',
+    description: 'Masculino 50 años | HTA, IAM con angioplastía',
     steps: [
       {
         rhythm: CardiacRhythm.VENTRICULAR_TACHYCARDIA,
@@ -780,7 +780,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
     id: 'mc-acls-4',
     name: 'MC ACLS 4 — Bradicardia',
     category: 'ACLS_MEGA',
-    description: 'Femenina 48 años | Confusa y desorientada | Lipotimia | HTA, ERC en hemodiálisis',
+    description: 'Femenina 48 años | Confusa y desorientada | Lipotimia | HTA',
     steps: [
       {
         rhythm: CardiacRhythm.SINUS_BRADYCARDIA,
@@ -834,7 +834,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
     id: 'mc-acls-5',
     name: 'MC ACLS 5 — Taquicardia',
     category: 'ACLS_MEGA',
-    description: 'Femenina 25 años | Agitada y confusa | Dolor torácico EVA 9/10 | Sin mórbidos',
+    description: 'Femenina 25 años | Agitada y confusa | Sin mórbidos',
     steps: [
       {
         rhythm: CardiacRhythm.SVT,
@@ -888,7 +888,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
     id: 'mc-acls-6',
     name: 'MC ACLS 6 — PCR TVSP',
     category: 'ACLS_MEGA',
-    description: 'Masculino 40 años | Inconsciente | Desmayo en sala de espera | HTA, DM',
+    description: 'Masculino 40 años | HTA, DM',
     steps: [
       {
         rhythm: CardiacRhythm.VENTRICULAR_TACHYCARDIA,
