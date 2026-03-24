@@ -626,7 +626,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
   return (
     <button
       onClick={onToggle}
-      className="group relative flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg border transition-all duration-300 overflow-hidden"
+      className="group relative flex items-center gap-3 w-full px-4 py-3.5 rounded-lg border transition-all duration-300 overflow-hidden"
       style={{
         background: active
           ? 'linear-gradient(180deg, #0c3a4a 0%, #062a35 50%, #0a1e28 100%)'
@@ -640,7 +640,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
       {/* LED indicator */}
       <div className="relative flex-shrink-0">
         <div
-          className="w-3 h-3 rounded-full transition-all duration-300"
+          className="w-3.5 h-3.5 rounded-full transition-all duration-300"
           style={{
             background: active
               ? 'radial-gradient(circle at 35% 35%, #67e8f9, #06b6d4 50%, #0891b2 100%)'
@@ -651,7 +651,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
           }}
         />
         {active && (
-          <div className="absolute inset-0 w-3 h-3 rounded-full animate-ping opacity-30"
+          <div className="absolute inset-0 w-3.5 h-3.5 rounded-full animate-ping opacity-30"
             style={{ background: '#06b6d4' }}
           />
         )}
@@ -659,7 +659,7 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
 
       {/* Label */}
       <span
-        className="flex-1 font-black text-base tracking-widest transition-colors duration-300"
+        className="flex-1 font-black text-lg tracking-widest transition-colors duration-300"
         style={{
           color: active ? '#67e8f9' : '#6b7280',
           textShadow: active ? '0 0 8px rgba(6,182,212,0.5)' : 'none',
