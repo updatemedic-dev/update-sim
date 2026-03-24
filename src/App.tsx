@@ -253,8 +253,17 @@ function App() {
           </div>
           <p className="text-xs text-gray-500 mb-4">{t('developedBy', language)}</p>
           <button onClick={() => { setShowDisclaimer(false); audioEngine.init(); }}
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded font-bold text-sm">
-            {t('enter', language)}
+            className="relative px-8 py-3 rounded-lg font-bold text-sm text-white border overflow-hidden transition-all duration-300 hover:scale-[1.02] active:translate-y-[1px]"
+            style={{
+              background: 'linear-gradient(180deg, #1a3a5c 0%, #0d2848 50%, #091e38 100%)',
+              borderColor: '#2563eb',
+              boxShadow: '0 0 16px rgba(37,99,235,0.4), 0 0 6px rgba(37,99,235,0.2), 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)',
+            }}>
+            <span className="relative z-10 flex items-center gap-2 justify-center">
+              <span className="w-2 h-2 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, #93c5fd, #2563eb 50%, #1d4ed8 100%)', boxShadow: '0 0 6px rgba(37,99,235,0.8)' }} />
+              {t('enter', language)}
+            </span>
+            <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />
           </button>
         </div>
       </div>
@@ -324,18 +333,49 @@ function App() {
             {/* Column 4: Sync + Meds */}
             <div className="flex flex-col gap-1.5 p-1.5 w-[100px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
               <button onClick={() => { defib.toggleSync(); audioEngine.playSyncBeep(); }}
-                className={`flex-1 rounded-xl font-bold text-lg border transition-all active:translate-y-[1px] ${defib.syncMode
-                  ? 'bg-gradient-to-b from-purple-400 to-purple-700 text-white border-purple-400 shadow-[0_0_16px_rgba(168,85,247,0.5),0_3px_6px_rgba(0,0,0,0.4),inset_0_2px_0_rgba(255,255,255,0.3)]'
-                  : 'bg-gradient-to-b from-purple-500 to-purple-800 text-purple-100 border-purple-600 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-purple-400 hover:to-purple-700'}`}>
+                className="relative flex-1 rounded-xl font-bold text-lg border transition-all duration-300 active:translate-y-[1px] overflow-hidden flex items-center justify-center gap-2"
+                style={{
+                  background: defib.syncMode
+                    ? 'linear-gradient(180deg, #3b1a5e 0%, #2d1050 50%, #1a0a30 100%)'
+                    : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+                  borderColor: defib.syncMode ? '#a855f7' : '#374151',
+                  boxShadow: defib.syncMode
+                    ? '0 0 16px rgba(168,85,247,0.5), 0 0 6px rgba(168,85,247,0.25), inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 4px rgba(0,0,0,0.5)'
+                    : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+                  color: defib.syncMode ? '#e9d5ff' : '#6b7280',
+                }}>
+                <div className="w-3 h-3 rounded-full flex-shrink-0" style={{
+                  background: defib.syncMode
+                    ? 'radial-gradient(circle at 35% 35%, #d8b4fe, #a855f7 50%, #7c3aed 100%)'
+                    : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
+                  boxShadow: defib.syncMode ? '0 0 8px rgba(168,85,247,0.8), 0 0 16px rgba(168,85,247,0.4)' : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+                }} />
                 SYNC {defib.syncMode ? '✓' : ''}
+                <span className="text-[8px] font-bold tracking-wider px-1 py-0.5 rounded ml-auto" style={{
+                  background: defib.syncMode ? 'rgba(168,85,247,0.15)' : 'rgba(107,114,128,0.15)',
+                  color: defib.syncMode ? '#c084fc' : '#4b5563',
+                  border: `1px solid ${defib.syncMode ? 'rgba(168,85,247,0.3)' : 'rgba(75,85,99,0.3)'}`,
+                }}>{defib.syncMode ? 'ON' : 'OFF'}</span>
+                {defib.syncMode && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #a855f7, #c084fc, #a855f7, transparent)' }} />}
               </button>
               <button onClick={() => setShowMeds(!showMeds)}
-                className="flex-1 rounded-xl font-bold text-lg border transition-all active:translate-y-[1px] bg-gradient-to-b from-green-500 to-green-800 text-white border-green-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-green-400 hover:to-green-700 flex flex-col items-center justify-center gap-1">
+                className="relative flex-1 rounded-xl font-bold text-lg border transition-all duration-300 active:translate-y-[1px] overflow-hidden flex flex-col items-center justify-center gap-1"
+                style={{
+                  background: 'linear-gradient(180deg, #0a3a1a 0%, #062a12 50%, #041a0c 100%)',
+                  borderColor: '#22c55e',
+                  boxShadow: '0 0 10px rgba(34,197,94,0.2), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+                  color: '#bbf7d0',
+                }}>
+                <div className="absolute top-2 left-2 w-2 h-2 rounded-full" style={{
+                  background: 'radial-gradient(circle at 35% 35%, #86efac, #22c55e 50%, #16a34a 100%)',
+                  boxShadow: '0 0 6px rgba(34,197,94,0.7)',
+                }} />
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                   <rect x="6" y="3" width="12" height="18" rx="6" stroke="white" strokeWidth="2"/>
                   <line x1="6" y1="12" x2="18" y2="12" stroke="white" strokeWidth="2"/>
                 </svg>
                 <span className="text-sm font-bold">MEDS</span>
+                <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #22c55e, #4ade80, #22c55e, transparent)' }} />
               </button>
             </div>
 
@@ -355,8 +395,14 @@ function App() {
                   });
                 }, 10000);
               }}
-                className="h-[calc(50%-4px)] rounded-xl font-bold text-sm border transition-all active:translate-y-[1px] bg-gradient-to-b from-blue-600 to-blue-900 text-white border-blue-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-blue-500 hover:to-blue-800 flex items-center justify-center p-2">
+                className="relative h-[calc(50%-4px)] rounded-xl font-bold text-sm border transition-all duration-300 active:translate-y-[1px] flex items-center justify-center p-2 overflow-hidden"
+                style={{
+                  background: 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)',
+                  borderColor: '#3b82f6',
+                  boxShadow: '0 0 10px rgba(59,130,246,0.2), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+                }}>
                 <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-[70%] object-contain" />
+                <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />
               </button>
               {/* COMP button */}
               <button onClick={() => {
@@ -366,10 +412,24 @@ function App() {
                 else audioEngine.stopMetronome();
                 useCodeTrackStore.getState().addEntry(newCpr ? 'cpr_start' : 'cpr_stop', newCpr ? 'RCP iniciada' : 'RCP detenida');
               }}
-                className={`h-[calc(50%-4px)] rounded-xl border transition-all active:translate-y-[1px] flex items-center justify-center p-2 ${vitals.cprActive
-                  ? 'bg-gradient-to-b from-red-400 to-red-700 border-red-300 shadow-[0_0_20px_rgba(239,68,68,0.7),0_3px_6px_rgba(0,0,0,0.4),inset_0_2px_0_rgba(255,255,255,0.2)] animate-[compFlash_0.6s_ease-in-out_infinite]'
-                  : 'bg-gradient-to-b from-red-600 to-red-900 border-red-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-red-500 hover:to-red-800'}`}>
+                className={`relative h-[calc(50%-4px)] rounded-xl border transition-all duration-300 active:translate-y-[1px] flex items-center justify-center p-2 overflow-hidden ${vitals.cprActive ? 'animate-[compFlash_0.6s_ease-in-out_infinite]' : ''}`}
+                style={{
+                  background: vitals.cprActive
+                    ? 'linear-gradient(180deg, #4a1a1a 0%, #3a0d0d 50%, #280808 100%)'
+                    : 'linear-gradient(180deg, #3a1a1a 0%, #2a0d0d 50%, #1a0808 100%)',
+                  borderColor: vitals.cprActive ? '#ef4444' : '#991b1b',
+                  boxShadow: vitals.cprActive
+                    ? '0 0 20px rgba(239,68,68,0.6), 0 0 8px rgba(239,68,68,0.3), inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 4px rgba(0,0,0,0.5)'
+                    : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+                }}>
+                <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full" style={{
+                  background: vitals.cprActive
+                    ? 'radial-gradient(circle at 35% 35%, #fca5a5, #ef4444 50%, #dc2626 100%)'
+                    : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
+                  boxShadow: vitals.cprActive ? '0 0 8px rgba(239,68,68,0.8), 0 0 16px rgba(239,68,68,0.4)' : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+                }} />
                 <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="COMP" className="h-[70%] object-contain" />
+                {vitals.cprActive && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #ef4444, #f87171, #ef4444, transparent)' }} />}
               </button>
             </div>
 
@@ -378,13 +438,27 @@ function App() {
               <span className="text-xs font-bold text-white text-center">{t('energySelected', language)}</span>
               <div className="flex items-center justify-center gap-3 my-1">
                 <button onClick={() => { defib.decreaseEnergy(); audioEngine.playTapClick(); }}
-                  className="w-12 h-12 rounded-xl font-bold text-xl text-white bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 hover:to-gray-600 active:translate-y-[1px] active:shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_3px_rgba(0,0,0,0.2)] transition-all">▼</button>
+                  className="w-12 h-12 rounded-xl font-bold text-xl text-white border transition-all duration-300 active:translate-y-[1px] flex items-center justify-center"
+                  style={{
+                    background: 'linear-gradient(180deg, #3a3a4a 0%, #2a2a38 50%, #1a1a28 100%)',
+                    borderColor: '#4b5563',
+                    boxShadow: '0 3px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 8px rgba(234,179,8,0.2), 0 3px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = '#ca8a04'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 3px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = '#4b5563'; }}>▼</button>
                 <div className="text-center">
                   <span className="text-5xl font-bold text-yellow-400 tabular-nums">{defib.energy}</span>
                   <span className="text-lg text-yellow-400 ml-0.5">j</span>
                 </div>
                 <button onClick={() => { defib.increaseEnergy(); audioEngine.playTapClick(); }}
-                  className="w-12 h-12 rounded-xl font-bold text-xl text-white bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 hover:to-gray-600 active:translate-y-[1px] active:shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_3px_rgba(0,0,0,0.2)] transition-all">▲</button>
+                  className="w-12 h-12 rounded-xl font-bold text-xl text-white border transition-all duration-300 active:translate-y-[1px] flex items-center justify-center"
+                  style={{
+                    background: 'linear-gradient(180deg, #3a3a4a 0%, #2a2a38 50%, #1a1a28 100%)',
+                    borderColor: '#4b5563',
+                    boxShadow: '0 3px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 8px rgba(234,179,8,0.2), 0 3px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = '#ca8a04'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 3px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = '#4b5563'; }}>▲</button>
               </div>
               <span className="text-[10px] text-gray-500 text-center mb-1">Shock - {defib.shockCount}</span>
               <div className="flex gap-2 flex-[1.5]">
@@ -399,7 +473,20 @@ function App() {
                   }
                 }}
                   disabled={defib.isCharging || defib.isCharged}
-                  className={`flex-1 rounded-xl font-bold text-lg border-2 transition-all active:translate-y-[1px] ${defib.isCharging ? 'bg-yellow-700 animate-pulse border-yellow-600 shadow-[0_0_14px_rgba(202,138,4,0.5)]' : defib.isCharged ? 'bg-yellow-600 border-yellow-500 shadow-[0_0_14px_rgba(202,138,4,0.5)]' : 'bg-gradient-to-b from-red-500 to-red-800 border-red-400 shadow-[0_4px_10px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-red-400 hover:to-red-700'} text-white disabled:opacity-60`}>
+                  className={`relative flex-1 rounded-xl font-bold text-lg border-2 transition-all duration-300 active:translate-y-[1px] text-white disabled:opacity-60 overflow-hidden ${defib.isCharging ? 'animate-pulse' : ''}`}
+                  style={{
+                    background: defib.isCharging
+                      ? 'linear-gradient(180deg, #5a3a0a 0%, #4a2a00 50%, #3a1a00 100%)'
+                      : defib.isCharged
+                      ? 'linear-gradient(180deg, #5a4a0a 0%, #4a3a00 50%, #3a2a00 100%)'
+                      : 'linear-gradient(180deg, #5a1a1a 0%, #4a0d0d 50%, #3a0808 100%)',
+                    borderColor: defib.isCharging ? '#ca8a04' : defib.isCharged ? '#ca8a04' : '#dc2626',
+                    boxShadow: defib.isCharging
+                      ? '0 0 14px rgba(202,138,4,0.5), inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 4px rgba(0,0,0,0.5)'
+                      : defib.isCharged
+                      ? '0 0 14px rgba(202,138,4,0.5), inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 4px rgba(0,0,0,0.5)'
+                      : '0 0 8px rgba(220,38,38,0.2), 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)',
+                  }}>
                   {defib.isCharging ? t('charging', language) : defib.isCharged ? t('chargedBtn', language) : t('charge', language)}
                 </button>
                 <button onClick={() => {
@@ -416,14 +503,38 @@ function App() {
                   }
                 }}
                   disabled={!defib.isCharged}
-                  className={`flex-1 rounded-xl font-bold text-lg border-2 transition-all active:translate-y-[1px] ${defib.isCharged ? 'bg-gradient-to-b from-yellow-400 to-yellow-600 border-yellow-300 text-black animate-pulse shadow-[0_0_18px_rgba(234,179,8,0.6)]' : 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] border-gray-600 text-gray-500 shadow-[0_4px_8px_rgba(0,0,0,0.5)]'}`}>
+                  className={`relative flex-1 rounded-xl font-bold text-lg border-2 transition-all duration-300 active:translate-y-[1px] overflow-hidden ${defib.isCharged ? 'animate-pulse' : ''}`}
+                  style={{
+                    background: defib.isCharged
+                      ? 'linear-gradient(180deg, #5a4a0a 0%, #4a3800 50%, #3a2800 100%)'
+                      : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+                    borderColor: defib.isCharged ? '#eab308' : '#4b5563',
+                    color: defib.isCharged ? '#fef08a' : '#6b7280',
+                    boxShadow: defib.isCharged
+                      ? '0 0 20px rgba(234,179,8,0.5), 0 0 8px rgba(234,179,8,0.3), inset 0 1px 0 rgba(255,255,255,0.1), 0 2px 4px rgba(0,0,0,0.5)'
+                      : '0 4px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+                    textShadow: defib.isCharged ? '0 0 8px rgba(234,179,8,0.6)' : 'none',
+                  }}>
+                  {defib.isCharged && <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full" style={{
+                    background: 'radial-gradient(circle at 35% 35%, #fef08a, #eab308 50%, #ca8a04 100%)',
+                    boxShadow: '0 0 8px rgba(234,179,8,0.8), 0 0 16px rgba(234,179,8,0.4)',
+                  }} />}
                   ⚡ {t('shock', language)}
+                  {defib.isCharged && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #eab308, #facc15, #eab308, transparent)' }} />}
                 </button>
               </div>
               <div className="flex-1" />
               <button onClick={() => { defib.disarm(); audioEngine.stopChargedBeep(); }}
-                className="py-6 rounded-xl text-xl font-bold text-white border-2 border-cyan-600 bg-gradient-to-b from-cyan-600 to-cyan-900 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.1)] hover:from-cyan-500 hover:to-cyan-800 active:translate-y-[1px] transition-all">
+                className="relative py-6 rounded-xl text-xl font-bold border-2 transition-all duration-300 active:translate-y-[1px] overflow-hidden"
+                style={{
+                  background: 'linear-gradient(180deg, #0a3a4a 0%, #062a38 50%, #041a28 100%)',
+                  borderColor: '#0891b2',
+                  color: '#a5f3fc',
+                  boxShadow: '0 0 10px rgba(8,145,178,0.2), 0 3px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+                  textShadow: '0 0 6px rgba(8,145,178,0.4)',
+                }}>
                 {t('disarm', language)}
+                <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #06b6d4, #22d3ee, #06b6d4, transparent)' }} />
               </button>
             </div>
           </div>
@@ -551,11 +662,26 @@ function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => vo
 
 // ===== BOTTOM BUTTON COMPONENT (3D style) =====
 function BottomBtn({ label, onClick, color }: { label: string; onClick?: () => void; color?: string }) {
+  void color; // preserved prop interface
   return (
     <button
       onClick={onClick}
-      className={`flex-1 px-2 rounded-lg text-sm font-bold text-gray-200 border border-gray-700 transition-all active:translate-y-[1px] active:shadow-none ${color ?? 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] shadow-[0_2px_4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] hover:from-[#333348] hover:to-[#222236]'}`}
+      className="group relative flex-1 px-2 rounded-lg text-sm font-bold text-gray-200 border transition-all duration-300 active:translate-y-[1px] overflow-hidden flex items-center gap-2 justify-center"
+      style={{
+        background: 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+        borderColor: '#374151',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 0 10px rgba(99,102,241,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)';
+        e.currentTarget.style.borderColor = '#4f46e5';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)';
+        e.currentTarget.style.borderColor = '#374151';
+      }}
     >
+      <div className="w-1.5 h-6 rounded-full" style={{ background: 'linear-gradient(180deg, #6366f1, #4338ca)', boxShadow: '0 0 6px rgba(99,102,241,0.4)' }} />
       {label}
     </button>
   );
@@ -605,12 +731,34 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         <SectionTitle>{t('language', language).toUpperCase()}</SectionTitle>
         <div className="flex gap-1 mb-1">
           <button onClick={() => settings.set('language', 'es')}
-            className={`flex-1 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${language === 'es' ? 'bg-blue-600 text-white border-blue-500' : 'bg-[#2a2a3a] text-gray-400 border-gray-700'}`}>
+            className="relative flex-1 py-1.5 rounded-lg text-[11px] font-bold border transition-all duration-300 overflow-hidden"
+            style={{
+              background: language === 'es'
+                ? 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)'
+                : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+              borderColor: language === 'es' ? '#3b82f6' : '#374151',
+              color: language === 'es' ? '#bfdbfe' : '#9ca3af',
+              boxShadow: language === 'es'
+                ? '0 0 8px rgba(59,130,246,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
+                : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+            }}>
             Español
+            {language === 'es' && <div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />}
           </button>
           <button onClick={() => settings.set('language', 'en')}
-            className={`flex-1 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${language === 'en' ? 'bg-blue-600 text-white border-blue-500' : 'bg-[#2a2a3a] text-gray-400 border-gray-700'}`}>
+            className="relative flex-1 py-1.5 rounded-lg text-[11px] font-bold border transition-all duration-300 overflow-hidden"
+            style={{
+              background: language === 'en'
+                ? 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)'
+                : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+              borderColor: language === 'en' ? '#3b82f6' : '#374151',
+              color: language === 'en' ? '#bfdbfe' : '#9ca3af',
+              boxShadow: language === 'en'
+                ? '0 0 8px rgba(59,130,246,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
+                : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+            }}>
             English
+            {language === 'en' && <div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />}
           </button>
         </div>
 
@@ -700,14 +848,30 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
         <SectionTitle>{language === 'es' ? 'ALARMAS' : 'ALARMS'}</SectionTitle>
         <div className="flex gap-1 mb-2">
           <button onClick={() => settings.silenceAlarms()}
-            className="flex-1 py-1.5 rounded-lg text-[10px] font-bold bg-gradient-to-b from-yellow-700 to-yellow-900 border border-yellow-600 text-yellow-200 shadow-[0_2px_4px_rgba(0,0,0,0.4)] active:translate-y-[1px] transition-all">
+            className="relative flex-1 py-1.5 rounded-lg text-[10px] font-bold border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
+            style={{
+              background: 'linear-gradient(180deg, #4a3a0a 0%, #3a2a00 50%, #2a1a00 100%)',
+              borderColor: '#ca8a04',
+              color: '#fef08a',
+              boxShadow: '0 0 8px rgba(202,138,4,0.2), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+            }}>
             {language === 'es' ? 'Silenciar 2min' : 'Silence 2min'}
+            <div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: 'linear-gradient(90deg, transparent, #ca8a04, #eab308, #ca8a04, transparent)' }} />
           </button>
           <button onClick={() => settings.toggleAlarmsOff()}
-            className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold border transition-all active:translate-y-[1px] ${settings.alarmsOff
-              ? 'bg-red-700 border-red-600 text-white'
-              : 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] border-gray-700 text-gray-400'}`}>
+            className="relative flex-1 py-1.5 rounded-lg text-[10px] font-bold border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
+            style={{
+              background: settings.alarmsOff
+                ? 'linear-gradient(180deg, #4a1a1a 0%, #3a0d0d 50%, #280808 100%)'
+                : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+              borderColor: settings.alarmsOff ? '#ef4444' : '#374151',
+              color: settings.alarmsOff ? '#fca5a5' : '#9ca3af',
+              boxShadow: settings.alarmsOff
+                ? '0 0 8px rgba(239,68,68,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
+                : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+            }}>
             {settings.alarmsOff ? (language === 'es' ? 'Alarmas OFF' : 'Alarms OFF') : (language === 'es' ? 'Desactivar' : 'Disable')}
+            {settings.alarmsOff && <div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: 'linear-gradient(90deg, transparent, #ef4444, #f87171, #ef4444, transparent)' }} />}
           </button>
         </div>
 
@@ -798,7 +962,15 @@ function RhythmKeypad({ onClose }: { onClose: () => void }) {
         <div className="grid grid-cols-7 gap-1">
           {RHYTHM_GRID.map(({ id, num }) => (
             <button key={id} onClick={() => handleRhythm(id)}
-              className="p-1.5 bg-red-900/60 hover:bg-red-800 border border-red-800 rounded text-[10px] text-white font-medium text-center leading-tight">
+              className="relative p-1.5 rounded-lg text-[10px] text-white font-medium text-center leading-tight border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
+              style={{
+                background: 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+                borderColor: '#991b1b',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 8px rgba(239,68,68,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = '#ef4444'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = '#991b1b'; }}>
+              <div className="absolute top-1 left-1 w-1.5 h-1.5 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, #fca5a5, #ef4444 60%, #b91c1c 100%)', boxShadow: '0 0 4px rgba(239,68,68,0.5)' }} />
               <span className="text-red-400 font-bold">{num}</span>{' '}
               {RHYTHM_DEFINITIONS[id].nameEs.substring(0, 20)}
             </button>
@@ -839,24 +1011,40 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
         <div className="flex flex-wrap gap-1 mb-3">
           {Object.values(MedicationCategory).map((cat) => (
             <button key={cat} onClick={() => setSelectedCat(cat)}
-              className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all ${selectedCat === cat
-                ? 'bg-purple-700 text-white border-purple-500 shadow-[0_0_8px_rgba(147,51,234,0.3)]'
-                : 'bg-gradient-to-b from-[#2a2a3a] to-[#1a1a28] text-gray-400 border-gray-700 hover:from-[#333348]'}`}>
+              className="relative px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-300 overflow-hidden"
+              style={{
+                background: selectedCat === cat
+                  ? 'linear-gradient(180deg, #3b1a5e 0%, #2d1050 50%, #1a0a30 100%)'
+                  : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+                borderColor: selectedCat === cat ? '#a855f7' : '#374151',
+                color: selectedCat === cat ? '#e9d5ff' : '#9ca3af',
+                boxShadow: selectedCat === cat
+                  ? '0 0 10px rgba(168,85,247,0.3), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
+                  : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+              }}>
               {cat}
+              {selectedCat === cat && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #a855f7, #c084fc, #a855f7, transparent)' }} />}
             </button>
           ))}
         </div>
         <div className="grid grid-cols-3 gap-2 max-h-60 overflow-y-auto p-1">
           {filtered.map((med) => (
             <button key={med.id} onClick={() => handleAdmin(med.id)}
-              className={`px-4 py-5 rounded-xl text-base text-left text-white font-bold border transition-all active:scale-95 ${lastAdminId === med.id
+              className={`relative px-4 py-5 rounded-xl text-base text-left text-white font-bold border transition-all duration-300 active:scale-95 overflow-hidden ${lastAdminId === med.id
                 ? 'ring-2 ring-green-400 scale-95'
-                : 'hover:brightness-125'}`}
+                : ''}`}
               style={{
-                backgroundColor: med.color + '33',
-                borderLeft: `4px solid ${med.color}`,
+                background: 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
                 borderColor: med.color + '66',
-              }}>
+                boxShadow: `0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 10px ${med.color}40, 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = `0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`; }}>
+              <div className="absolute top-0 left-0 w-1 h-full rounded-l-xl" style={{ background: med.color, boxShadow: `0 0 8px ${med.color}80` }} />
+              <div className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full" style={{
+                background: `radial-gradient(circle at 35% 35%, ${med.color}cc, ${med.color} 60%, ${med.color}99 100%)`,
+                boxShadow: `0 0 6px ${med.color}80`,
+              }} />
               {med.nameEs}
             </button>
           ))}
