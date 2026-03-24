@@ -988,26 +988,32 @@ function RhythmKeypad({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-end justify-center pb-[160px]" onClick={onClose}>
-      <div className="bg-[#111] border border-gray-700 rounded-lg p-3 max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-2">
-          <span className="font-bold text-sm text-white">Teclado de Ritmos</span>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">✕</button>
+    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center" onClick={onClose}>
+      <div className="bg-[#0d0d16] border border-gray-600 rounded-2xl p-6 max-w-5xl w-[96%] shadow-2xl" style={{ boxShadow: '0 0 40px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.4)' }} onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-5 pl-2">
+          <div>
+            <span className="font-black text-2xl text-white tracking-wide">Teclado de Ritmos</span>
+            <div className="h-[2px] mt-1 w-20" style={{ background: 'linear-gradient(90deg, #ef4444, transparent)' }} />
+          </div>
+          <button onClick={onClose} className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white text-xl transition-all" style={{ background: 'linear-gradient(180deg, #2a2a3a, #1a1a28)', border: '1px solid #374151' }}>✕</button>
         </div>
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-5 gap-3 max-h-[500px] overflow-y-auto pl-2 pr-1 py-1">
           {RHYTHM_GRID.map(({ id, num }) => (
             <button key={id} onClick={() => handleRhythm(id)}
-              className="relative p-1.5 rounded-lg text-[10px] text-white font-medium text-center leading-tight border transition-all duration-300 active:translate-y-[1px] overflow-hidden"
+              className="relative rounded-xl text-white font-bold text-left border transition-all duration-300 active:scale-95 overflow-hidden"
               style={{
                 background: 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
                 borderColor: '#991b1b',
                 boxShadow: '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+                padding: '14px 14px 14px 22px',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 8px rgba(239,68,68,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = '#ef4444'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 12px rgba(239,68,68,0.3), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = '#ef4444'; }}
               onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = '#991b1b'; }}>
-              <div className="absolute top-1 left-1 w-1.5 h-1.5 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, #fca5a5, #ef4444 60%, #b91c1c 100%)', boxShadow: '0 0 4px rgba(239,68,68,0.5)' }} />
-              <span className="text-red-400 font-bold">{num}</span>{' '}
-              {RHYTHM_DEFINITIONS[id].nameEs.substring(0, 20)}
+              <div className="absolute top-0 left-0 w-1.5 h-full rounded-l-xl" style={{ background: '#ef4444', boxShadow: '0 0 8px rgba(239,68,68,0.5)' }} />
+              <div className="flex items-baseline gap-2">
+                <span className="text-red-400 font-black text-lg leading-none">{num}</span>
+                <span className="text-sm leading-snug">{RHYTHM_DEFINITIONS[id].nameEs}</span>
+              </div>
             </button>
           ))}
         </div>
