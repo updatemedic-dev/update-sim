@@ -72,12 +72,12 @@ export default function ScenarioSelector({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap gap-1 px-4 py-2 border-b border-gray-800">
+        <div className="flex flex-wrap gap-2 px-5 py-3 border-b border-gray-800">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded text-xs font-bold border transition-colors ${
+              className={`px-4 py-2.5 rounded-lg text-base font-bold border transition-colors ${
                 selectedCategory === cat
                   ? CATEGORY_COLORS[cat] ?? 'bg-gray-700 border-gray-500'
                   : 'bg-gray-900 border-gray-800 text-gray-500 hover:text-gray-300'
