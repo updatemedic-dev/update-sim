@@ -392,7 +392,7 @@ export default function MonitorScreen() {
               </div>
               <div className="w-px self-stretch bg-gray-700 mx-1" />
               <div className="flex flex-col items-center justify-center px-2">
-                <span className="text-[10px] text-gray-500">°{settings.temperatureUnit === 'celsius' ? 'C' : 'F'}</span>
+                <span className="text-[10px] text-gray-500">°{temperatureUnit === 'celsius' ? 'C' : 'F'}</span>
                 <span className="text-2xl font-bold leading-none tabular-nums text-orange-300">
                   {isStopped ? '--' : vitals.temperature.toFixed(1)}
                 </span>
