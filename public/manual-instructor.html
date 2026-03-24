@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPDATE SIM — Manual del Instructor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0a14;
+    --card: #111120;
+    --card-border: #1e1e3a;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #06b6d4;
+    --accent-glow: rgba(6,182,212,0.15);
+    --purple: #a855f7;
+    --red: #ef4444;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --orange: #f97316;
+    --blue: #3b82f6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(180deg, #0d1a2a 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--card-border);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .hero img { height: 80px; margin-bottom: 16px; }
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, #67e8f9, #06b6d4, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .hero p { color: var(--text-muted); font-size: 1.1rem; }
+  .hero .version {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--accent-glow);
+    border: 1px solid rgba(6,182,212,0.3);
+    color: var(--accent);
+  }
+
+  /* Layout */
+  .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
+
+  /* Table of contents */
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+  .toc h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .toc ol { padding-left: 24px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: var(--accent); }
+
+  /* Sections */
+  section { margin-bottom: 56px; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--card-border);
+    color: #f1f5f9;
+  }
+  h2 .num {
+    color: var(--accent);
+    margin-right: 8px;
+  }
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 24px 0 12px;
+    color: #cbd5e1;
+  }
+  p { margin-bottom: 12px; color: var(--text-muted); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 0.95rem;
+  }
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  td {
+    padding: 10px 16px;
+    border: 1px solid var(--card-border);
+    color: var(--text-muted);
+  }
+  tr:nth-child(even) td { background: rgba(17,17,32,0.5); }
+
+  /* Key badges */
+  kbd {
+    display: inline-block;
+    padding: 3px 10px;
+    font-family: 'Inter', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    background: linear-gradient(180deg, #2a2a3a, #1a1a28);
+    border: 1px solid #374151;
+    border-radius: 6px;
+    box-shadow: 0 2px 0 #111120;
+    min-width: 28px;
+    text-align: center;
+  }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    border-radius: 3px 0 0 3px;
+  }
+  .card.cyan::before { background: var(--accent); }
+  .card.purple::before { background: var(--purple); }
+  .card.red::before { background: var(--red); }
+  .card.green::before { background: var(--green); }
+  .card.yellow::before { background: var(--yellow); }
+  .card.blue::before { background: var(--blue); }
+  .card.orange::before { background: var(--orange); }
+  .card h4 { font-weight: 700; margin-bottom: 6px; color: #f1f5f9; }
+  .card p { font-size: 0.9rem; margin: 0; }
+
+  /* Lists */
+  ul { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 4px; color: var(--text-muted); }
+
+  /* Highlight */
+  .highlight {
+    background: var(--accent-glow);
+    border: 1px solid rgba(6,182,212,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .highlight strong { color: var(--accent); }
+
+  /* Warning */
+  .warning {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .warning strong { color: var(--red); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid var(--card-border);
+    color: #475569;
+    font-size: 0.85rem;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 20px; }
+    .hero h1 { font-size: 1.8rem; }
+    .container { padding: 24px 16px; }
+    .card-grid { grid-template-columns: 1fr; }
+    table { font-size: 0.85rem; }
+    td, th { padding: 8px 10px; }
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    .hero { background: none; border-bottom: 2px solid #111; }
+    .hero h1 { background: none; -webkit-text-fill-color: #111; }
+    .card, .toc, .highlight, .warning { border-color: #ccc; }
+    td, th { border-color: #ccc; }
+    th { background: #f0f0f0; color: #111; }
+    td { color: #333; }
+    kbd { background: #e5e5e5; border-color: #ccc; color: #111; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img src="logo-update-sim.png" alt="UPDATE SIM">
+  <h1>MANUAL DEL INSTRUCTOR</h1>
+  <p>Simulador de Monitor-Desfibrilador para Entrenamiento Médico</p>
+  <span class="version">UPDATE SIM v2.0 — Update Capacitación</span>
+</div>
+
+<div class="container">
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <h2>Contenido</h2>
+  <ol>
+    <li><a href="#intro">Introducción</a></li>
+    <li><a href="#interfaz">Interfaz del Monitor</a></li>
+    <li><a href="#shortcuts">Atajos de Teclado</a></li>
+    <li><a href="#defib">Desfibrilador</a></li>
+    <li><a href="#pacer">Marcapasos Transcutáneo</a></li>
+    <li><a href="#rcp">RCP y Metrónomo</a></li>
+    <li><a href="#pni">Presión No Invasiva (PNI)</a></li>
+    <li><a href="#escenarios">Escenarios Clínicos</a></li>
+    <li><a href="#ritmos">Ritmos Cardíacos</a></li>
+    <li><a href="#medicamentos">Medicamentos</a></li>
+    <li><a href="#ajustes">Ajustes y Configuración</a></li>
+    <li><a href="#flujo">Flujo de Trabajo Recomendado</a></li>
+  </ol>
+</div>
+
+<!-- 1. INTRO -->
+<section id="intro">
+  <h2><span class="num">1.</span> Introducción</h2>
+  <p>UPDATE SIM es un simulador de monitor-desfibrilador diseñado para entrenamiento en soporte vital avanzado (ACLS, PALS, NRP). Reproduce fielmente la interfaz de un monitor de paciente con desfibrilador, incluyendo formas de onda ECG, pletismografía, capnografía, presión arterial y funciones completas de desfibrilación, cardioversión sincronizada y marcapasos transcutáneo.</p>
+
+  <div class="warning">
+    <strong>IMPORTANTE:</strong> UPDATE SIM es un simulador exclusivo para entrenamiento médico. NO es un dispositivo médico. NO debe utilizarse para diagnóstico o tratamiento de pacientes reales.
+  </div>
+
+  <h3>Requisitos</h3>
+  <ul>
+    <li>Navegador web moderno (Safari, Chrome, Edge) o iPad con la app instalada</li>
+    <li>Se recomienda pantalla de al menos 10" para mejor experiencia</li>
+    <li>Teclado externo recomendado para control rápido mediante atajos</li>
+    <li>Audio habilitado para sonidos de alarma, desfibrilación y metrónomo RCP</li>
+  </ul>
+</section>
+
+<!-- 2. INTERFAZ -->
+<section id="interfaz">
+  <h2><span class="num">2.</span> Interfaz del Monitor</h2>
+  <p>La pantalla se divide en dos zonas principales:</p>
+
+  <h3>Zona Superior — Monitor de Signos Vitales</h3>
+  <div class="card-grid">
+    <div class="card green">
+      <h4>ECG (Derivación II)</h4>
+      <p>Forma de onda electrocardiográfica con frecuencia cardíaca numérica en verde.</p>
+    </div>
+    <div class="card red">
+      <h4>Presión Arterial (ABP)</h4>
+      <p>Línea arterial con valores sistólica/diastólica en rojo. PNI disponible por demanda.</p>
+    </div>
+    <div class="card purple">
+      <h4>Pletismografía (Pleth)</h4>
+      <p>Forma de onda SpO2 con valor numérico de saturación en lila.</p>
+    </div>
+    <div class="card yellow">
+      <h4>Capnografía (CO₂)</h4>
+      <p>Forma de onda EtCO2 con valor numérico en amarillo.</p>
+    </div>
+  </div>
+
+  <h3>Barra Superior</h3>
+  <ul>
+    <li><strong>Logo UPDATE SIM</strong> — Identificación del simulador</li>
+    <li><strong>Engranaje (⚙)</strong> — Abre el panel de ajustes</li>
+    <li><strong>Reloj</strong> — Tiempo transcurrido de la simulación</li>
+    <li><strong>Temperatura</strong> — Valor configurable en °C o °F</li>
+    <li><strong>Frecuencia Respiratoria</strong> — Respiraciones por minuto</li>
+    <li><strong>Controles de Transporte</strong> — ⏪ Anterior | ▶ Play/Pausa | ⏹ Stop | ⏩ Siguiente | ⛶ Pantalla completa</li>
+  </ul>
+
+  <h3>Panel de Control Inferior</h3>
+  <ul>
+    <li><strong>Columna 1:</strong> Escenario activo, botón Escenarios, Teclado de Ritmos</li>
+    <li><strong>Columna 2:</strong> Panel MARCAPASO (PACER, Rate Select, mAMP Select)</li>
+    <li><strong>Columna 3:</strong> SYNC (cardioversión sincronizada) y MEDS (medicamentos)</li>
+    <li><strong>Columna 4:</strong> PNI (presión no invasiva) y RCP (compresiones)</li>
+    <li><strong>Columna 5:</strong> Energía, CARGAR, SHOCK, DESARMAR</li>
+  </ul>
+</section>
+
+<!-- 3. SHORTCUTS -->
+<section id="shortcuts">
+  <h2><span class="num">3.</span> Atajos de Teclado</h2>
+  <p>Los atajos permiten al instructor controlar la simulación rápidamente sin tocar la pantalla del monitor.</p>
+
+  <h3>Control de Simulación</h3>
+  <table>
+    <tr><th>Tecla</th><th>Acción</th></tr>
+    <tr><td><kbd>Espacio</kbd></td><td>Play / Pausa</td></tr>
+    <tr><td><kbd>Enter</kbd></td><td>Play (iniciar o reanudar)</td></tr>
+    <tr><td><kbd>Backspace</kbd></td><td>Stop completo — detiene todo, reinicia escenario</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>Pausa / Reanuda</td></tr>
+    <tr><td><kbd>H</kbd></td><td>Mostrar / Ocultar panel de controles</td></tr>
+    <tr><td><kbd>F</kbd></td><td>Pantalla completa</td></tr>
+  </table>
+
+  <h3>Navegación de Escenarios</h3>
+  <table>
+    <tr><th>Tecla</th><th>Acción</th></tr>
+    <tr><td><kbd>N</kbd></td><td>Paso siguiente (detiene RCP y pacer automáticamente)</td></tr>
+    <tr><td><kbd>B</kbd></td><td>Paso anterior</td></tr>
+    <tr><td><kbd>→</kbd></td><td>Paso siguiente</td></tr>
+    <tr><td><kbd>←</kbd></td><td>Paso anterior</td></tr>
+    <tr><td><kbd>A</kbd> + <kbd>1</kbd>-<kbd>6</kbd></td><td>Cargar MegaCódigo ACLS 1 al 6 directamente</td></tr>
+  </table>
+
+  <h3>Signos Vitales</h3>
+  <table>
+    <tr><th>Tecla</th><th>Acción</th></tr>
+    <tr><td><kbd>↑</kbd></td><td>Aumentar frecuencia cardíaca (+5 bpm)</td></tr>
+    <tr><td><kbd>↓</kbd></td><td>Disminuir frecuencia cardíaca (-5 bpm)</td></tr>
+    <tr><td><kbd>1</kbd>-<kbd>9</kbd></td><td>Selección rápida de ritmo cardíaco (ver tabla abajo)</td></tr>
+  </table>
+
+  <h3>Ritmos Rápidos por Número</h3>
+  <table>
+    <tr><th>Tecla</th><th>Ritmo</th></tr>
+    <tr><td><kbd>1</kbd></td><td>Ritmo Sinusal Normal</td></tr>
+    <tr><td><kbd>2</kbd></td><td>Bradicardia Sinusal</td></tr>
+    <tr><td><kbd>3</kbd></td><td>Taquicardia Sinusal</td></tr>
+    <tr><td><kbd>4</kbd></td><td>Taquicardia Supraventricular (TSV)</td></tr>
+    <tr><td><kbd>5</kbd></td><td>Fibrilación Auricular</td></tr>
+    <tr><td><kbd>6</kbd></td><td>Taquicardia Ventricular</td></tr>
+    <tr><td><kbd>7</kbd></td><td>Fibrilación Ventricular</td></tr>
+    <tr><td><kbd>8</kbd></td><td>Asistolia</td></tr>
+    <tr><td><kbd>9</kbd></td><td>BAV 3er Grado</td></tr>
+  </table>
+
+  <h3>Desfibrilador y Tratamiento</h3>
+  <table>
+    <tr><th>Tecla</th><th>Acción</th></tr>
+    <tr><td><kbd>D</kbd></td><td>Cargar desfibrilador (3 segundos)</td></tr>
+    <tr><td><kbd>S</kbd></td><td>Entregar descarga (Shock)</td></tr>
+    <tr><td><kbd>C</kbd></td><td>Iniciar / Detener RCP (compresiones + metrónomo)</td></tr>
+    <tr><td><kbd>P</kbd></td><td>Activar / Desactivar Marcapasos (Pacer)</td></tr>
+  </table>
+
+  <div class="highlight">
+    <strong>Consejo:</strong> Con un teclado Bluetooth conectado al iPad, el instructor puede controlar toda la simulación de forma discreta mientras los alumnos interactúan con el monitor, creando una experiencia realista de entrenamiento.
+  </div>
+</section>
+
+<!-- 4. DEFIB -->
+<section id="defib">
+  <h2><span class="num">4.</span> Desfibrilador</h2>
+
+  <h3>Secuencia de Desfibrilación</h3>
+  <ol>
+    <li><strong>Seleccionar energía:</strong> Use los botones ▲/▼ para ajustar los Joules</li>
+    <li><strong>Cargar:</strong> Presione CARGAR (o tecla <kbd>D</kbd>) — toma 3 segundos</li>
+    <li><strong>Descargar:</strong> Presione SHOCK (o tecla <kbd>S</kbd>) cuando esté cargado</li>
+    <li><strong>Desarmar:</strong> Presione DESARMAR para cancelar la carga si es necesario</li>
+  </ol>
+
+  <h3>Niveles de Energía (Bifásica)</h3>
+  <p>70J → 100J → 150J → 200J → 240J → 360J</p>
+
+  <h3>Cardioversión Sincronizada (SYNC)</h3>
+  <p>Active el modo SYNC para cardioversión sincronizada en ritmos con pulso (TSV, flutter auricular, TV con pulso). El LED púrpura indica que SYNC está activo. Tras cada descarga sincronizada, SYNC se desactiva automáticamente.</p>
+
+  <div class="highlight">
+    <strong>Nota:</strong> El contador de descargas (Shock) se muestra debajo del selector de energía y se registra en el timeline del caso (CodeTrack).
+  </div>
+</section>
+
+<!-- 5. PACER -->
+<section id="pacer">
+  <h2><span class="num">5.</span> Marcapasos Transcutáneo</h2>
+
+  <p>El panel MARCAPASO permite simular la estimulación con marcapasos transcutáneo externo.</p>
+
+  <h3>Controles</h3>
+  <table>
+    <tr><th>Control</th><th>Rango</th><th>Incremento</th></tr>
+    <tr><td>PACER ON/OFF</td><td>—</td><td>Toggle (tecla <kbd>P</kbd>)</td></tr>
+    <tr><td>RATE SELECT (frecuencia)</td><td>40 – 180 ppm</td><td>±10 ppm</td></tr>
+    <tr><td>mAMP SELECT (corriente)</td><td>0 – 200 mA</td><td>±5 mA</td></tr>
+  </table>
+
+  <h3>Captura</h3>
+  <p>Cuando el marcapasos está activo, el simulador evalúa automáticamente si hay captura eléctrica basándose en la corriente seleccionada (umbral por defecto: 50 mA). Se muestra:</p>
+  <ul>
+    <li><strong style="color: #22c55e;">✓ CAPTURA</strong> — Corriente suficiente, estimulación efectiva</li>
+    <li><strong style="color: #ef4444;">✗ SIN CAPTURA</strong> — Corriente insuficiente, aumentar mA</li>
+  </ul>
+</section>
+
+<!-- 6. RCP -->
+<section id="rcp">
+  <h2><span class="num">6.</span> RCP y Metrónomo</h2>
+
+  <p>El botón RCP (tecla <kbd>C</kbd>) activa las compresiones torácicas con un metrónomo audible que guía la frecuencia de compresiones.</p>
+
+  <h3>Configuración del Metrónomo</h3>
+  <table>
+    <tr><th>Ajuste</th><th>Opciones</th><th>Por defecto</th></tr>
+    <tr><td>Frecuencia del metrónomo</td><td>60 – 150 bpm</td><td>110 bpm</td></tr>
+    <tr><td>Ratio de compresiones</td><td>30:2 / 15:2 / Continuas</td><td>30:2</td></tr>
+  </table>
+
+  <p>Cuando el RCP está activo, el botón RCP parpadea en rojo y el metrónomo suena al ritmo configurado. Al presionar <kbd>N</kbd> (siguiente paso) se detiene automáticamente el RCP.</p>
+</section>
+
+<!-- 7. PNI -->
+<section id="pni">
+  <h2><span class="num">7.</span> Presión No Invasiva (PNI / NIBP)</h2>
+
+  <p>El botón PNI simula una medición de presión arterial no invasiva con manguito.</p>
+
+  <h3>Funcionamiento</h3>
+  <ol>
+    <li>Presione el botón PNI</li>
+    <li>Se escucha el sonido del manguito inflándose</li>
+    <li>Tras 10 segundos, aparece la lectura sistólica/diastólica</li>
+    <li>El resultado se muestra en la barra de estado inferior como "PNI: 120/80"</li>
+  </ol>
+</section>
+
+<!-- 8. ESCENARIOS -->
+<section id="escenarios">
+  <h2><span class="num">8.</span> Escenarios Clínicos</h2>
+  <p>UPDATE SIM incluye 43 escenarios preconfigurados organizados por protocolo. Cada escenario tiene múltiples pasos que el instructor avanza con <kbd>N</kbd> o <kbd>→</kbd>.</p>
+
+  <h3>ACLS — Soporte Vital Cardiovascular Avanzado (10 casos)</h3>
+  <table>
+    <tr><th>#</th><th>Escenario</th></tr>
+    <tr><td>1</td><td>Bradicardia Inestable</td></tr>
+    <tr><td>2</td><td>TSV Estable</td></tr>
+    <tr><td>3</td><td>TSV Inestable</td></tr>
+    <tr><td>4</td><td>TV Inestable</td></tr>
+    <tr><td>5</td><td>TV Estable</td></tr>
+    <tr><td>6</td><td>Bradicardia con Bloqueo Cardíaco</td></tr>
+    <tr><td>7</td><td>SCA Inestable</td></tr>
+    <tr><td>8</td><td>Intubación Bronquio Principal Derecho</td></tr>
+    <tr><td>9</td><td>Taquicardia Post-Descarga</td></tr>
+    <tr><td>10</td><td>Asistolia / Fibrilación Ventricular</td></tr>
+  </table>
+
+  <h3>MC ACLS — MegaCódigo (6 casos)</h3>
+  <p>Acceso directo: mantener <kbd>A</kbd> + número <kbd>1</kbd>-<kbd>6</kbd></p>
+  <table>
+    <tr><th>#</th><th>Escenario</th></tr>
+    <tr><td>1</td><td>Bradicardia Sinusal → FV → RCE</td></tr>
+    <tr><td>2</td><td>BAV Mobitz II → FV → RCE</td></tr>
+    <tr><td>3</td><td>TV con pulso → Cardioversión</td></tr>
+    <tr><td>4</td><td>TSV → Terapia Farmacológica</td></tr>
+    <tr><td>5</td><td>TSV → Cardioversión</td></tr>
+    <tr><td>6</td><td>TV → Terapia Farmacológica</td></tr>
+  </table>
+
+  <h3>PALS Respiratorio (4 casos)</h3>
+  <table>
+    <tr><th>#</th><th>Escenario</th></tr>
+    <tr><td>1</td><td>Dificultad Respiratoria</td></tr>
+    <tr><td>2</td><td>Insuficiencia Respiratoria</td></tr>
+    <tr><td>3</td><td>Fallo Respiratorio</td></tr>
+    <tr><td>4</td><td>Depresión Respiratoria</td></tr>
+  </table>
+
+  <h3>PALS Shock y Arritmias (8 casos)</h3>
+  <table>
+    <tr><th>#</th><th>Escenario</th></tr>
+    <tr><td>5</td><td>Shock Hipovolémico</td></tr>
+    <tr><td>6</td><td>Shock Distributivo</td></tr>
+    <tr><td>7</td><td>Shock Obstructivo</td></tr>
+    <tr><td>8</td><td>Shock Cardiogénico</td></tr>
+    <tr><td>9</td><td>TSV Pediátrica</td></tr>
+    <tr><td>10</td><td>Bradicardia Pediátrica</td></tr>
+    <tr><td>11</td><td>Asistolia / AESP</td></tr>
+    <tr><td>12</td><td>TV sin pulso / FV</td></tr>
+  </table>
+
+  <h3>NRP — Reanimación Neonatal (5 casos)</h3>
+  <table>
+    <tr><th>#</th><th>Escenario</th></tr>
+    <tr><td>1</td><td>Sufrimiento Fetal</td></tr>
+    <tr><td>2</td><td>Prolapso de Cordón</td></tr>
+    <tr><td>3</td><td>Aspiración de Meconio</td></tr>
+    <tr><td>4</td><td>Prematuridad 25 semanas</td></tr>
+    <tr><td>5</td><td>Corioamnionitis</td></tr>
+  </table>
+
+  <h3>MC Laerdal — MegaCódigo Extrahospitalario (10 casos)</h3>
+  <table>
+    <tr><th>#</th><th>Escenario</th></tr>
+    <tr><td>1</td><td>Bradicardia Inestable (Extrahospitalario)</td></tr>
+    <tr><td>2</td><td>Bradicardia (Restaurante)</td></tr>
+    <tr><td>3</td><td>Bradicardia (Banco)</td></tr>
+    <tr><td>4</td><td>TV Inestable (Autovía)</td></tr>
+    <tr><td>5</td><td>Bradicardia (Extrahospitalario)</td></tr>
+    <tr><td>7</td><td>TV Inestable (Angina)</td></tr>
+    <tr><td>9</td><td>TSV Estable (Neumonía + Asma)</td></tr>
+    <tr><td>10</td><td>TV Inestable (Post-ICP)</td></tr>
+    <tr><td>11</td><td>Bradicardia (Colonoscopía)</td></tr>
+    <tr><td>12</td><td>Bradicardia (Sala de espera)</td></tr>
+  </table>
+</section>
+
+<!-- 9. RITMOS -->
+<section id="ritmos">
+  <h2><span class="num">9.</span> Ritmos Cardíacos Disponibles</h2>
+  <p>35 ritmos cardíacos organizados en el Teclado de Ritmos. Accesible desde el botón "Teclado Ritmos" o teclas numéricas <kbd>1</kbd>-<kbd>9</kbd> para acceso rápido.</p>
+
+  <div class="card-grid">
+    <div class="card cyan">
+      <h4>Sinusales</h4>
+      <p>Normal, Bradicardia, Taquicardia, Arritmia, Bloqueo de Salida</p>
+    </div>
+    <div class="card purple">
+      <h4>Supraventriculares</h4>
+      <p>TSV, TSV Pediátrica, FA, Flutter, Marcapasos Errante, TAM</p>
+    </div>
+    <div class="card blue">
+      <h4>Bloqueos AV</h4>
+      <p>1er Grado, 2do Grado Tipo I y II, 3er Grado (Completo)</p>
+    </div>
+    <div class="card green">
+      <h4>De la Unión</h4>
+      <p>Ritmo de la Unión, Taquicardia de la Unión</p>
+    </div>
+    <div class="card red">
+      <h4>Ventriculares</h4>
+      <p>Idioventricular, RIVA, TV, TV Polimórfica, FV, Torsades, Agonal, Asistolia</p>
+    </div>
+    <div class="card yellow">
+      <h4>Cambios ST</h4>
+      <p>Elevación ST (sinusal y taquicardia), Depresión ST</p>
+    </div>
+    <div class="card orange">
+      <h4>Extrasístoles</h4>
+      <p>PVCs, PACs, Bigeminismo, Trigeminismo, PVCs en Duplas</p>
+    </div>
+    <div class="card cyan">
+      <h4>Especiales / Marcapasos</h4>
+      <p>WPW, Brugada Tipo 1, Marcapasos Auricular/Ventricular/AV Secuencial</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10. MEDICAMENTOS -->
+<section id="medicamentos">
+  <h2><span class="num">10.</span> Medicamentos</h2>
+  <p>39 medicamentos organizados en 9 categorías. Accesibles desde el botón MEDS. Cada administración se registra automáticamente en el timeline del caso con nombre, dosis y hora.</p>
+
+  <table>
+    <tr><th>Categoría</th><th>Medicamentos</th></tr>
+    <tr><td><strong>Cardíacos</strong></td><td>Epinefrina 1mg, Epinefrina Ped 0.01mg/kg, Atropina 0.5mg, Atropina 1mg, Nitroglicerina 0.4mg, Aspirina 162-325mg</td></tr>
+    <tr><td><strong>Antiarrítmicos</strong></td><td>Amiodarona 300mg (1era dosis), Amiodarona 150mg (2da dosis), Lidocaína, Adenosina 6mg, Adenosina 12mg</td></tr>
+    <tr><td><strong>Vasopresores</strong></td><td>Vasopresina 40U, Dopamina infusión, Norepinefrina infusión, Dobutamina infusión</td></tr>
+    <tr><td><strong>Sedación/Analgesia</strong></td><td>Morfina, Fentanilo, Midazolam, Ketamina, Propofol, Etomidato</td></tr>
+    <tr><td><strong>Vía Aérea</strong></td><td>Succinilcolina, Rocuronio, Salbutamol/Albuterol</td></tr>
+    <tr><td><strong>Fluidos</strong></td><td>Solución Salina 0.9% bolo, Ringer Lactato bolo</td></tr>
+    <tr><td><strong>Antagonistas</strong></td><td>Naloxona 0.4mg, Flumazenil, Sugammadex</td></tr>
+    <tr><td><strong>Pediátricos</strong></td><td>Epinefrina Pediátrica, TSV Pediátrica específica</td></tr>
+    <tr><td><strong>Otros</strong></td><td>Bicarbonato de Sodio, Calcio, Sulfato de Magnesio, Heparina, Alteplasa (tPA), Dextrosa 50%, Difenhidramina, Metilprednisolona, Ácido Tranexámico (TXA)</td></tr>
+  </table>
+</section>
+
+<!-- 11. AJUSTES -->
+<section id="ajustes">
+  <h2><span class="num">11.</span> Ajustes y Configuración</h2>
+  <p>Accesible desde el botón de engranaje (⚙) en la barra superior.</p>
+
+  <table>
+    <tr><th>Sección</th><th>Ajuste</th><th>Opciones</th></tr>
+    <tr><td rowspan="1"><strong>Idioma</strong></td><td>Idioma de la interfaz</td><td>Español / English</td></tr>
+    <tr><td rowspan="5"><strong>Display</strong></td><td>FC (Frecuencia Cardíaca)</td><td>Mostrar / Ocultar</td></tr>
+    <tr><td>PA (Presión Arterial)</td><td>Mostrar / Ocultar</td></tr>
+    <tr><td>SPO2 (Saturación)</td><td>Mostrar / Ocultar</td></tr>
+    <tr><td>CO2 (Capnografía)</td><td>Mostrar / Ocultar</td></tr>
+    <tr><td>DESC (Descripción del paso)</td><td>Mostrar / Ocultar</td></tr>
+    <tr><td rowspan="2"><strong>Audio</strong></td><td>Volumen Beep</td><td>0 – 100%</td></tr>
+    <tr><td>Volumen Alarmas</td><td>0 – 100%</td></tr>
+    <tr><td rowspan="3"><strong>Monitor</strong></td><td>Velocidad de barrido</td><td>12.5 / 25 / 50 mm/s</td></tr>
+    <tr><td>Tipo de energía</td><td>Bifásica / Monofásica</td></tr>
+    <tr><td>Unidad de temperatura</td><td>°C / °F</td></tr>
+    <tr><td rowspan="2"><strong>RCP</strong></td><td>Ratio compresiones</td><td>30:2 / 15:2 / Continuas</td></tr>
+    <tr><td>Frecuencia metrónomo</td><td>60 – 150 bpm</td></tr>
+    <tr><td><strong>Sistema</strong></td><td>Pantalla activa (Wake Lock)</td><td>On / Off</td></tr>
+    <tr><td rowspan="2"><strong>Alarmas</strong></td><td>Silenciar alarmas</td><td>2 minutos</td></tr>
+    <tr><td>Desactivar alarmas</td><td>On / Off</td></tr>
+  </table>
+</section>
+
+<!-- 12. FLUJO -->
+<section id="flujo">
+  <h2><span class="num">12.</span> Flujo de Trabajo Recomendado</h2>
+
+  <h3>Preparación (antes de la clase)</h3>
+  <ol>
+    <li>Abra UPDATE SIM en el dispositivo que usará como monitor</li>
+    <li>Configure los ajustes: idioma, volumen, velocidad de barrido</li>
+    <li>Conecte un teclado Bluetooth al iPad (si aplica)</li>
+    <li>Active pantalla completa (<kbd>F</kbd>) para máximo realismo</li>
+    <li>Oculte los controles (<kbd>H</kbd>) para que los alumnos vean solo el monitor</li>
+  </ol>
+
+  <h3>Durante la simulación</h3>
+  <ol>
+    <li>Cargue el escenario deseado desde "Escenarios" o con <kbd>A</kbd>+<kbd>1-6</kbd></li>
+    <li>Inicie con <kbd>Espacio</kbd> o <kbd>Enter</kbd></li>
+    <li>Avance los pasos del escenario con <kbd>N</kbd> según el desempeño del alumno</li>
+    <li>Ajuste la FC manualmente con <kbd>↑</kbd>/<kbd>↓</kbd> si necesita improvisar</li>
+    <li>Cambie ritmos rápidamente con teclas <kbd>1</kbd>-<kbd>9</kbd></li>
+    <li>Registre medicamentos cuando el alumno los administre verbalmente</li>
+  </ol>
+
+  <h3>Debriefing (después de la simulación)</h3>
+  <p>El CodeTrack (timeline del caso) registra automáticamente todos los eventos con marca de tiempo: cambios de ritmo, medicamentos administrados, descargas, RCP, uso de marcapasos y cambios de signos vitales. Use esta información para revisar las decisiones del equipo.</p>
+
+  <div class="highlight">
+    <strong>Tip profesional:</strong> Mantenga el teclado fuera de la vista de los alumnos. Use <kbd>H</kbd> para ocultar los controles. De esta forma, los alumnos experimentan el escenario como si fuera un monitor real, mientras usted controla todo discretamente.
+  </div>
+</section>
+
+</div>
+
+<div class="footer">
+  <p><strong>UPDATE SIM</strong> — Simulador de Monitor-Desfibrilador para Entrenamiento Médico</p>
+  <p>Desarrollado por <a href="https://updatemedic.cl">Update Capacitación</a> — Viña del Mar, Chile</p>
+  <p style="margin-top: 12px;">© 2026 Update Capacitación. Todos los derechos reservados.</p>
+</div>
+
+</body>
+</html>
