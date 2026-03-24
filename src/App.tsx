@@ -395,13 +395,14 @@ function App() {
                   });
                 }, 10000);
               }}
-                className="relative h-[calc(50%-4px)] rounded-xl font-bold text-sm border transition-all duration-300 active:translate-y-[1px] flex items-center justify-center p-2 overflow-hidden"
+                className="relative h-[calc(50%-4px)] rounded-xl font-bold text-sm border transition-all duration-300 active:translate-y-[1px] flex flex-col items-center justify-center p-2 overflow-hidden"
                 style={{
                   background: 'linear-gradient(180deg, #1a2a4a 0%, #0d1e3a 50%, #091428 100%)',
                   borderColor: '#3b82f6',
                   boxShadow: '0 0 10px rgba(59,130,246,0.2), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
                 }}>
-                <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-[70%] object-contain" />
+                <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-[49%] object-contain" />
+                <span className="text-[10px] font-bold text-blue-300 mt-0.5">{language === 'es' ? 'PNI' : 'NIBP'}</span>
                 <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />
               </button>
               {/* COMP button */}
@@ -428,7 +429,7 @@ function App() {
                     : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
                   boxShadow: vitals.cprActive ? '0 0 8px rgba(239,68,68,0.8), 0 0 16px rgba(239,68,68,0.4)' : 'inset 0 1px 2px rgba(0,0,0,0.5)',
                 }} />
-                <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="COMP" className="h-[70%] object-contain" />
+                <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="COMP" className="h-[49%] object-contain" />
                 {vitals.cprActive && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #ef4444, #f87171, #ef4444, transparent)' }} />}
               </button>
             </div>
