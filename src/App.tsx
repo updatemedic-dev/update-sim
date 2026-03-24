@@ -293,7 +293,7 @@ function App() {
 
             {/* Column 3: MARCAPASO panel */}
             <div className="flex flex-col p-1.5 w-[190px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
-              <span className="text-xs font-bold text-gray-400 text-center mb-0 tracking-wider">{t('pacemaker', language)}</span>
+              <span className="text-sm font-bold text-gray-400 text-center mb-0 tracking-wider">{t('pacemaker', language)}</span>
               <PacerButton active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} />
               <div className="flex items-center justify-between" style={{ marginTop: 6 }}>
                 <button onClick={() => { defib.setPacerRate(defib.pacerRate - 10); audioEngine.playTapClick(); }}
@@ -350,12 +350,7 @@ function App() {
                     : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
                   boxShadow: defib.syncMode ? '0 0 8px rgba(168,85,247,0.8), 0 0 16px rgba(168,85,247,0.4)' : 'inset 0 1px 2px rgba(0,0,0,0.5)',
                 }} />
-                <span className="text-sm font-black tracking-wider">SYNC</span> {defib.syncMode ? '✓' : ''}
-                <span className="text-[8px] font-bold tracking-wider px-1 py-0.5 rounded ml-auto" style={{
-                  background: defib.syncMode ? 'rgba(168,85,247,0.15)' : 'rgba(107,114,128,0.15)',
-                  color: defib.syncMode ? '#c084fc' : '#4b5563',
-                  border: `1px solid ${defib.syncMode ? 'rgba(168,85,247,0.3)' : 'rgba(75,85,99,0.3)'}`,
-                }}>{defib.syncMode ? 'ON' : 'OFF'}</span>
+                <span className="text-sm font-black tracking-wider">SYNC</span>
                 {defib.syncMode && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #a855f7, #c084fc, #a855f7, transparent)' }} />}
               </button>
               <button onClick={() => setShowMeds(!showMeds)}
