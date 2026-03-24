@@ -285,7 +285,7 @@ function App() {
             {/* Column 3: MARCAPASO panel */}
             <div className="flex flex-col p-1.5 w-[190px] shrink-0 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#111120] border border-gray-800 shadow-[0_2px_8px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.03)]">
               <span className="text-xs font-bold text-gray-400 text-center mb-0 tracking-wider">{t('pacemaker', language)}</span>
-              <ToggleSwitch label="PACER" color="#06b6d4" active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} large />
+              <PacerButton active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} />
               <div className="flex items-center justify-between" style={{ marginTop: 6 }}>
                 <button onClick={() => { defib.setPacerRate(defib.pacerRate - 10); audioEngine.playTapClick(); }}
                   className="w-14 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
@@ -471,6 +471,80 @@ function ToggleSwitch({ label, color, active, onToggle, large }: {
       <div className={`${large ? 'w-10 h-[22px]' : 'w-8 h-[18px]'} rounded-full relative transition-colors shadow-inner ${active ? 'bg-cyan-600' : 'bg-gray-700'}`}>
         <div className={`${large ? 'w-[18px] h-[18px]' : 'w-[14px] h-[14px]'} rounded-full bg-gradient-to-b from-white to-gray-300 shadow-[0_1px_3px_rgba(0,0,0,0.4)] absolute top-[2px] transition-all ${active ? (large ? 'left-[20px]' : 'left-[14px]') : 'left-[2px]'}`} />
       </div>
+    </button>
+  );
+}
+
+// ===== PACER POWER BUTTON (premium defibrillator style) =====
+function PacerButton({ active, onToggle }: { active: boolean; onToggle: () => void }) {
+  return (
+    <button
+      onClick={onToggle}
+      className="group relative flex items-center gap-2.5 w-full px-3 py-1.5 rounded-lg border transition-all duration-300 overflow-hidden"
+      style={{
+        background: active
+          ? 'linear-gradient(180deg, #0c3a4a 0%, #062a35 50%, #0a1e28 100%)'
+          : 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
+        borderColor: active ? '#0e7490' : '#374151',
+        boxShadow: active
+          ? '0 0 12px rgba(6,182,212,0.3), 0 0 4px rgba(6,182,212,0.15), inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.5)'
+          : '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+      }}
+    >
+      {/* LED indicator */}
+      <div className="relative flex-shrink-0">
+        <div
+          className="w-3 h-3 rounded-full transition-all duration-300"
+          style={{
+            background: active
+              ? 'radial-gradient(circle at 35% 35%, #67e8f9, #06b6d4 50%, #0891b2 100%)'
+              : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
+            boxShadow: active
+              ? '0 0 8px rgba(6,182,212,0.8), 0 0 16px rgba(6,182,212,0.4), inset 0 -1px 2px rgba(0,0,0,0.3)'
+              : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+          }}
+        />
+        {active && (
+          <div className="absolute inset-0 w-3 h-3 rounded-full animate-ping opacity-30"
+            style={{ background: '#06b6d4' }}
+          />
+        )}
+      </div>
+
+      {/* Label */}
+      <span
+        className="font-black text-sm tracking-widest transition-colors duration-300"
+        style={{
+          color: active ? '#67e8f9' : '#6b7280',
+          textShadow: active ? '0 0 8px rgba(6,182,212,0.5)' : 'none',
+        }}
+      >
+        PACER
+      </span>
+
+      {/* Status badge */}
+      <div className="ml-auto flex-shrink-0">
+        <span
+          className="text-[9px] font-bold tracking-wider px-1.5 py-0.5 rounded transition-all duration-300"
+          style={{
+            background: active ? 'rgba(6,182,212,0.15)' : 'rgba(107,114,128,0.15)',
+            color: active ? '#22d3ee' : '#4b5563',
+            border: `1px solid ${active ? 'rgba(6,182,212,0.3)' : 'rgba(75,85,99,0.3)'}`,
+          }}
+        >
+          {active ? 'ON' : 'OFF'}
+        </span>
+      </div>
+
+      {/* Active glow line at bottom */}
+      {active && (
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[2px]"
+          style={{
+            background: 'linear-gradient(90deg, transparent, #06b6d4, #22d3ee, #06b6d4, transparent)',
+          }}
+        />
+      )}
     </button>
   );
 }
