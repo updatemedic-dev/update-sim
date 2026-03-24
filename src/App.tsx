@@ -350,7 +350,7 @@ function App() {
                     : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
                   boxShadow: defib.syncMode ? '0 0 8px rgba(168,85,247,0.8), 0 0 16px rgba(168,85,247,0.4)' : 'inset 0 1px 2px rgba(0,0,0,0.5)',
                 }} />
-                SYNC {defib.syncMode ? '✓' : ''}
+                <span className="text-sm font-black tracking-wider">SYNC</span> {defib.syncMode ? '✓' : ''}
                 <span className="text-[8px] font-bold tracking-wider px-1 py-0.5 rounded ml-auto" style={{
                   background: defib.syncMode ? 'rgba(168,85,247,0.15)' : 'rgba(107,114,128,0.15)',
                   color: defib.syncMode ? '#c084fc' : '#4b5563',
@@ -374,7 +374,7 @@ function App() {
                   <rect x="6" y="3" width="12" height="18" rx="6" stroke="white" strokeWidth="2"/>
                   <line x1="6" y1="12" x2="18" y2="12" stroke="white" strokeWidth="2"/>
                 </svg>
-                <span className="text-sm font-bold">MEDS</span>
+                <span className="text-sm font-black tracking-wider">MEDS</span>
                 <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #22c55e, #4ade80, #22c55e, transparent)' }} />
               </button>
             </div>
@@ -402,10 +402,10 @@ function App() {
                   boxShadow: '0 0 10px rgba(59,130,246,0.2), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
                 }}>
                 <img src={`${import.meta.env.BASE_URL}icon-pni.png`} alt="PNI" className="h-[49%] object-contain" />
-                <span className="text-[10px] font-bold text-blue-300 mt-0.5">{language === 'es' ? 'PNI' : 'NIBP'}</span>
+                <span className="text-sm font-black tracking-wider text-blue-300 mt-0.5">{language === 'es' ? 'PNI' : 'NIBP'}</span>
                 <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />
               </button>
-              {/* COMP button */}
+              {/* RCP button */}
               <button onClick={() => {
                 const newCpr = !vitals.cprActive;
                 useVitalSignsStore.getState().setVital('cprActive', newCpr);
@@ -413,7 +413,7 @@ function App() {
                 else audioEngine.stopMetronome();
                 useCodeTrackStore.getState().addEntry(newCpr ? 'cpr_start' : 'cpr_stop', newCpr ? 'RCP iniciada' : 'RCP detenida');
               }}
-                className={`relative h-[calc(50%-4px)] rounded-xl border transition-all duration-300 active:translate-y-[1px] flex items-center justify-center p-2 overflow-hidden ${vitals.cprActive ? 'animate-[compFlash_0.6s_ease-in-out_infinite]' : ''}`}
+                className={`relative h-[calc(50%-4px)] rounded-xl border transition-all duration-300 active:translate-y-[1px] flex flex-col items-center justify-center p-2 overflow-hidden ${vitals.cprActive ? 'animate-[compFlash_0.6s_ease-in-out_infinite]' : ''}`}
                 style={{
                   background: vitals.cprActive
                     ? 'linear-gradient(180deg, #4a1a1a 0%, #3a0d0d 50%, #280808 100%)'
@@ -429,7 +429,8 @@ function App() {
                     : 'radial-gradient(circle at 35% 35%, #4b5563, #374151 50%, #1f2937 100%)',
                   boxShadow: vitals.cprActive ? '0 0 8px rgba(239,68,68,0.8), 0 0 16px rgba(239,68,68,0.4)' : 'inset 0 1px 2px rgba(0,0,0,0.5)',
                 }} />
-                <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="COMP" className="h-[49%] object-contain" />
+                <img src={`${import.meta.env.BASE_URL}icon-comp.png`} alt="RCP" className="h-[49%] object-contain" />
+                <span className="text-sm font-black tracking-wider" style={{ color: vitals.cprActive ? '#fca5a5' : '#991b1b' }}>{language === 'es' ? 'RCP' : 'CPR'}</span>
                 {vitals.cprActive && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #ef4444, #f87171, #ef4444, transparent)' }} />}
               </button>
             </div>
