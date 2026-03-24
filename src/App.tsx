@@ -988,16 +988,21 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 z-[60] flex items-center justify-center" onClick={onClose}>
-      <div className="bg-[#111118] border border-gray-600 rounded-2xl p-5 max-w-4xl w-[95%] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-4">
-          <span className="font-bold text-lg text-white">Medicamentos</span>
-          <button onClick={onClose} className="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white text-xl">✕</button>
+    <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center" onClick={onClose}>
+      <div className="bg-[#0d0d16] border border-gray-600 rounded-2xl p-6 max-w-5xl w-[96%] shadow-2xl" style={{ boxShadow: '0 0 40px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.4)' }} onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className="flex justify-between items-center mb-5 pl-2">
+          <div>
+            <span className="font-black text-2xl text-white tracking-wide">Medicamentos</span>
+            <div className="h-[2px] mt-1 w-24" style={{ background: 'linear-gradient(90deg, #a855f7, transparent)' }} />
+          </div>
+          <button onClick={onClose} className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white text-xl transition-all" style={{ background: 'linear-gradient(180deg, #2a2a3a, #1a1a28)', border: '1px solid #374151' }}>✕</button>
         </div>
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        {/* Categories */}
+        <div className="flex flex-wrap gap-2 mb-5 pl-2">
           {Object.values(MedicationCategory).map((cat) => (
             <button key={cat} onClick={() => setSelectedCat(cat)}
-              className="relative px-3 py-1.5 rounded-lg text-base font-bold border transition-all duration-300 overflow-hidden"
+              className="relative px-4 py-2 rounded-lg text-base font-bold border transition-all duration-300 overflow-hidden"
               style={{
                 background: selectedCat === cat
                   ? 'linear-gradient(180deg, #3b1a5e 0%, #2d1050 50%, #1a0a30 100%)'
@@ -1013,25 +1018,28 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-3 gap-3 max-h-80 overflow-y-auto p-1">
+        {/* Medication cards */}
+        <div className="grid grid-cols-3 gap-3 max-h-[400px] overflow-y-auto pl-2 pr-1 py-1">
           {filtered.map((med) => (
             <button key={med.id} onClick={() => handleAdmin(med.id)}
-              className={`relative px-5 py-6 rounded-xl text-lg text-left text-white font-bold border transition-all duration-300 active:scale-95 overflow-hidden ${lastAdminId === med.id
+              className={`relative rounded-xl text-left text-white font-bold border transition-all duration-300 active:scale-95 overflow-hidden ${lastAdminId === med.id
                 ? 'ring-2 ring-green-400 scale-95'
                 : ''}`}
               style={{
                 background: 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
                 borderColor: med.color + '66',
                 boxShadow: `0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`,
+                padding: '16px 16px 16px 24px',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 10px ${med.color}40, 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`; }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 12px ${med.color}40, 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`; }}
               onMouseLeave={(e) => { e.currentTarget.style.boxShadow = `0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)`; }}>
-              <div className="absolute top-0 left-0 w-1 h-full rounded-l-xl" style={{ background: med.color, boxShadow: `0 0 8px ${med.color}80` }} />
-              <div className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full" style={{
+              <div className="absolute top-0 left-0 w-1.5 h-full rounded-l-xl" style={{ background: med.color, boxShadow: `0 0 10px ${med.color}80` }} />
+              <div className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full" style={{
                 background: `radial-gradient(circle at 35% 35%, ${med.color}cc, ${med.color} 60%, ${med.color}99 100%)`,
-                boxShadow: `0 0 6px ${med.color}80`,
+                boxShadow: `0 0 8px ${med.color}80`,
               }} />
-              {med.nameEs}
+              <span className="text-xl leading-tight block">{med.nameEs}</span>
+              <span className="text-xs text-gray-500 mt-1 block">{med.defaultDose} — {med.route}</span>
             </button>
           ))}
         </div>
