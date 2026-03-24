@@ -989,12 +989,12 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 bg-black/70 z-[60] flex items-center justify-center" onClick={onClose}>
-      <div className="bg-[#111118] border border-gray-600 rounded-2xl p-4 max-w-2xl w-[90%] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-3">
-          <span className="font-bold text-base text-white">Medicamentos</span>
-          <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white text-lg">✕</button>
+      <div className="bg-[#111118] border border-gray-600 rounded-2xl p-5 max-w-4xl w-[95%] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-4">
+          <span className="font-bold text-lg text-white">Medicamentos</span>
+          <button onClick={onClose} className="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-400 hover:text-white text-xl">✕</button>
         </div>
-        <div className="flex flex-wrap gap-1 mb-3">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {Object.values(MedicationCategory).map((cat) => (
             <button key={cat} onClick={() => setSelectedCat(cat)}
               className="relative px-3 py-1.5 rounded-lg text-base font-bold border transition-all duration-300 overflow-hidden"
@@ -1013,10 +1013,10 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-3 gap-2 max-h-60 overflow-y-auto p-1">
+        <div className="grid grid-cols-3 gap-3 max-h-80 overflow-y-auto p-1">
           {filtered.map((med) => (
             <button key={med.id} onClick={() => handleAdmin(med.id)}
-              className={`relative px-4 py-5 rounded-xl text-base text-left text-white font-bold border transition-all duration-300 active:scale-95 overflow-hidden ${lastAdminId === med.id
+              className={`relative px-5 py-6 rounded-xl text-lg text-left text-white font-bold border transition-all duration-300 active:scale-95 overflow-hidden ${lastAdminId === med.id
                 ? 'ring-2 ring-green-400 scale-95'
                 : ''}`}
               style={{
