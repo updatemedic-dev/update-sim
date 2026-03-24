@@ -181,16 +181,8 @@ export default function MonitorScreen() {
         <div className="px-4 py-1.5 rounded-xl bg-gradient-to-b from-[#1a1a28] to-[#0d0d18] border border-gray-700 shadow-[0_3px_8px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]" style={{ marginLeft: 16 }}>
           <span className="text-4xl font-bold text-green-300 tabular-nums tracking-wider">{elapsedStr}</span>
         </div>
-        {/* Respiration */}
-        <div className="flex items-center gap-4" style={{ marginLeft: 16 }}>
-          <div className="flex flex-col items-center">
-            <span className="text-[9px] text-gray-400">{t('respiration', language)}</span>
-            <span className="text-2xl font-bold text-white tabular-nums">{vitals.respiratoryRate}</span>
-          </div>
-        </div>
-
         {/* ===== TRANSPORT CONTROLS ===== */}
-        <div className="flex items-center gap-2" style={{ marginLeft: 24 }}>
+        <div className="flex items-center gap-2" style={{ marginLeft: 16 }}>
           {/* Rewind / Previous */}
           <button
             onClick={() => {
@@ -383,15 +375,15 @@ export default function MonitorScreen() {
             <div className="flex-1 min-w-0">
               <SpO2Waveform />
             </div>
-            <div className="w-48 flex items-center justify-end border-l border-gray-700 bg-[#0c0c12] rounded-r-lg">
-              <div className="flex flex-col items-end justify-center px-2">
+            <div className="w-48 flex items-stretch border-l border-gray-700 bg-[#0c0c12] rounded-r-lg">
+              <div className="flex-1 flex flex-col items-center justify-center">
                 <span className="text-[10px] text-gray-500">{t('spo2Level', language)}</span>
                 <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#c084fc' }}>
                   {isStopped ? '--' : (vitals.hasPulse ? vitals.spo2 : '--')}
                 </span>
               </div>
-              <div className="w-px self-stretch bg-gray-700 mx-1" />
-              <div className="flex flex-col items-center justify-center px-2">
+              <div className="w-px self-stretch bg-gray-700" />
+              <div className="flex-1 flex flex-col items-center justify-center">
                 <span className="text-[10px] text-gray-500">°{temperatureUnit === 'celsius' ? 'C' : 'F'}</span>
                 <span className="text-2xl font-bold leading-none tabular-nums text-orange-300">
                   {isStopped ? '--' : vitals.temperature.toFixed(1)}
@@ -407,11 +399,20 @@ export default function MonitorScreen() {
             <div className="flex-1 min-w-0">
               <CapnographyWaveformComponent />
             </div>
-            <div className="w-48 flex flex-col items-end justify-center border-l border-gray-700 px-2 bg-[#0c0c12] rounded-r-lg">
-              <span className="text-[10px] text-gray-500">{t('co2Level', language)}</span>
-              <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#ffff00' }}>
-                {isStopped ? '--' : (vitals.etco2 > 0 ? vitals.etco2 : '--')}
-              </span>
+            <div className="w-48 flex items-stretch border-l border-gray-700 bg-[#0c0c12] rounded-r-lg">
+              <div className="flex-1 flex flex-col items-center justify-center">
+                <span className="text-[10px] text-gray-500">{t('co2Level', language)}</span>
+                <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#ffff00' }}>
+                  {isStopped ? '--' : (vitals.etco2 > 0 ? vitals.etco2 : '--')}
+                </span>
+              </div>
+              <div className="w-px self-stretch bg-gray-700" />
+              <div className="flex-1 flex flex-col items-center justify-center">
+                <span className="text-[10px] text-gray-500">{t('respiration', language)}</span>
+                <span className="text-2xl font-bold leading-none tabular-nums text-white">
+                  {isStopped ? '--' : vitals.respiratoryRate}
+                </span>
+              </div>
             </div>
           </div>
         )}
