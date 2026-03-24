@@ -130,14 +130,12 @@ function App() {
         break;
       case 'd':
         e.preventDefault();
-        if (!df.isCharged && !df.isCharging) {
-          df.startCharge();
-          audioEngine.playChargeSound(3);
-          setTimeout(() => {
-            useDefibStore.getState().completeCharge();
-            audioEngine.startChargedBeep();
-          }, 3000);
-        }
+        // Toggle description + mute all audio
+        useVitalSignsStore.getState().toggleDescription();
+        useSettingsStore.getState().set('soundEnabled', !useSettingsStore.getState().soundEnabled);
+        audioEngine.stopAlarm();
+        audioEngine.stopChargedBeep();
+        audioEngine.stopMetronome();
         break;
       case ' ':
         e.preventDefault();
