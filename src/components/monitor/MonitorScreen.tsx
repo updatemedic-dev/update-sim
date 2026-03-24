@@ -86,6 +86,42 @@ export default function MonitorScreen() {
     return () => clearInterval(alarmInterval);
   }, [soundEnabled, vitals.nibpLastSystolic, vitals.hasPulse, vitals.nibpHasReading, isPaused, isStopped]);
 
+  // SpO2 alarm: < 90%
+  useEffect(() => {
+    if (!soundEnabled || isPaused || isStopped || !vitals.hasPulse || vitals.spo2 <= 0 || vitals.cprActive) return;
+    if (vitals.spo2 >= 90) return;
+    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('high'); }, 2000);
+    audioEngine.playAlarmTone('high');
+    return () => clearInterval(alarmInterval);
+  }, [soundEnabled, vitals.spo2, vitals.hasPulse, isPaused, isStopped, vitals.cprActive]);
+
+  // EtCO2 alarm: < 20 or > 50
+  useEffect(() => {
+    if (!soundEnabled || isPaused || isStopped || vitals.etco2 <= 0 || vitals.cprActive) return;
+    if (vitals.etco2 >= 20 && vitals.etco2 <= 50) return;
+    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('medium'); }, 2000);
+    audioEngine.playAlarmTone('medium');
+    return () => clearInterval(alarmInterval);
+  }, [soundEnabled, vitals.etco2, isPaused, isStopped, vitals.cprActive]);
+
+  // Temperature alarm: < 35 or > 38.5
+  useEffect(() => {
+    if (!soundEnabled || isPaused || isStopped || vitals.cprActive) return;
+    if (vitals.temperature >= 35 && vitals.temperature <= 38.5) return;
+    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('medium'); }, 3000);
+    audioEngine.playAlarmTone('medium');
+    return () => clearInterval(alarmInterval);
+  }, [soundEnabled, vitals.temperature, isPaused, isStopped, vitals.cprActive]);
+
+  // Respiratory rate alarm: < 8 or > 30
+  useEffect(() => {
+    if (!soundEnabled || isPaused || isStopped || vitals.respiratoryRate <= 0 || vitals.cprActive) return;
+    if (vitals.respiratoryRate >= 8 && vitals.respiratoryRate <= 30) return;
+    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('medium'); }, 2000);
+    audioEngine.playAlarmTone('medium');
+    return () => clearInterval(alarmInterval);
+  }, [soundEnabled, vitals.respiratoryRate, isPaused, isStopped, vitals.cprActive]);
+
   // Clock timer
   useEffect(() => {
     const interval = setInterval(() => {
@@ -369,52 +405,70 @@ export default function MonitorScreen() {
         )}
 
         {/* SpO2 Row - compact, 3D panel */}
-        {visibleParams.spo2 && (
+        {visibleParams.spo2 && (() => {
+          const spo2Alarm = !isStopped && vitals.hasPulse && vitals.spo2 < 90 && vitals.spo2 > 0 && !vitals.cprActive;
+          const tempAlarm = !isStopped && (vitals.temperature < 35 || vitals.temperature > 38.5) && !vitals.cprActive;
+          const rowAlarm = spo2Alarm || tempAlarm;
+          return (
           <div className="flex-[0.7] flex min-h-0 rounded-lg border border-gray-700 bg-[#0e0e14] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_2px_4px_rgba(0,0,0,0.3)]">
             <div className="flex-1 min-w-0">
               <SpO2Waveform />
             </div>
-            <div className="w-48 flex items-stretch border-l border-gray-700 bg-[#0c0c12] rounded-r-lg">
+            <div className={`w-48 flex items-stretch border-l border-gray-700 rounded-r-lg transition-colors ${
+              rowAlarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
+            }`}>
               <div className="flex-1 flex flex-col items-center justify-center">
                 <span className="text-[10px] text-gray-500">{t('spo2Level', language)}</span>
-                <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#c084fc' }}>
+                <span className={`text-5xl font-bold leading-none tabular-nums ${spo2Alarm ? 'animate-pulse' : ''}`}
+                  style={{ color: spo2Alarm ? '#ff4444' : '#c084fc' }}>
                   {isStopped ? '--' : (vitals.hasPulse ? vitals.spo2 : '--')}
                 </span>
               </div>
               <div className="w-px self-stretch bg-gray-700" />
               <div className="flex-1 flex flex-col items-center justify-center">
                 <span className="text-[10px] text-gray-500">°{temperatureUnit === 'celsius' ? 'C' : 'F'}</span>
-                <span className="text-2xl font-bold leading-none tabular-nums text-orange-300">
+                <span className={`text-3xl font-bold leading-none tabular-nums ${tempAlarm ? 'animate-pulse' : ''}`}
+                  style={{ color: tempAlarm ? '#ff4444' : '#fdba74' }}>
                   {isStopped ? '--' : vitals.temperature.toFixed(1)}
                 </span>
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
 
         {/* CO2 Row - compact, 3D panel */}
-        {visibleParams.etco2 && (
+        {visibleParams.etco2 && (() => {
+          const co2Alarm = !isStopped && vitals.etco2 > 0 && (vitals.etco2 < 20 || vitals.etco2 > 50) && !vitals.cprActive;
+          const rrAlarm = !isStopped && vitals.respiratoryRate > 0 && (vitals.respiratoryRate < 8 || vitals.respiratoryRate > 30) && !vitals.cprActive;
+          const rowAlarm = co2Alarm || rrAlarm;
+          return (
           <div className="flex-[0.7] flex min-h-0 rounded-lg border border-gray-700 bg-[#0e0e14] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_2px_4px_rgba(0,0,0,0.3)]">
             <div className="flex-1 min-w-0">
               <CapnographyWaveformComponent />
             </div>
-            <div className="w-48 flex items-stretch border-l border-gray-700 bg-[#0c0c12] rounded-r-lg">
+            <div className={`w-48 flex items-stretch border-l border-gray-700 rounded-r-lg transition-colors ${
+              rowAlarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
+            }`}>
               <div className="flex-1 flex flex-col items-center justify-center">
                 <span className="text-[10px] text-gray-500">{t('co2Level', language)}</span>
-                <span className="text-5xl font-bold leading-none tabular-nums" style={{ color: '#ffff00' }}>
+                <span className={`text-5xl font-bold leading-none tabular-nums ${co2Alarm ? 'animate-pulse' : ''}`}
+                  style={{ color: co2Alarm ? '#ff4444' : '#ffff00' }}>
                   {isStopped ? '--' : (vitals.etco2 > 0 ? vitals.etco2 : '--')}
                 </span>
               </div>
               <div className="w-px self-stretch bg-gray-700" />
               <div className="flex-1 flex flex-col items-center justify-center">
                 <span className="text-[10px] text-gray-500">{t('respiration', language)}</span>
-                <span className="text-2xl font-bold leading-none tabular-nums text-white">
+                <span className={`text-3xl font-bold leading-none tabular-nums ${rrAlarm ? 'animate-pulse' : ''}`}
+                  style={{ color: rrAlarm ? '#ff4444' : '#ffffff' }}>
                   {isStopped ? '--' : vitals.respiratoryRate}
                 </span>
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
       </div>
 
       {/* ===== Status indicators ===== */}
