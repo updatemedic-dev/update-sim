@@ -46,6 +46,7 @@ export default function ScenarioSelector({ onClose }: { onClose: () => void }) {
       etco2: step.etco2,
       respiratoryRate: step.rr,
       hasPulse: step.hasPulse,
+      ...(step.temperature !== undefined ? { temperature: step.temperature } : {}),
     });
 
     // Reset defib
