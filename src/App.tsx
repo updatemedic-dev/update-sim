@@ -81,7 +81,7 @@ function App() {
       const palsMap: Record<string, string> = {
         '1': 'pals-resp-1', '2': 'pals-resp-2', '3': 'pals-resp-3', '4': 'pals-resp-4',
         '5': 'pals-shock-5', '6': 'pals-shock-6', '7': 'pals-shock-7', '8': 'pals-shock-8',
-        '9': 'pals-shock-9', '0': 'pals-shock-10', '-': 'pals-shock-11', '=': 'pals-shock-12',
+        '9': 'pals-shock-9', '0': 'pals-shock-10', 'q': 'pals-shock-11', 'w': 'pals-shock-12',
       };
       const scenarioId = palsMap[e.key];
       if (scenarioId) {
