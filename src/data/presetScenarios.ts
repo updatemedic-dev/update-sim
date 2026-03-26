@@ -10,6 +10,7 @@ export interface PresetScenarioStep {
   rr: number;
   hasPulse: boolean;
   condition: string;
+  temperature?: number;
 }
 
 export interface PresetScenario {
@@ -623,12 +624,13 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
       {
         rhythm: CardiacRhythm.SINUS_BRADYCARDIA,
         hr: 38,
-        systolic: 70,
-        diastolic: 60,
+        systolic: 74,
+        diastolic: 52,
         spo2: 93,
         etco2: 0,
         rr: 16,
         hasPulse: true,
+        temperature: 36.6,
         condition: 'HISTE activado. Bradicardia inestable. Administrar Atropina 1mg IV, re-evaluar en 3-5 min. Si persiste, MCP transcutáneo (FC:60, mAMP:50). Considerar sedación.',
       },
       {
@@ -683,6 +685,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         etco2: 0,
         rr: 16,
         hasPulse: true,
+        temperature: 36.3,
         condition: 'HISTE activado. Bloqueo AV 2° grado Mobitz II inestable. Paciente se vuelve no responsivo. Preparar MCP transcutáneo. Considerar Atropina mientras se prepara.',
       },
       {
@@ -730,14 +733,15 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
     steps: [
       {
         rhythm: CardiacRhythm.VENTRICULAR_TACHYCARDIA,
-        hr: 160,
-        systolic: 70,
-        diastolic: 58,
-        spo2: 96,
+        hr: 170,
+        systolic: 110,
+        diastolic: 70,
+        spo2: 95,
         etco2: 0,
-        rr: 16,
+        rr: 22,
         hasPulse: true,
-        condition: 'HISTE activado. Taquicardia ventricular con pulso inestable. Cardioversión sincronizada 100J (considerar sedación). Sin efecto → Cardioversión sincronizada 150J.',
+        temperature: 36.3,
+        condition: 'HISTE activado. Taquicardia ventricular con pulso inestable. Cardioversión sincronizada 100J (considerar sedación). Sin efecto → Cardioversión sincronizada 150J. Sin efecto → Adenosina 6mg EV. Sin efecto → Adenosina 12mg EV.',
       },
       {
         rhythm: CardiacRhythm.VENTRICULAR_FIBRILLATION,
@@ -789,8 +793,9 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         diastolic: 70,
         spo2: 95,
         etco2: 0,
-        rr: 16,
+        rr: 22,
         hasPulse: true,
+        temperature: 36.3,
         condition: 'HISTE activado. TSV inestable. Administrar Adenosina 6mg EV rápido + bolo SF. Sin efecto → Adenosina 12mg EV. Sin efecto → Cardioversión sincronizada.',
       },
       {
@@ -843,8 +848,9 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         diastolic: 92,
         spo2: 93,
         etco2: 0,
-        rr: 16,
+        rr: 23,
         hasPulse: true,
+        temperature: 36.6,
         condition: 'HISTE activado. TSV inestable. Cardioversión sincronizada 100J (considerar sedación). Sin efecto → Cardioversión sincronizada 150J.',
       },
       {

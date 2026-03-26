@@ -512,6 +512,7 @@ function applyStep(step: import('../../data/presetScenarios').PresetScenarioStep
     respiratoryRate: step.rr,
     hasPulse: step.hasPulse,
     nibpHasReading: false,
+    ...(step.temperature !== undefined ? { temperature: step.temperature } : {}),
   });
 }
 

@@ -29,9 +29,11 @@ function App() {
 
   // ===== KEYBOARD SHORTCUTS =====
   const aKeyRef = useRef(false);
+  const pKeyRef = useRef(false);
 
   const handleKeyUp = useCallback((e: KeyboardEvent) => {
     if (e.key.toLowerCase() === 'a') aKeyRef.current = false;
+    if (e.key.toLowerCase() === 'p') pKeyRef.current = false;
   }, []);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -50,11 +52,17 @@ function App() {
       return;
     }
 
+    // Track 'P' key hold
+    if (e.key.toLowerCase() === 'p') {
+      pKeyRef.current = true;
+      e.preventDefault();
+      return;
+    }
+
     // A + 1-6: Load MC ACLS (MegaCódigo) scenario
     if (aKeyRef.current && e.key >= '1' && e.key <= '6') {
       e.preventDefault();
       const scenarioId = `mc-acls-${e.key}`;
-      // Stop current simulation and load scenario (shows in green panel)
       vs.stop();
       df.reset();
       useMedicationStore.getState().clearAdministered();
@@ -64,6 +72,30 @@ function App() {
       sc.loadScenario(scenarioId);
       aKeyRef.current = false;
       return;
+    }
+
+    // P + number: Load PALS scenarios
+    // P+1 to P+4 = PALS Resp 1-4, P+5 to P+9 = PALS Shock 5-9
+    // P+0 = PALS Shock 10, P+- = PALS Shock 11, P+= = PALS Shock 12
+    if (pKeyRef.current) {
+      const palsMap: Record<string, string> = {
+        '1': 'pals-resp-1', '2': 'pals-resp-2', '3': 'pals-resp-3', '4': 'pals-resp-4',
+        '5': 'pals-shock-5', '6': 'pals-shock-6', '7': 'pals-shock-7', '8': 'pals-shock-8',
+        '9': 'pals-shock-9', '0': 'pals-shock-10', '-': 'pals-shock-11', '=': 'pals-shock-12',
+      };
+      const scenarioId = palsMap[e.key];
+      if (scenarioId) {
+        e.preventDefault();
+        vs.stop();
+        df.reset();
+        useMedicationStore.getState().clearAdministered();
+        audioEngine.stopChargedBeep();
+        audioEngine.stopMetronome();
+        audioEngine.stopAlarm();
+        sc.loadScenario(scenarioId);
+        pKeyRef.current = false;
+        return;
+      }
     }
 
     switch (e.key.toLowerCase()) {
@@ -183,10 +215,6 @@ function App() {
         audioEngine.stopMetronome();
         audioEngine.stopAlarm();
         break;
-      case 'p':
-        e.preventDefault();
-        df.togglePacer();
-        break;
       case 's':
         e.preventDefault();
         {
@@ -219,7 +247,7 @@ function App() {
 
     // Number keys 1-9 for quick rhythm (only if A is not held)
     const num = parseInt(e.key);
-    if (num >= 1 && num <= 9 && !aKeyRef.current) {
+    if (num >= 1 && num <= 9 && !aKeyRef.current && !pKeyRef.current) {
       e.preventDefault();
       const quickRhythms = [
         CardiacRhythm.NORMAL_SINUS, CardiacRhythm.SINUS_BRADYCARDIA,
