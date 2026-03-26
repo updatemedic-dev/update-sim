@@ -972,7 +972,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 17. PALS Resp 1
   {
     id: 'pals-resp-1',
-    name: 'PALS Resp 1 — Dificultad Respiratoria',
+    name: 'PALS 01 — Dificultad Respiratoria',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1004,7 +1004,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 18. PALS Resp 2
   {
     id: 'pals-resp-2',
-    name: 'PALS Resp 2 — Insuficiencia Respiratoria',
+    name: 'PALS 02 — Insuficiencia Respiratoria',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1036,7 +1036,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 19. PALS Resp 3
   {
     id: 'pals-resp-3',
-    name: 'PALS Resp 3 — Fallo Respiratorio',
+    name: 'PALS 03 — Fallo Respiratorio',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1068,7 +1068,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 20. PALS Resp 4
   {
     id: 'pals-resp-4',
-    name: 'PALS Resp 4 — Depresión Respiratoria',
+    name: 'PALS 04 — Depresión Respiratoria',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1104,7 +1104,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 21. PALS Shock 5
   {
     id: 'pals-shock-5',
-    name: 'PALS Shock 5 — Shock Hipovolémico',
+    name: 'PALS 05 — Shock Hipovolémico',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1136,7 +1136,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 22. PALS Shock 6
   {
     id: 'pals-shock-6',
-    name: 'PALS Shock 6 — Shock Distributivo',
+    name: 'PALS 06 — Shock Distributivo',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1179,7 +1179,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 23. PALS Shock 7
   {
     id: 'pals-shock-7',
-    name: 'PALS Shock 7 — Shock Obstructivo',
+    name: 'PALS 07 — Shock Obstructivo',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1211,7 +1211,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 24. PALS Shock 8
   {
     id: 'pals-shock-8',
-    name: 'PALS Shock 8 — Shock Cardiogénico',
+    name: 'PALS 08 — Shock Cardiogénico',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1254,7 +1254,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 25. PALS Shock 9 — TSV
   {
     id: 'pals-shock-9',
-    name: 'PALS Shock 9 — TSV',
+    name: 'PALS 09 — TSV',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1308,7 +1308,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 26. PALS Shock 10 — Bradicardia
   {
     id: 'pals-shock-10',
-    name: 'PALS Shock 10 — Bradicardia',
+    name: 'PALS 10 — Bradicardia',
     category: 'PALS',
     description: 'Niño/a',
     steps: [
@@ -1362,7 +1362,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 27. PALS Shock 11 — Asistolia/AESP
   {
     id: 'pals-shock-11',
-    name: 'PALS Shock 11 — Asistolia/AESP',
+    name: 'PALS 11 — Asistolia/AESP',
     category: 'PALS',
     description: 'Niño/a | Inconsciente',
     steps: [
@@ -1405,7 +1405,7 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
   // 28. PALS Shock 12 — TV sin pulso/FV
   {
     id: 'pals-shock-12',
-    name: 'PALS Shock 12 — TV sin pulso/FV',
+    name: 'PALS 12 — TV sin pulso/FV',
     category: 'PALS',
     description: 'Niño/a | Inconsciente | Ahogamiento',
     steps: [
