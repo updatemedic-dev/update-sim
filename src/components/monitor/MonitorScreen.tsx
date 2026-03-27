@@ -368,16 +368,15 @@ export default function MonitorScreen() {
         {visibleParams.spo2 && (() => {
           const spo2Alarm = !isStopped && vitals.hasPulse && vitals.spo2 < 90 && vitals.spo2 > 0 && !vitals.cprActive;
           const tempAlarm = !isStopped && (vitals.temperature < 35 || vitals.temperature > 38.5) && !vitals.cprActive;
-          const rowAlarm = spo2Alarm || tempAlarm;
           return (
           <div className="flex-[0.7] flex min-h-0 rounded-lg border border-gray-700 bg-[#0e0e14] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_2px_4px_rgba(0,0,0,0.3)]">
             <div className="flex-1 min-w-0">
               <SpO2Waveform />
             </div>
-            <div className={`w-48 flex items-stretch border-l border-gray-700 rounded-r-lg transition-colors ${
-              rowAlarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
-            }`}>
-              <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="w-48 flex items-stretch border-l border-gray-700 rounded-r-lg">
+              <div className={`flex-1 flex flex-col items-center justify-center transition-colors ${
+                spo2Alarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
+              }`}>
                 <span className="text-[10px] text-gray-500">{t('spo2Level', language)}</span>
                 <span className={`text-5xl font-bold leading-none tabular-nums ${spo2Alarm ? 'animate-pulse' : ''}`}
                   style={{ color: spo2Alarm ? '#ff4444' : '#c084fc' }}>
@@ -385,7 +384,9 @@ export default function MonitorScreen() {
                 </span>
               </div>
               <div className="w-px self-stretch bg-gray-700" />
-              <div className="flex-1 flex flex-col items-center justify-center">
+              <div className={`flex-1 flex flex-col items-center justify-center rounded-r-lg transition-colors ${
+                tempAlarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
+              }`}>
                 <span className="text-[10px] text-gray-500">°{temperatureUnit === 'celsius' ? 'C' : 'F'}</span>
                 <span className={`text-3xl font-bold leading-none tabular-nums ${tempAlarm ? 'animate-pulse' : ''}`}
                   style={{ color: tempAlarm ? '#ff4444' : '#fdba74' }}>
@@ -401,16 +402,15 @@ export default function MonitorScreen() {
         {visibleParams.etco2 && (() => {
           const co2Alarm = !isStopped && vitals.etco2 > 0 && (vitals.etco2 < 20 || vitals.etco2 > 50) && !vitals.cprActive;
           const rrAlarm = !isStopped && vitals.respiratoryRate > 0 && (vitals.respiratoryRate < 8 || vitals.respiratoryRate > 30) && !vitals.cprActive;
-          const rowAlarm = co2Alarm || rrAlarm;
           return (
           <div className="flex-[0.7] flex min-h-0 rounded-lg border border-gray-700 bg-[#0e0e14] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_2px_4px_rgba(0,0,0,0.3)]">
             <div className="flex-1 min-w-0">
               <CapnographyWaveformComponent />
             </div>
-            <div className={`w-48 flex items-stretch border-l border-gray-700 rounded-r-lg transition-colors ${
-              rowAlarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
-            }`}>
-              <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="w-48 flex items-stretch border-l border-gray-700 rounded-r-lg">
+              <div className={`flex-1 flex flex-col items-center justify-center transition-colors ${
+                co2Alarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
+              }`}>
                 <span className="text-[10px] text-gray-500">{t('co2Level', language)}</span>
                 <span className={`text-5xl font-bold leading-none tabular-nums ${co2Alarm ? 'animate-pulse' : ''}`}
                   style={{ color: co2Alarm ? '#ff4444' : '#ffff00' }}>
@@ -418,7 +418,9 @@ export default function MonitorScreen() {
                 </span>
               </div>
               <div className="w-px self-stretch bg-gray-700" />
-              <div className="flex-1 flex flex-col items-center justify-center">
+              <div className={`flex-1 flex flex-col items-center justify-center rounded-r-lg transition-colors ${
+                rrAlarm ? 'animate-[bgFlash_1s_ease-in-out_infinite]' : 'bg-[#0c0c12]'
+              }`}>
                 <span className="text-[10px] text-gray-500">{t('respiration', language)}</span>
                 <span className={`text-3xl font-bold leading-none tabular-nums ${rrAlarm ? 'animate-pulse' : ''}`}
                   style={{ color: rrAlarm ? '#ff4444' : '#ffffff' }}>
