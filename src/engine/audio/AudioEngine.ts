@@ -487,7 +487,7 @@ export class AudioEngine {
         const source = ctx.createBufferSource();
         source.buffer = this.nibpBuffer;
         const gain = ctx.createGain();
-        gain.gain.value = 1.0;
+        gain.gain.value = 0.8;
         source.connect(gain);
         gain.connect(this.masterGain);
         source.start();
@@ -504,7 +504,7 @@ export class AudioEngine {
           const source = ctx.createBufferSource();
           source.buffer = audioBuf;
           const gain = ctx.createGain();
-          gain.gain.value = 1.0;
+          gain.gain.value = 0.8;
           source.connect(gain);
           gain.connect(this.masterGain!);
           source.start();
