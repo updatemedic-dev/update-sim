@@ -586,7 +586,7 @@ function App() {
                   {defib.isCharged && <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #eab308, #facc15, #eab308, transparent)' }} />}
                 </button>
               </div>
-              <div className="flex-1" />
+              <div className="flex-[0.3]" />
               <button onClick={() => { defib.disarm(); audioEngine.stopChargedBeep(); }}
                 className="relative py-6 rounded-xl text-xl font-bold border-2 transition-all duration-300 active:translate-y-[1px] overflow-hidden"
                 style={{
