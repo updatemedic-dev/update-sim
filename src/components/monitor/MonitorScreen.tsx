@@ -57,70 +57,30 @@ export default function MonitorScreen() {
     return () => clearInterval(interval);
   }, [soundEnabled, vitals.hr, vitals.spo2, vitals.hasPulse, isPaused, vitals.cprActive]);
 
-  // HR alarm: >= 150 or <= 50 bpm
-  useEffect(() => {
-    if (!soundEnabled || isPaused || isStopped || !vitals.hasPulse || vitals.hr <= 0 || vitals.cprActive) return;
-    const hrOutOfRange = vitals.hr >= 150 || vitals.hr <= 50;
-    if (!hrOutOfRange) return;
-
-    // Play alarm every 2 seconds while HR is out of range
-    const alarmInterval = setInterval(() => {
-      audioEngine.playAlarmTone(vitals.hr >= 150 ? 'high' : 'medium');
-    }, 2000);
-    // Play immediately
-    audioEngine.playAlarmTone(vitals.hr >= 150 ? 'high' : 'medium');
-
-    return () => clearInterval(alarmInterval);
-  }, [soundEnabled, vitals.hr, vitals.hasPulse, isPaused, isStopped]);
-
-  // BP alarm: systolic < 90
-  useEffect(() => {
-    if (!soundEnabled || isPaused || isStopped || !vitals.hasPulse || !vitals.nibpHasReading || vitals.cprActive) return;
-    if (vitals.nibpLastSystolic >= 90) return;
-
-    const alarmInterval = setInterval(() => {
-      audioEngine.playAlarmTone('high');
-    }, 2000);
-    audioEngine.playAlarmTone('high');
-
-    return () => clearInterval(alarmInterval);
-  }, [soundEnabled, vitals.nibpLastSystolic, vitals.hasPulse, vitals.nibpHasReading, isPaused, isStopped]);
-
-  // SpO2 alarm: < 90%
-  useEffect(() => {
-    if (!soundEnabled || isPaused || isStopped || !vitals.hasPulse || vitals.spo2 <= 0 || vitals.cprActive) return;
-    if (vitals.spo2 >= 90) return;
-    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('high'); }, 2000);
-    audioEngine.playAlarmTone('high');
-    return () => clearInterval(alarmInterval);
-  }, [soundEnabled, vitals.spo2, vitals.hasPulse, isPaused, isStopped, vitals.cprActive]);
-
-  // EtCO2 alarm: < 20 or > 50
-  useEffect(() => {
-    if (!soundEnabled || isPaused || isStopped || vitals.etco2 <= 0 || vitals.cprActive) return;
-    if (vitals.etco2 >= 20 && vitals.etco2 <= 50) return;
-    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('medium'); }, 2000);
-    audioEngine.playAlarmTone('medium');
-    return () => clearInterval(alarmInterval);
-  }, [soundEnabled, vitals.etco2, isPaused, isStopped, vitals.cprActive]);
-
-  // Temperature alarm: < 35 or > 38.5
+  // Unified alarm: only ONE alarm sound at a time (highest priority wins)
   useEffect(() => {
     if (!soundEnabled || isPaused || isStopped || vitals.cprActive) return;
-    if (vitals.temperature >= 35 && vitals.temperature <= 38.5) return;
-    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('medium'); }, 3000);
-    audioEngine.playAlarmTone('medium');
-    return () => clearInterval(alarmInterval);
-  }, [soundEnabled, vitals.temperature, isPaused, isStopped, vitals.cprActive]);
 
-  // Respiratory rate alarm: < 8 or > 30
-  useEffect(() => {
-    if (!soundEnabled || isPaused || isStopped || vitals.respiratoryRate <= 0 || vitals.cprActive) return;
-    if (vitals.respiratoryRate >= 8 && vitals.respiratoryRate <= 30) return;
-    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone('medium'); }, 2000);
-    audioEngine.playAlarmTone('medium');
+    // Determine highest priority alarm
+    let priority: 'high' | 'medium' | null = null;
+    let interval = 2000;
+
+    // High priority checks
+    if (vitals.hasPulse && vitals.hr > 0 && vitals.hr >= 150) { priority = 'high'; }
+    else if (vitals.hasPulse && vitals.spo2 > 0 && vitals.spo2 < 90) { priority = 'high'; }
+    else if (vitals.hasPulse && vitals.nibpHasReading && vitals.nibpLastSystolic < 90) { priority = 'high'; }
+    // Medium priority checks
+    else if (vitals.hasPulse && vitals.hr > 0 && vitals.hr <= 50) { priority = 'medium'; }
+    else if (vitals.etco2 > 0 && (vitals.etco2 < 20 || vitals.etco2 > 50)) { priority = 'medium'; }
+    else if (vitals.respiratoryRate > 0 && (vitals.respiratoryRate < 8 || vitals.respiratoryRate > 30)) { priority = 'medium'; }
+    else if (vitals.temperature < 35 || vitals.temperature > 38.5) { priority = 'medium'; interval = 3000; }
+
+    if (!priority) return;
+
+    audioEngine.playAlarmTone(priority);
+    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone(priority!); }, interval);
     return () => clearInterval(alarmInterval);
-  }, [soundEnabled, vitals.respiratoryRate, isPaused, isStopped, vitals.cprActive]);
+  }, [soundEnabled, vitals.hr, vitals.spo2, vitals.etco2, vitals.temperature, vitals.respiratoryRate, vitals.hasPulse, vitals.nibpHasReading, vitals.nibpLastSystolic, isPaused, isStopped, vitals.cprActive]);
 
   // Clock timer
   useEffect(() => {
