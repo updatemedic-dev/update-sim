@@ -16,7 +16,7 @@ export interface PresetScenarioStep {
 export interface PresetScenario {
   id: string;
   name: string;
-  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'EPALS';
+  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'EPALS' | 'PH';
   description: string;
   steps: PresetScenarioStep[];
 }
@@ -2812,6 +2812,274 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         hasPulse: true,
         temperature: 39.0,
         condition: 'Antibiótico dentro de 1era hora. VVP. Exámenes laboratorio (hemocultivos). Rx tórax. Re-evaluación XABCDE cada 5 min. Interconsulta UPC pediátrica. Preparar equipo CNAF.',
+      },
+    ],
+  },
+
+  // ============================================================
+  // PH — Prehospitalario / PHTLS (12 casos)
+  // ============================================================
+
+  // PH 01: Vía Aérea - Caída motoneta
+  {
+    id: 'ph-1',
+    name: 'PH 01 — Vía Aérea / Fractura Mandíbula',
+    category: 'PH',
+    description: 'Fem 35a, caída motoneta. Fractura mandíbula, laceración brazo.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 90,
+        systolic: 128,
+        diastolic: 76,
+        spo2: 95,
+        etco2: 0,
+        rr: 18,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'NO CRÍTICO. Sangrado bucal por fractura mandibular y laceración brazo izquierdo. Aspiración de secreciones. Restricción de columna. Analgesia EVA 7/10. Inmovilización extremidad.',
+      },
+    ],
+  },
+
+  // PH 02: Vía Aérea - Moto vs cable
+  {
+    id: 'ph-2',
+    name: 'PH 02 — Vía Aérea / Moto vs Cable',
+    category: 'PH',
+    description: 'Masc 22a, moto vs cable tensor. Nivel conciencia alterado.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 130,
+        diastolic: 100,
+        spo2: 86,
+        etco2: 37,
+        rr: 30,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'CRÍTICO. Contusión cuello oreja a oreja, gorgoteo, Glasgow 9 (O1V3M5), cianosis. Transporte inmediato. Restricción columna. Aspiración secreciones. VPP. O2 suplementario. Manejo avanzado vía aérea.',
+      },
+    ],
+  },
+
+  // PH 03: Ventilación - Colisión vehicular
+  {
+    id: 'ph-3',
+    name: 'PH 03 — Ventilación / Colisión Vehicular',
+    category: 'PH',
+    description: 'Masc 36a, colisión vehículo a 80 km/h. Dolor torácico.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 100,
+        systolic: 118,
+        diastolic: 76,
+        spo2: 91,
+        etco2: 48,
+        rr: 30,
+        hasPulse: true,
+        temperature: 36.6,
+        condition: 'NO CRÍTICO. Abrasiones por cinturón en tórax derecho, deformidad rodilla derecha. O2 suplementario. Inmovilizar pierna derecha. Restricción columna. Prevenir hipotermia (-6°C).',
+      },
+    ],
+  },
+
+  // PH 04: Circulación - Casi amputación mano
+  {
+    id: 'ph-4',
+    name: 'PH 04 — Circulación / Casi Amputación',
+    category: 'PH',
+    description: 'Masc 43a, casi amputación mano izquierda con sierra eléctrica.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 114,
+        systolic: 92,
+        diastolic: 58,
+        spo2: 93,
+        etco2: 0,
+        rr: 30,
+        hasPulse: true,
+        temperature: 36.6,
+        condition: 'CRÍTICO. Hemorragia incontrolable muñeca izquierda, piel pálida fría sudorosa, llene capilar 3 seg. Torniquete. O2 suplementario. VVP para PAS 90 mmHg. Prevenir hipotermia. Analgesia.',
+      },
+    ],
+  },
+
+  // PH 05: Circulación - Lesión brazo enfardadora
+  {
+    id: 'ph-5',
+    name: 'PH 05 — Circulación / Enfardadora',
+    category: 'PH',
+    description: 'Masc 34a, brazo atrapado en enfardadora. Fractura abierta.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 132,
+        systolic: 92,
+        diastolic: 64,
+        spo2: 95,
+        etco2: 0,
+        rr: 20,
+        hasPulse: true,
+        temperature: 36.6,
+        condition: 'CRÍTICO. Avulsión antebrazo derecho con fractura abierta radio-cubital, sangrado descontrolado. Torniquete. O2 suplementario. VVP para PAS 90 mmHg. Prevenir hipotermia. Evaluar MSP distal. Analgesia.',
+      },
+    ],
+  },
+
+  // PH 06: Discapacidad - Agresión bar
+  {
+    id: 'ph-6',
+    name: 'PH 06 — Discapacidad / TEC + Abdomen',
+    category: 'PH',
+    description: 'Masc 32a, agresión. Lesión cabeza, cuello y abdomen.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 78,
+        diastolic: 52,
+        spo2: 93,
+        etco2: 30,
+        rr: 24,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'CRÍTICO. Glasgow 13 (O3V4M6), pupilas lentas y desiguales. Contusión temporal izquierda, epistaxis. Abdomen: marcas cuadrante superior izquierdo con resistencia. Transporte rápido. Restricción columna. O2. VVP para PAS 110 mmHg. ATX. Prevenir hipotermia. Analgesia.',
+      },
+    ],
+  },
+
+  // PH 07: Discapacidad - Caída patineta
+  {
+    id: 'ph-7',
+    name: 'PH 07 — Discapacidad / Caída Patineta',
+    category: 'PH',
+    description: 'Masc 20a, caída patineta 5 metros. Paraplejía.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 68,
+        systolic: 156,
+        diastolic: 110,
+        spo2: 95,
+        etco2: 38,
+        rr: 22,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'CRÍTICO. Glasgow 14 (O4V4M6), paraplejía EEII, otorragia bilateral. Abrasiones y contusiones espalda, sensibilidad T9-T10. Sin casco. Transporte rápido. Restricción columna. O2 suplementario. Apósito sobre ambas orejas.',
+      },
+    ],
+  },
+
+  // PH 08: Multisistémico - Arma blanca
+  {
+    id: 'ph-8',
+    name: 'PH 08 — Multisistémico / Arma Blanca',
+    category: 'PH',
+    description: 'Masc 21a, herida punzante cuello y abdomen.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 70,
+        diastolic: 40,
+        spo2: 85,
+        etco2: 26,
+        rr: 10,
+        hasPulse: true,
+        temperature: 34.0,
+        condition: 'CRÍTICO. Glasgow 12 (O3V3M6), estridor, pulso radial ausente, carotídeo débil. Herida punzante cuello anterior izquierdo y cuadrante superior izquierdo abdomen. IOT con SIR o permeabilizar vía aérea. VPP O2 alto flujo. Control hemorragia. VVP para PAS 90 mmHg. ATX. Prevenir hipotermia.',
+      },
+    ],
+  },
+
+  // PH 09: Multisistémico - Quemaduras + caída
+  {
+    id: 'ph-9',
+    name: 'PH 09 — Multisistémico / Quemaduras + Caída',
+    category: 'PH',
+    description: 'Masc 38a, salta del 2° piso en incendio. Quemaduras + fracturas.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 100,
+        systolic: 134,
+        diastolic: 92,
+        spo2: 94,
+        etco2: 26,
+        rr: 22,
+        hasPulse: true,
+        temperature: 35.1,
+        condition: 'CRÍTICO. Quemaduras grosor total EESS y manos, parcial en tórax y cara con hollín. Deformidad ambos tobillos. Restricción columna. O2 suplementario. Prevenir hipotermia (-8°C). Quitar ropa de áreas quemadas. Inmovilizar fracturas. Apósito estéril. Analgesia EVA 10/10. VVP para PAS 90 mmHg.',
+      },
+    ],
+  },
+
+  // PH 10: Obstétrico - Embarazada colisión
+  {
+    id: 'ph-10',
+    name: 'PH 10 — Obstétrico / Embarazada Colisión',
+    category: 'PH',
+    description: 'Fem 30a, embarazada 30 sem, colisión vehicular.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 132,
+        systolic: 110,
+        diastolic: 60,
+        spo2: 94,
+        etco2: 39,
+        rr: 32,
+        hasPulse: true,
+        temperature: 37.5,
+        condition: 'CRÍTICO. P1G2, 30 semanas gestación. Quemaduras parcial brazo/hombro derecho, laceración barbilla 5 cm, deformidad tobillo derecho. Abdomen firme. Restricción columna. O2 suplementario. Transporte en posición lateral izquierda. VVP para PAS 90 mmHg. Prevenir hipotermia. Analgesia EVA 9/10.',
+      },
+    ],
+  },
+
+  // PH 11: Hemorragia Exanguinante - Adulto mayor
+  {
+    id: 'ph-11',
+    name: 'PH 11 — Hemorragia Exanguinante',
+    category: 'PH',
+    description: 'Masc 72a, corte pierna con metal en depósito de chatarra.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 82,
+        diastolic: 58,
+        spo2: 0,
+        etco2: 0,
+        rr: 30,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'CRÍTICO. Incisión 15 cm pierna derecha lateral con hemorragia profusa. Pulso radial ausente, piel pálida fría sudorosa. Toma Metoprolol y Aspirina. IAM hace 5 años. Torniquete. O2 suplementario. VVP para PAS 90 mmHg. Prevenir hipotermia. Analgesia EVA 6/10.',
+      },
+    ],
+  },
+
+  // PH 12: Quemadura facial - Parrilla propano
+  {
+    id: 'ph-12',
+    name: 'PH 12 — Quemadura Facial / Inhalación',
+    category: 'PH',
+    description: 'Masc 48a, quemadura facial por parrilla de propano.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 140,
+        diastolic: 100,
+        spo2: 88,
+        etco2: 40,
+        rr: 28,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'CRÍTICO. Quemaduras parcial en cara, cuello y pecho. Vello nasal y facial chamuscado, ronquera. HTA. Permeabilizar vía aérea. O2 suplementario. Preparar BVM. Apósitos secos estériles en quemaduras. Considerar ISR/IAF o cricotirotomía. Prevenir hipotermia. Analgesia EVA 10/10.',
       },
     ],
   },
