@@ -16,7 +16,7 @@ export interface PresetScenarioStep {
 export interface PresetScenario {
   id: string;
   name: string;
-  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'EPALS' | 'PH';
+  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'EPALS' | 'PH' | 'MAVACRIT';
   description: string;
   steps: PresetScenarioStep[];
 }
@@ -3080,6 +3080,316 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         hasPulse: true,
         temperature: 37.0,
         condition: 'CRÍTICO. Quemaduras parcial en cara, cuello y pecho. Vello nasal y facial chamuscado, ronquera. HTA. Permeabilizar vía aérea. O2 suplementario. Preparar BVM. Apósitos secos estériles en quemaduras. Considerar ISR/IAF o cricotirotomía. Prevenir hipotermia. Analgesia EVA 10/10.',
+      },
+    ],
+  },
+
+  // ============================================================
+  // MAVACRIT — Manejo de Vía Aérea Crítica (9 casos)
+  // ============================================================
+
+  // MAVACRIT 01: Neumonía
+  {
+    id: 'mavacrit-1',
+    name: 'MAVACRIT 01 — Neumonía',
+    category: 'MAVACRIT',
+    description: 'Fem 60a, neumonía 4° día. IOT por insuficiencia respiratoria.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 90,
+        etco2: 0,
+        rr: 30,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'Reunir materiales: Almohadilla, Yankauer, cánulas, MVB, videolaringoscopio, Boogie, TET 2 tamaños, cuffómetro, VMI. Pre-oxigenar MAF 15 lt/min 3-5 min. Alinear 3 ejes. Fentanilo 100 mcg EV. Ketamina 100 mg o Etomidato 20 mg EV. Succinilcolina 100 mg o Rocuronio 100 mg EV.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 98,
+        etco2: 35,
+        rr: 14,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'Post IOT: SpO2 98%, FR 14/min. Comprobar TET: auscultación línea media axilar bilateral, PetCO2 en monitor, SpO2 al minuto. Ventilación asistida MVB 1 cada 6 seg. Cuffómetro 25 cmH2O.',
+      },
+    ],
+  },
+
+  // MAVACRIT 02: Sd. Convulsivo + Vasoactivo
+  {
+    id: 'mavacrit-2',
+    name: 'MAVACRIT 02 — Sd. Convulsivo',
+    category: 'MAVACRIT',
+    description: 'Fem 30a, convulsión TC, post-ictal. Push dose epinefrina.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 82,
+        diastolic: 58,
+        spo2: 90,
+        etco2: 0,
+        rr: 10,
+        hasPulse: true,
+        temperature: 36.1,
+        condition: 'Inconsciente, hipoventilando, post-ictal. Epilepsia sin tratamiento. Cánula orofaríngea. Pre-oxigenar MVB 15 lt/min 3-5 min. Push dose Epinefrina 10 mcg EV. Fentanilo 100 mcg EV. Etomidato 20 mg EV. Succinilcolina 100 mg o Rocuronio 100 mg EV.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 140,
+        systolic: 110,
+        diastolic: 70,
+        spo2: 100,
+        etco2: 35,
+        rr: 14,
+        hasPulse: true,
+        temperature: 36.1,
+        condition: 'Post IOT + vasoactivo: PA sube a 110/70, SpO2 100%. Comprobar TET: auscultación bilateral, PetCO2, SpO2. Ventilación MVB 1 cada 6 seg.',
+      },
+    ],
+  },
+
+  // MAVACRIT 03: Shock Séptico + Vasoactivo
+  {
+    id: 'mavacrit-3',
+    name: 'MAVACRIT 03 — Shock Séptico',
+    category: 'MAVACRIT',
+    description: 'Masc 40a, colecistectomizado 5 días. Shock séptico, IOT pre-pabellón.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 128,
+        systolic: 82,
+        diastolic: 58,
+        spo2: 90,
+        etco2: 0,
+        rr: 30,
+        hasPulse: true,
+        temperature: 36.1,
+        condition: 'Somnoliento, taquipneico, piel ictérica, fría, sudorosa. Colecistectomía reciente, HTA. Pre-oxigenar MAF 15 lt/min 3-5 min. Push dose Epinefrina 10 mcg EV. Fentanilo 100 mcg EV. Etomidato 20 mg EV. Succinilcolina 100 mg o Rocuronio 100 mg EV.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 140,
+        systolic: 110,
+        diastolic: 70,
+        spo2: 100,
+        etco2: 35,
+        rr: 14,
+        hasPulse: true,
+        temperature: 36.1,
+        condition: 'Post IOT + vasoactivo: PA sube a 110/70, SpO2 100%. Comprobar TET. Preparar para pabellón de urgencia.',
+      },
+    ],
+  },
+
+  // MAVACRIT 04: ACV Isquémico Maligno
+  {
+    id: 'mavacrit-4',
+    name: 'MAVACRIT 04 — ACV Isquémico Maligno',
+    category: 'MAVACRIT',
+    description: 'Masc 65a, ACV isquémico maligno. Sopor profundo, hipoventilando.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 90,
+        etco2: 0,
+        rr: 10,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'Sopor profundo, hipoventilando, hemiparesia facio-braquio-crural derecha. ACV previo, HTA. Cánula orofaríngea. Pre-oxigenar MVB 15 lt/min 3-5 min. Fentanilo 100 mcg EV. Propofol 100 mg o Etomidato 20 mg EV. Rocuronio 100 mg o Succinilcolina 50 mg EV.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 98,
+        etco2: 35,
+        rr: 14,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'Post IOT: SpO2 98%, FR 14/min. Comprobar TET. Ventilación MVB 1 cada 6 seg.',
+      },
+    ],
+  },
+
+  // MAVACRIT 05: TEC Adulto
+  {
+    id: 'mavacrit-5',
+    name: 'MAVACRIT 05 — TEC Adulto',
+    category: 'MAVACRIT',
+    description: 'Fem 26a, agresión con objeto contundente. Pupilas anisocóricas.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 90,
+        etco2: 0,
+        rr: 10,
+        hasPulse: true,
+        temperature: 36.0,
+        condition: 'Inconsciente, hipoventilando, pupilas anisocóricas. Sin antecedentes. Cánula orofaríngea. Pre-oxigenar MVB 15 lt/min 3-5 min. Fentanilo 100 mcg o Lidocaína 100 mg EV. Propofol 100 mg o Etomidato 20 mg EV. Rocuronio 100 mg o Succinilcolina 50 mg EV.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 98,
+        etco2: 35,
+        rr: 14,
+        hasPulse: true,
+        temperature: 36.0,
+        condition: 'Post IOT: SpO2 98%, FR 14/min. Comprobar TET. Ventilación MVB 1 cada 6 seg.',
+      },
+    ],
+  },
+
+  // MAVACRIT 06: Agitación Psicomotora - SID
+  {
+    id: 'mavacrit-6',
+    name: 'MAVACRIT 06 — Agitación Psicomotora',
+    category: 'MAVACRIT',
+    description: 'Masc 20a, agitación psicomotora por absceso cerebral. Uso de SID.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 90,
+        etco2: 0,
+        rr: 30,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'Paciente muy agitado, no tolera MAF ni VVP. Absceso cerebral, traslado neuroquirúrgico. SID: KETODEX (Ketamina 20 mg + Precedex 20 mcg en misma jeringa EV). Tras SID: paciente tranquilo, tolera MAF. Pre-oxigenar MAF 15 lt/min 3-5 min. Ketamina 100 mg EV para sedación completa.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 98,
+        etco2: 35,
+        rr: 14,
+        hasPulse: true,
+        temperature: 37.0,
+        condition: 'Post IOT: SpO2 98%, FR 14/min. Comprobar TET. Ventilación MVB 1 cada 6 seg. Preparar traslado.',
+      },
+    ],
+  },
+
+  // MAVACRIT 07: SDRA COVID
+  {
+    id: 'mavacrit-7',
+    name: 'MAVACRIT 07 — SDRA COVID',
+    category: 'MAVACRIT',
+    description: 'Fem 50a, COVID 5° día cuarentena. PAFI 100, cianosis distal.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 90,
+        etco2: 0,
+        rr: 30,
+        hasPulse: true,
+        temperature: 37.8,
+        condition: 'Desorientada, taquipneica, musculatura accesoria +++, cianosis distal. PAFI 100. HTA, sin vacunas. Pre-oxigenar MAF 15 lt/min 3-5 min. Fentanilo 100 mcg EV. Ketamina 100 mg o Etomidato 20 mg EV. Succinilcolina 100 mg o Rocuronio 100 mg EV.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 98,
+        etco2: 35,
+        rr: 14,
+        hasPulse: true,
+        temperature: 37.8,
+        condition: 'Post IOT: SpO2 98%, FR 14/min. Comprobar TET. Ventilación MVB 1 cada 6 seg.',
+      },
+    ],
+  },
+
+  // MAVACRIT 08: TEC Niño - Supraglótico
+  {
+    id: 'mavacrit-8',
+    name: 'MAVACRIT 08 — TEC Niño (Supraglótico)',
+    category: 'MAVACRIT',
+    description: 'Masc 4a, 15kg, caída de caballo. No se logra IOT, usar supraglótico.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 89,
+        etco2: 0,
+        rr: 12,
+        hasPulse: true,
+        temperature: 37.8,
+        condition: 'Inconsciente, hipoventilando con roncus, lesión abrasiva ESD. 15 kg. Cánula orofaríngea. Pre-oxigenar MVB 15 lt/min 3-5 min. Atropina 0.02 mg/kg (0.3 mg). Lidocaína 15 mg o Fentanilo 15 mcg EV. Propofol 15 mg o Etomidato 3 mg EV. Rocuronio 15 mg o Succinilcolina 15 mg EV. No se logra IOT → Supraglótico.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 170,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 98,
+        etco2: 35,
+        rr: 20,
+        hasPulse: true,
+        temperature: 37.8,
+        condition: 'Supraglótico instalado. Cuffómetro 20 cmH2O. Ventilación MVB 1 cada 3 seg. Comprobar: auscultación bilateral, PetCO2, SpO2. Contactar otro operador para IOT.',
+      },
+    ],
+  },
+
+  // MAVACRIT 09: SBO Severo Lactante - Supraglótico
+  {
+    id: 'mavacrit-9',
+    name: 'MAVACRIT 09 — SBO Severo Lactante (Supraglótico)',
+    category: 'MAVACRIT',
+    description: 'Lactante 11m, 10kg, SBO moderado bajo CNAF. Evolución tórpida.',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 95,
+        diastolic: 55,
+        spo2: 89,
+        etco2: 0,
+        rr: 50,
+        hasPulse: true,
+        temperature: 37.8,
+        condition: 'SBO moderado bajo CNAF, evolución tórpida. 10 kg. Pre-oxigenar CNAF flujo 20 lt/min 3-5 min o asistir con BVM. Atropina 0.02 mg/kg (0.2 mg). Fentanilo 10 mcg EV. Ketamina 10 mg o Etomidato 2 mg EV. Rocuronio 10 mg EV. No se logra IOT → Supraglótico.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 170,
+        systolic: 95,
+        diastolic: 55,
+        spo2: 94,
+        etco2: 35,
+        rr: 30,
+        hasPulse: true,
+        temperature: 37.8,
+        condition: 'Supraglótico instalado. Cuffómetro 20 cmH2O. Ventilación MVB 1 cada 2 seg. Comprobar: auscultación bilateral, PetCO2, SpO2. Contactar otro operador para IOT.',
       },
     ],
   },

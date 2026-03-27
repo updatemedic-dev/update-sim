@@ -13,6 +13,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   MEGA_LAERDAL: 'Megacodes 10 Pacientes',
   EPALS: 'EPALS',
   PH: 'PH Prehospitalario',
+  MAVACRIT: 'MAVACRIT',
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -23,6 +24,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   MEGA_LAERDAL: 'bg-purple-900/50 border-purple-700',
   EPALS: 'bg-teal-900/50 border-teal-700',
   PH: 'bg-amber-900/50 border-amber-700',
+  MAVACRIT: 'bg-emerald-900/50 border-emerald-700',
 };
 
 export default function ScenarioSelector({ onClose }: { onClose: () => void }) {
