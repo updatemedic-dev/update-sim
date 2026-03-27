@@ -475,152 +475,41 @@ export class AudioEngine {
    * Matches real oscillometric BP monitor: motor pump inflating cuff,
    * hold, slow stepped deflation measuring oscillations, release, beeps.
    */
+  private nibpBuffer: AudioBuffer | null = null;
+
   playNIBPSound(): void {
     try {
       const ctx = this.ensureContext();
       if (!this.masterGain) return;
 
-      const now = ctx.currentTime;
-      const sr = ctx.sampleRate;
-      const totalDuration = 10.0;
-      const bufSize = Math.ceil(sr * totalDuration);
-      const buf = ctx.createBuffer(1, bufSize, sr);
-      const data = buf.getChannelData(0);
-
-      // === PHASE TIMINGS ===
-      const motorStart = 0.0;    // Motor pump starts
-      const motorEnd = 3.5;      // Motor pump stops (cuff fully inflated)
-      const holdEnd = 4.0;       // Brief hold
-      const deflateEnd = 8.5;    // Slow stepped deflation / measurement
-      const releaseEnd = 9.2;    // Final air release
-      // 9.4-10.0: completion beeps (scheduled separately as oscillators)
-
-      for (let i = 0; i < bufSize; i++) {
-        const t = i / sr;
-        let s = 0;
-
-        if (t < motorEnd) {
-          // ====== PHASE 1: MOTOR PUMP INFLATION ======
-          const mt = t - motorStart;
-          // Ramp up motor over 0.3s
-          const rampUp = Math.min(1, mt / 0.3);
-          // Ramp down motor at end over 0.3s
-          const rampDown = t > motorEnd - 0.3 ? Math.max(0, (motorEnd - t) / 0.3) : 1;
-          const motorAmp = rampUp * rampDown;
-
-          // DC motor fundamental (~58Hz) with rich harmonics — sounds like a small compressor
-          s += Math.sin(2 * Math.PI * 58 * t) * 0.10 * motorAmp;
-          s += Math.sin(2 * Math.PI * 116 * t) * 0.07 * motorAmp;
-          s += Math.sin(2 * Math.PI * 174 * t) * 0.04 * motorAmp;
-          s += Math.sin(2 * Math.PI * 232 * t) * 0.025 * motorAmp;
-          s += Math.sin(2 * Math.PI * 348 * t) * 0.015 * motorAmp;
-
-          // Pump piston pulsation at ~5.5Hz (motor RPM ~330)
-          const pistonFreq = 5.5;
-          const pistonMod = 1 + 0.4 * Math.sin(2 * Math.PI * pistonFreq * t);
-          s *= pistonMod;
-
-          // Mechanical rattle/vibration noise
-          s += (Math.random() * 2 - 1) * 0.025 * motorAmp;
-
-          // Increasing pitch slightly as pressure builds (motor loads up)
-          const pitchShift = 1 + mt * 0.02;
-          s += Math.sin(2 * Math.PI * 58 * pitchShift * t) * 0.03 * motorAmp;
-
-        } else if (t < holdEnd) {
-          // ====== PHASE 2: HOLD — silence with faint cuff creak ======
-          const holdT = t - motorEnd;
-          // Faint settling sounds
-          s += (Math.random() * 2 - 1) * 0.008 * Math.exp(-holdT * 5);
-
-        } else if (t < deflateEnd) {
-          // ====== PHASE 3: STEPPED DEFLATION / MEASUREMENT ======
-          const measT = t - holdEnd;
-          const measDuration = deflateEnd - holdEnd;
-          void measDuration; // used for step calculation
-
-          // Solenoid valve releases air in discrete steps
-          // Real monitors step every ~0.4-0.6 seconds
-          const stepPeriod = 0.5;
-          const stepPhase = measT % stepPeriod;
-
-          // Valve click at start of each step
-          if (stepPhase < 0.012) {
-            const clickEnv = 1 - stepPhase / 0.012;
-            // Sharp solenoid click
-            s += Math.sin(2 * Math.PI * 400 * t) * 0.12 * clickEnv;
-            s += Math.sin(2 * Math.PI * 800 * t) * 0.06 * clickEnv;
-            s += (Math.random() * 2 - 1) * 0.06 * clickEnv;
-          }
-
-          // Brief controlled air release after each click
-          if (stepPhase >= 0.012 && stepPhase < 0.12) {
-            const puffT = stepPhase - 0.012;
-            const puffEnv = Math.exp(-puffT * 20);
-            // Soft hiss of escaping air
-            s += (Math.random() * 2 - 1) * 0.04 * puffEnv;
-            s += Math.sin(2 * Math.PI * 200 * t) * 0.015 * puffEnv;
-          }
-
-          // Very quiet background: faint continuous air seep
-          s += (Math.random() * 2 - 1) * 0.005;
-
-          // Occasional slightly louder step (simulating when oscillation is detected)
-          const stepNum = Math.floor(measT / stepPeriod);
-          if (stepNum >= 3 && stepNum <= 6 && stepPhase < 0.012) {
-            s += Math.sin(2 * Math.PI * 350 * t) * 0.05;
-          }
-
-        } else if (t < releaseEnd) {
-          // ====== PHASE 4: FINAL AIR RELEASE ======
-          const relT = t - deflateEnd;
-          const relEnv = Math.exp(-relT * 4);
-          // Loud hiss as remaining air is released quickly
-          s += (Math.random() * 2 - 1) * 0.15 * relEnv;
-          // Valve thunk
-          if (relT < 0.02) {
-            s += Math.sin(2 * Math.PI * 250 * t) * 0.15 * (1 - relT / 0.02);
-          }
-          // Low rumble of cuff deflating
-          s += Math.sin(2 * Math.PI * 60 * t) * 0.05 * relEnv;
-        }
-
-        data[i] = s;
+      // If buffer already loaded, play immediately
+      if (this.nibpBuffer) {
+        const source = ctx.createBufferSource();
+        source.buffer = this.nibpBuffer;
+        const gain = ctx.createGain();
+        gain.gain.value = 1.0;
+        source.connect(gain);
+        gain.connect(this.masterGain);
+        source.start();
+        return;
       }
 
-      const source = ctx.createBufferSource();
-      source.buffer = buf;
-
-      // Shape with lowpass to remove harshness
-      const lpf = ctx.createBiquadFilter();
-      lpf.type = 'lowpass';
-      lpf.frequency.value = 1200;
-      lpf.Q.value = 0.5;
-
-      const gain = ctx.createGain();
-      gain.gain.value = 2.5;
-
-      source.connect(lpf);
-      lpf.connect(gain);
-      gain.connect(this.masterGain);
-      source.start(now);
-
-      // === COMPLETION BEEPS (2 beeps at 9.4s) ===
-      for (let b = 0; b < 2; b++) {
-        const beep = ctx.createOscillator();
-        beep.type = 'sine';
-        beep.frequency.value = 880;
-        const beepEnv = ctx.createGain();
-        const bt = now + 9.4 + b * 0.3;
-        beepEnv.gain.setValueAtTime(0, bt);
-        beepEnv.gain.linearRampToValueAtTime(0.25, bt + 0.01);
-        beepEnv.gain.linearRampToValueAtTime(0.25, bt + 0.15);
-        beepEnv.gain.linearRampToValueAtTime(0, bt + 0.2);
-        beep.connect(beepEnv);
-        beepEnv.connect(this.masterGain);
-        beep.start(bt);
-        beep.stop(bt + 0.25);
-      }
+      // Load MP3 file and play
+      const basePath = import.meta.env.BASE_URL || '/';
+      fetch(`${basePath}nibp-sound.mp3`)
+        .then(res => res.arrayBuffer())
+        .then(arrayBuf => ctx.decodeAudioData(arrayBuf))
+        .then(audioBuf => {
+          this.nibpBuffer = audioBuf;
+          const source = ctx.createBufferSource();
+          source.buffer = audioBuf;
+          const gain = ctx.createGain();
+          gain.gain.value = 1.0;
+          source.connect(gain);
+          gain.connect(this.masterGain!);
+          source.start();
+        })
+        .catch(() => { /* ignore audio load errors */ });
     } catch {
       // Ignore
     }
