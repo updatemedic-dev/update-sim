@@ -348,30 +348,46 @@ function App() {
               <PacerButton active={defib.pacerOn} onToggle={() => { defib.togglePacer(); audioEngine.playPacerBeep(); }} />
               <div className="flex items-center justify-between" style={{ marginTop: 6 }}>
                 <button onClick={() => { defib.setPacerRate(defib.pacerRate - 10); audioEngine.playTapClick(); }}
-                  className="w-14 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  aria-label="Disminuir frecuencia marcapaso"
+                  className="w-12 h-9 rounded-lg border transition-all duration-150 active:translate-y-[1px] active:scale-95 flex items-center justify-center"
+                  style={{ background: 'linear-gradient(180deg, #3a3a4a 0%, #252535 50%, #1a1a28 100%)', borderColor: '#4a4a5a', boxShadow: '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4'; e.currentTarget.style.boxShadow = '0 0 8px rgba(6,182,212,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#4a4a5a'; e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}>
+                  <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M3 3L8 7L13 3" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
                 <div className="flex flex-col items-center">
                   <span className="text-[8px] text-gray-500">RATE SELECT</span>
                   <span style={{ fontSize: '2.5rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerRate}</span>
                 </div>
                 <button onClick={() => { defib.setPacerRate(defib.pacerRate + 10); audioEngine.playTapClick(); }}
-                  className="w-14 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  aria-label="Aumentar frecuencia marcapaso"
+                  className="w-12 h-9 rounded-lg border transition-all duration-150 active:translate-y-[1px] active:scale-95 flex items-center justify-center"
+                  style={{ background: 'linear-gradient(180deg, #3a3a4a 0%, #252535 50%, #1a1a28 100%)', borderColor: '#4a4a5a', boxShadow: '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4'; e.currentTarget.style.boxShadow = '0 0 8px rgba(6,182,212,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#4a4a5a'; e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}>
+                  <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M3 7L8 3L13 7" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               </div>
               <div className="flex items-center justify-between mt-0.5">
                 <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent - 5); audioEngine.playTapClick(); }}
-                  className="w-14 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 2L9 10L16 2" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  aria-label="Disminuir corriente marcapaso"
+                  className="w-12 h-9 rounded-lg border transition-all duration-150 active:translate-y-[1px] active:scale-95 flex items-center justify-center"
+                  style={{ background: 'linear-gradient(180deg, #3a3a4a 0%, #252535 50%, #1a1a28 100%)', borderColor: '#4a4a5a', boxShadow: '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4'; e.currentTarget.style.boxShadow = '0 0 8px rgba(6,182,212,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#4a4a5a'; e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}>
+                  <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M3 3L8 7L13 3" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
                 <div className="flex flex-col items-center">
                   <span className="text-[8px] text-gray-500">mAMP SELECT</span>
                   <span style={{ fontSize: '2.5rem' }} className="font-bold text-cyan-400 tabular-nums leading-none">{defib.pacerCurrent}</span>
                 </div>
                 <button onClick={() => { defib.setPacerCurrent(defib.pacerCurrent + 5); audioEngine.playTapClick(); }}
-                  className="w-14 h-10 rounded-xl bg-gradient-to-b from-gray-500 to-gray-700 border border-gray-500 shadow-[0_3px_6px_rgba(0,0,0,0.5),inset_0_2px_0_rgba(255,255,255,0.15)] hover:from-gray-400 active:translate-y-[1px] transition-all flex items-center justify-center">
-                  <svg width="18" height="12" viewBox="0 0 18 12"><path d="M2 10L9 2L16 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  aria-label="Aumentar corriente marcapaso"
+                  className="w-12 h-9 rounded-lg border transition-all duration-150 active:translate-y-[1px] active:scale-95 flex items-center justify-center"
+                  style={{ background: 'linear-gradient(180deg, #3a3a4a 0%, #252535 50%, #1a1a28 100%)', borderColor: '#4a4a5a', boxShadow: '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4'; e.currentTarget.style.boxShadow = '0 0 8px rgba(6,182,212,0.25), 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#4a4a5a'; e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)'; }}>
+                  <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M3 7L8 3L13 7" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               </div>
               {defib.pacerOn && (
