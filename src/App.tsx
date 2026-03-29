@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import MonitorScreen, { applyStep } from './components/monitor/MonitorScreen';
 import ScenarioSelector from './components/scenarios/ScenarioSelector';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 // Settings integrated into gear panel
 import { useVitalSignsStore } from './stores/vitalSignsStore';
 import { useSettingsStore } from './stores/settingsStore';
@@ -317,11 +318,14 @@ function App() {
 
       {/* ===== MONITOR AREA ===== */}
       <div className="flex-1 min-h-0">
-        <MonitorScreen />
+        <ErrorBoundary name="Monitor">
+          <MonitorScreen />
+        </ErrorBoundary>
       </div>
 
       {/* ===== BOTTOM CONTROL PANEL ===== */}
       {showControls && (
+        <ErrorBoundary name="Panel de Control">
         <div className="shrink-0 border-t border-gray-700 bg-[#0a0a14]">
           <div className="flex h-[192px] gap-1.5 p-1.5">
 
@@ -602,6 +606,7 @@ function App() {
             </div>
           </div>
         </div>
+        </ErrorBoundary>
       )}
 
       {/* Show controls button when hidden */}

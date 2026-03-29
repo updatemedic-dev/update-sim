@@ -1,4 +1,4 @@
-const CACHE_NAME = 'update-sim-v5';
+const CACHE_NAME = 'update-sim-v6';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

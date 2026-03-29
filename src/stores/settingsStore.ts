@@ -19,13 +19,51 @@ export interface AppSettings {
   alarmsOff: boolean;
 }
 
+// Keys that persist across sessions in localStorage
+const PERSISTED_KEYS: (keyof AppSettings)[] = [
+  'language', 'waveformSpeed', 'soundEnabled', 'alarmVolume', 'beepVolume',
+  'temperatureUnit', 'energyType', 'cprRatio', 'cprMetronomeRate',
+  'wakeLockEnabled', 'keyboardShortcutsEnabled',
+];
+
+const STORAGE_KEY = 'update-sim-settings';
+
+function loadPersistedSettings(): Partial<AppSettings> {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    const result: Partial<AppSettings> = {};
+    for (const key of PERSISTED_KEYS) {
+      if (key in parsed) {
+        (result as Record<string, unknown>)[key] = parsed[key];
+      }
+    }
+    return result;
+  } catch {
+    return {};
+  }
+}
+
+function savePersistedSettings(state: AppSettings) {
+  try {
+    const toSave: Partial<AppSettings> = {};
+    for (const key of PERSISTED_KEYS) {
+      (toSave as Record<string, unknown>)[key] = state[key];
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+  } catch {
+    // localStorage unavailable (private browsing, quota exceeded)
+  }
+}
+
 interface SettingsStore extends AppSettings {
   set: <K extends keyof AppSettings>(key: K, value: AppSettings[K]) => void;
   silenceAlarms: (durationMs?: number) => void;
   toggleAlarmsOff: () => void;
 }
 
-export const useSettingsStore = create<SettingsStore>((set) => ({
+const defaults: AppSettings = {
   language: 'es',
   waveformSpeed: 25,
   soundEnabled: true,
@@ -42,8 +80,18 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
   alarmsSilenced: false,
   alarmsSilencedUntil: 0,
   alarmsOff: false,
+};
 
-  set: (key, value) => set({ [key]: value }),
+const persisted = loadPersistedSettings();
+
+export const useSettingsStore = create<SettingsStore>((set, get) => ({
+  ...defaults,
+  ...persisted,
+
+  set: (key, value) => {
+    set({ [key]: value });
+    savePersistedSettings({ ...get(), [key]: value });
+  },
 
   silenceAlarms: (durationMs = 120000) =>
     set({
