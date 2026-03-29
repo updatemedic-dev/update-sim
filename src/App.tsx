@@ -285,24 +285,29 @@ function App() {
   // ===== DISCLAIMER =====
   if (showDisclaimer) {
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4">
-        <div className="bg-[#111] border border-gray-700 rounded-lg p-6 max-w-lg text-center">
-          <img src={`${import.meta.env.BASE_URL}logo-update-sim.png`} alt="UPDATE SIM" className="h-16 mx-auto mb-2" />
-          <p className="text-sm text-gray-300 mb-1">by Update Medic</p>
-          <div className="my-4 p-3 bg-red-900/30 border border-red-800 rounded text-xs text-red-300">
-            <p className="font-bold mb-1">{t('disclaimer', language)}</p>
+      <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4"
+        style={{ animation: 'overlayFadeIn 0.4s ease-out' }}>
+        <div className="bg-gradient-to-b from-[#141428] to-[#0a0a18] border border-gray-700/60 rounded-2xl p-8 max-w-lg text-center shadow-2xl"
+          style={{ animation: 'disclaimerFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 25px 60px rgba(0,0,0,0.7), 0 0 1px rgba(255,255,255,0.05)' }}>
+          <img src={`${import.meta.env.BASE_URL}logo-update-sim.png`} alt="UPDATE SIM" className="h-20 mx-auto mb-3" style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }} />
+          <p className="text-sm text-gray-400 mb-1 tracking-wide">by Update Medic</p>
+          <div className="h-px w-16 mx-auto my-4" style={{ background: 'linear-gradient(90deg, transparent, #374151, transparent)' }} />
+          <div className="my-4 p-4 bg-red-950/40 border border-red-900/60 rounded-xl text-xs text-red-300/90 leading-relaxed"
+            style={{ animation: 'slideUpIn 0.5s ease-out 0.2s both' }}>
+            <p className="font-bold mb-1.5 text-red-200 tracking-wide">{t('disclaimer', language)}</p>
             <p>{t('disclaimerText', language)}</p>
           </div>
-          <p className="text-xs text-gray-500 mb-4">{t('developedBy', language)}</p>
+          <p className="text-xs text-gray-500 mb-5">{t('developedBy', language)}</p>
           <button onClick={() => { setShowDisclaimer(false); audioEngine.init(); }}
-            className="relative px-8 py-3 rounded-lg font-bold text-sm text-white border overflow-hidden transition-all duration-300 hover:scale-[1.02] active:translate-y-[1px]"
+            className="relative px-10 py-3.5 rounded-xl font-bold text-sm text-white border overflow-hidden transition-all duration-300 hover:scale-[1.03] active:translate-y-[1px] active:scale-[0.98]"
             style={{
+              animation: 'slideUpIn 0.5s ease-out 0.3s both, glowPulse 3s ease-in-out infinite 1s',
               background: 'linear-gradient(180deg, #1a3a5c 0%, #0d2848 50%, #091e38 100%)',
               borderColor: '#2563eb',
               boxShadow: '0 0 16px rgba(37,99,235,0.4), 0 0 6px rgba(37,99,235,0.2), 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)',
             }}>
             <span className="relative z-10 flex items-center gap-2 justify-center">
-              <span className="w-2 h-2 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, #93c5fd, #2563eb 50%, #1d4ed8 100%)', boxShadow: '0 0 6px rgba(37,99,235,0.8)' }} />
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, #93c5fd, #2563eb 50%, #1d4ed8 100%)', boxShadow: '0 0 8px rgba(37,99,235,0.9)' }} />
               {t('enter', language)}
             </span>
             <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)' }} />
@@ -775,11 +780,12 @@ function SettingsOverlay({ language, visibleParams, showDescription, onClose }: 
   );
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+    <div className="fixed inset-0 z-[70] flex items-center justify-center" onClick={onClose}
+      style={{ animation: 'overlayFadeIn 0.2s ease-out' }}>
+      <div className="absolute inset-0 bg-black/60" style={{ backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }} />
       <div
-        className="relative bg-gradient-to-b from-[#1e1e32] to-[#16162a] border border-gray-600/50 rounded-2xl p-5 w-[340px] max-h-[92%] overflow-y-auto shadow-[0_20px_60px_rgba(0,0,0,0.6)] text-white"
-        style={{ backdropFilter: 'blur(20px)' }}
+        className="relative bg-gradient-to-b from-[#1e1e32] to-[#14142a] border border-gray-600/40 rounded-2xl p-5 w-[340px] max-h-[92%] overflow-y-auto text-white"
+        style={{ animation: 'overlayScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 25px 60px rgba(0,0,0,0.7), 0 0 1px rgba(255,255,255,0.05)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4">
@@ -1019,12 +1025,13 @@ function RhythmKeypad({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center" onClick={onClose}>
-      <div className="bg-[#0d0d16] border border-gray-600 rounded-2xl p-6 max-w-5xl w-[96%] shadow-2xl" style={{ boxShadow: '0 0 40px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.4)' }} onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center" onClick={onClose}
+      style={{ animation: 'overlayFadeIn 0.2s ease-out', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}>
+      <div className="bg-gradient-to-b from-[#12121e] to-[#0a0a14] border border-gray-600/50 rounded-2xl p-6 max-w-5xl w-[96%]" style={{ animation: 'overlayScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 25px 60px rgba(0,0,0,0.8), 0 0 1px rgba(255,255,255,0.06)' }} onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-5 pl-2">
           <div>
             <span className="font-black text-2xl text-white tracking-wide">Teclado de Ritmos</span>
-            <div className="h-[2px] mt-1 w-20" style={{ background: 'linear-gradient(90deg, #ef4444, transparent)' }} />
+            <div className="h-[2px] mt-1.5 w-20 rounded-full" style={{ background: 'linear-gradient(90deg, #ef4444, transparent)' }} />
           </div>
           <button onClick={onClose} className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white text-xl transition-all" style={{ background: 'linear-gradient(180deg, #2a2a3a, #1a1a28)', border: '1px solid #374151' }}>✕</button>
         </div>
@@ -1074,13 +1081,14 @@ function MedsOverlay({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center" onClick={onClose}>
-      <div className="bg-[#0d0d16] border border-gray-600 rounded-2xl p-6 max-w-5xl w-[96%] shadow-2xl" style={{ boxShadow: '0 0 40px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.4)' }} onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center" onClick={onClose}
+      style={{ animation: 'overlayFadeIn 0.2s ease-out', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}>
+      <div className="bg-gradient-to-b from-[#12121e] to-[#0a0a14] border border-gray-600/50 rounded-2xl p-6 max-w-5xl w-[96%]" style={{ animation: 'overlayScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 25px 60px rgba(0,0,0,0.8), 0 0 1px rgba(255,255,255,0.06)' }} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="flex justify-between items-center mb-5 pl-2">
           <div>
             <span className="font-black text-2xl text-white tracking-wide">Medicamentos</span>
-            <div className="h-[2px] mt-1 w-24" style={{ background: 'linear-gradient(90deg, #a855f7, transparent)' }} />
+            <div className="h-[2px] mt-1.5 w-24 rounded-full" style={{ background: 'linear-gradient(90deg, #a855f7, transparent)' }} />
           </div>
           <button onClick={onClose} className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white text-xl transition-all" style={{ background: 'linear-gradient(180deg, #2a2a3a, #1a1a28)', border: '1px solid #374151' }}>✕</button>
         </div>

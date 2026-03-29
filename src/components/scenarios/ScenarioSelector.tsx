@@ -67,47 +67,64 @@ export default function ScenarioSelector({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={onClose}>
+    <div className="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4" onClick={onClose}
+      style={{ animation: 'overlayFadeIn 0.2s ease-out', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}>
       <div
-        className="bg-[#111] border border-gray-700 rounded-lg w-full max-w-3xl max-h-[85vh] flex flex-col"
+        className="bg-gradient-to-b from-[#141420] to-[#0c0c16] border border-gray-600/40 rounded-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
+        style={{ animation: 'overlayScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 25px 60px rgba(0,0,0,0.8), 0 0 1px rgba(255,255,255,0.06)' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
-          <span className="font-bold text-lg text-white">Escenarios</span>
-          <button onClick={onClose} className="text-gray-400 hover:text-white text-xl">✕</button>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-700/50">
+          <div>
+            <span className="font-black text-xl text-white tracking-wide">Escenarios</span>
+            <div className="h-[2px] mt-1.5 w-16 rounded-full" style={{ background: 'linear-gradient(90deg, #3b82f6, transparent)' }} />
+          </div>
+          <button onClick={onClose} className="w-9 h-9 rounded-full flex items-center justify-center text-gray-400 hover:text-white text-lg transition-all"
+            style={{ background: 'linear-gradient(180deg, #2a2a3a, #1a1a28)', border: '1px solid #374151' }}>✕</button>
         </div>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap gap-2 px-5 py-3 border-b border-gray-800">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2.5 rounded-lg text-base font-bold border transition-colors ${
-                selectedCategory === cat
-                  ? CATEGORY_COLORS[cat] ?? 'bg-gray-700 border-gray-500'
-                  : 'bg-gray-900 border-gray-800 text-gray-500 hover:text-gray-300'
-              }`}
-            >
-              {CATEGORY_LABELS[cat] ?? cat} ({scenarios.filter((s) => s.category === cat).length})
-            </button>
-          ))}
+        <div className="flex flex-wrap gap-2 px-5 py-3.5 border-b border-gray-800/50">
+          {categories.map((cat) => {
+            const isActive = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`relative px-4 py-2 rounded-lg text-sm font-bold border transition-all duration-200 overflow-hidden ${
+                  isActive
+                    ? CATEGORY_COLORS[cat] ?? 'bg-gray-700 border-gray-500'
+                    : 'bg-gray-900/60 border-gray-800 text-gray-500 hover:text-gray-300 hover:border-gray-600'
+                }`}
+              >
+                {CATEGORY_LABELS[cat] ?? cat} <span className="text-[10px] opacity-60">({scenarios.filter((s) => s.category === cat).length})</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Scenario list */}
         <div className="flex-1 overflow-y-auto p-3 space-y-1.5">
-          {filtered.map((scenario) => (
+          {filtered.map((scenario, i) => (
             <button
               key={scenario.id}
               onClick={() => handleSelect(scenario)}
-              className="w-full text-left px-3 py-2.5 bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-gray-600 rounded transition-colors"
+              className="w-full text-left px-4 py-3 rounded-xl border transition-all duration-200 hover:scale-[1.005] active:scale-[0.995]"
+              style={{
+                animation: `slideUpIn 0.25s ease-out ${i * 0.03}s both`,
+                background: 'linear-gradient(180deg, #1a1a28 0%, #111120 100%)',
+                borderColor: '#2a2a3a',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#4a4a5a'; e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#2a2a3a'; e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)'; }}
             >
               <div className="flex justify-between items-start">
                 <span className="font-bold text-sm text-white">{scenario.name}</span>
-                <span className="text-[10px] text-gray-500 shrink-0 ml-2">{scenario.steps.length} pasos</span>
+                <span className="text-[10px] text-gray-500 shrink-0 ml-2 bg-gray-800/60 px-2 py-0.5 rounded">{scenario.steps.length} pasos</span>
               </div>
-              <p className="text-[11px] text-gray-400 mt-0.5">{scenario.description}</p>
+              <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">{scenario.description}</p>
             </button>
           ))}
         </div>

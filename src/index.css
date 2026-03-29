@@ -34,16 +34,115 @@ html, body {
   -webkit-user-select: none;
 }
 
+/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 3px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 10px;
 }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.12) transparent;
+}
+
+/* ===== OVERLAY ANIMATIONS ===== */
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes overlayScaleIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes disclaimerFadeIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideUpIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(37,99,235,0.4), 0 0 6px rgba(37,99,235,0.2), 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08); }
+  50% { box-shadow: 0 0 24px rgba(37,99,235,0.6), 0 0 12px rgba(37,99,235,0.35), 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08); }
+}
+
+/* ===== CUSTOM RANGE SLIDER ===== */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  height: 20px;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #1e293b, #334155);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #e2e8f0, #94a3b8);
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1);
+  margin-top: -7px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.5), 0 0 8px rgba(0,212,255,0.3);
+}
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.05);
+  background: linear-gradient(180deg, #f1f5f9, #cbd5e1);
+}
+
+/* Firefox range */
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #1e293b, #334155);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #e2e8f0, #94a3b8);
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* ===== CUSTOM SELECT DROPDOWN ===== */
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px !important;
+}
+select option {
+  background: #1a1a2e;
+  color: #e2e8f0;
+  padding: 8px;
+}
+
+/* ===== MONITOR ANIMATIONS ===== */
 
 /* HR alarm background flash animation */
 @keyframes bgFlash {
@@ -63,7 +162,9 @@ html, body {
   50% { opacity: 0.2; box-shadow: 0 0 2px rgba(59,130,246,0.2); }
 }
 
-/* Accessibility: visible focus ring for keyboard navigation */
+/* ===== ACCESSIBILITY ===== */
+
+/* Visible focus ring for keyboard navigation */
 :focus-visible {
   outline: 2px solid #00d4ff;
   outline-offset: 2px;
@@ -75,7 +176,7 @@ button:focus-visible, select:focus-visible, input:focus-visible {
   box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
 }
 
-/* Accessibility: respect reduced-motion preference */
+/* Respect reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
