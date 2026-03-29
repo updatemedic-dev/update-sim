@@ -6,15 +6,17 @@ import { useCodeTrackStore } from '../../stores/codeTrackStore';
 import type { PresetScenario } from '../../data/presetScenarios';
 
 const CATEGORY_LABELS: Record<string, string> = {
-  ACLS: 'ACLS Estándar',
-  ACLS_MEGA: 'ACLS MegaCódigo',
+  ACLS_MEGA: 'MC ACLS',
   PALS: 'PALS',
-  NRP: 'NRP Neonatal',
-  MEGA_LAERDAL: 'Megacodes 10 Pacientes',
-  EPALS: 'EPALS',
-  PH: 'PH Prehospitalario',
+  PH: 'PREHOSP',
+  NRP: 'PRN',
   MAVACRIT: 'MAVACRIT',
+  EPALS: 'EPALS',
+  ACLS: 'ACLS 10-1',
+  MEGA_LAERDAL: 'ACLS 10-2',
 };
+
+const CATEGORY_ORDER: PresetScenario['category'][] = ['ACLS_MEGA', 'PALS', 'PH', 'NRP', 'MAVACRIT', 'EPALS', 'ACLS', 'MEGA_LAERDAL'];
 
 const CATEGORY_COLORS: Record<string, string> = {
   ACLS: 'bg-red-900/50 border-red-700',
@@ -29,9 +31,10 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 export default function ScenarioSelector({ onClose }: { onClose: () => void }) {
   const { scenarios, loadScenario } = useScenarioStore();
-  const [selectedCategory, setSelectedCategory] = useState<string>('ACLS');
+  const [selectedCategory, setSelectedCategory] = useState<string>('ACLS_MEGA');
 
-  const categories = [...new Set(scenarios.map((s) => s.category))];
+  const availableCategories = new Set(scenarios.map((s) => s.category));
+  const categories = CATEGORY_ORDER.filter((c) => availableCategories.has(c));
   const filtered = scenarios.filter((s) => s.category === selectedCategory);
 
   const handleSelect = (scenario: PresetScenario) => {
