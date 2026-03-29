@@ -1023,6 +1023,7 @@ function RhythmKeypad({ onClose }: { onClose: () => void }) {
       hasPulse: def.hasPulse,
     });
     useCodeTrackStore.getState().addEntry('rhythm_change', `Ritmo: ${def.nameEs}`);
+    onClose();
   };
 
   return (
