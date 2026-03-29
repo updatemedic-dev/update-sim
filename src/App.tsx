@@ -289,7 +289,7 @@ function App() {
         style={{ animation: 'overlayFadeIn 0.4s ease-out' }}>
         <div className="bg-gradient-to-b from-[#141428] to-[#0a0a18] border border-gray-700/60 rounded-2xl p-8 max-w-lg text-center shadow-2xl"
           style={{ animation: 'disclaimerFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1)', boxShadow: '0 25px 60px rgba(0,0,0,0.7), 0 0 1px rgba(255,255,255,0.05)' }}>
-          <img src={`${import.meta.env.BASE_URL}logo-update-sim.png`} alt="UPDATE SIM" className="h-20 mx-auto mb-3" style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }} />
+          <img src={`${import.meta.env.BASE_URL}logo-update-sim.webp`} alt="UPDATE SIM" className="h-20 mx-auto mb-3" style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }} />
           <p className="text-sm text-gray-400 mb-1 tracking-wide">by Update Medic</p>
           <div className="h-px w-16 mx-auto my-4" style={{ background: 'linear-gradient(90deg, transparent, #374151, transparent)' }} />
           <div className="my-4 p-4 bg-red-950/40 border border-red-900/60 rounded-xl text-xs text-red-300/90 leading-relaxed"
@@ -319,10 +319,11 @@ function App() {
 
   return (
     <div className="flex flex-col bg-black overflow-hidden"
+      role="application" aria-label="UPDATE SIM - Simulador de monitor multiparamétrico"
       style={{ fontFamily: '"JetBrains Mono", "IBM Plex Mono", monospace', width: 1024, height: 768 }}>
 
       {/* ===== MONITOR AREA ===== */}
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0" role="main" aria-label="Monitor multiparamétrico">
         <ErrorBoundary name="Monitor">
           <MonitorScreen />
         </ErrorBoundary>
@@ -331,7 +332,7 @@ function App() {
       {/* ===== BOTTOM CONTROL PANEL ===== */}
       {showControls && (
         <ErrorBoundary name="Panel de Control">
-        <div className="shrink-0 border-t border-gray-700 bg-[#0a0a14]">
+        <div className="shrink-0 border-t border-gray-700 bg-[#0a0a14]" role="toolbar" aria-label="Panel de control del simulador">
           <div className="flex h-[192px] gap-1.5 p-1.5">
 
             {/* Column 1: Scenarios / Rhythm */}

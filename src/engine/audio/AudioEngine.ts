@@ -12,6 +12,7 @@ export class AudioEngine {
   private activeAlarmOsc: OscillatorNode | null = null;
   private metronomeInterval: ReturnType<typeof setInterval> | null = null;
   private chargedBeepInterval: ReturnType<typeof setInterval> | null = null;
+  private visibilityHandler: (() => void) | null = null;
 
   private setupGains(): void {
     if (!this.ctx) return;
@@ -55,11 +56,16 @@ export class AudioEngine {
     }
 
     // Listen for visibility changes to resume audio on iOS PWA
-    document.addEventListener('visibilitychange', () => {
+    // Remove previous handler to prevent accumulation on re-init
+    if (this.visibilityHandler) {
+      document.removeEventListener('visibilitychange', this.visibilityHandler);
+    }
+    this.visibilityHandler = () => {
       if (document.visibilityState === 'visible' && this.ctx && this.ctx.state === 'suspended') {
         this.ctx.resume();
       }
-    });
+    };
+    document.addEventListener('visibilitychange', this.visibilityHandler);
   }
 
   private ensureContext(): AudioContext {

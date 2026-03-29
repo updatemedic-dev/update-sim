@@ -149,15 +149,17 @@ export default function MonitorScreen() {
       className="flex flex-col w-full h-full bg-black select-none"
       style={{ fontFamily: '"JetBrains Mono", "IBM Plex Mono", monospace' }}
       onClick={initAudio}
+      role="region" aria-label="Pantalla del monitor multiparamétrico"
     >
       {/* ===== TOP BAR ===== */}
       <div className="flex items-center h-[76px] px-4 border-b border-gray-800 shrink-0 bg-[#0a0a0a]">
         {/* Logo UPDATE SIM */}
-        <img src={`${import.meta.env.BASE_URL}logo-update-sim.png`} alt="UPDATE SIM" className="h-14 shrink-0" />
+        <img src={`${import.meta.env.BASE_URL}logo-update-sim.webp`} alt="UPDATE SIM" className="h-14 shrink-0" />
         <div className="flex-1" />
         {/* Settings gear */}
         <button
           onClick={() => { window.dispatchEvent(new CustomEvent('toggleSettings')); }}
+          aria-label="Configuración"
           className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 active:translate-y-[1px]"
           style={{
             background: 'linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #111120 100%)',
@@ -177,7 +179,7 @@ export default function MonitorScreen() {
           <span className="text-4xl font-bold text-green-300 tabular-nums tracking-wider">{elapsedStr}</span>
         </div>
         {/* ===== TRANSPORT CONTROLS ===== */}
-        <div className="flex items-center gap-2" style={{ marginLeft: 16 }}>
+        <div className="flex items-center gap-2" role="group" aria-label="Controles de transporte" style={{ marginLeft: 16 }}>
           {/* Rewind / Previous */}
           <button
             onClick={() => {

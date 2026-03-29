@@ -1,4 +1,4 @@
-const CACHE_NAME = 'update-sim-v6';
+const CACHE_NAME = 'update-sim-v7';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -7,6 +7,7 @@ self.addEventListener('install', (event) => {
         '/',
         '/index.html',
         '/manifest.json',
+        '/logo-update-sim.webp',
         '/logo-update-sim.png',
         '/icon-pni.png',
         '/icon-comp.png',
@@ -17,6 +18,8 @@ self.addEventListener('install', (event) => {
         '/favicon-16.png',
         '/favicon.ico',
         '/favicon.png',
+        '/fonts/JetBrainsMono-Regular.woff2',
+        '/fonts/JetBrainsMono-Bold.woff2',
       ]);
     })
   );
