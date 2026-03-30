@@ -81,7 +81,8 @@ export default function WaveformCanvas({
       return;
     }
 
-    const dt = (timestamp - lastTimeRef.current) / 1000;
+    // Cap dt to prevent massive pixel jumps when draw callback is recreated
+    const dt = Math.min((timestamp - lastTimeRef.current) / 1000, 0.1);
     lastTimeRef.current = timestamp;
     const elapsed = (timestamp - startTimeRef.current) / 1000;
 
@@ -218,11 +219,7 @@ export default function WaveformCanvas({
 
   useEffect(() => {
     animRef.current = requestAnimationFrame(draw);
-    return () => {
-      cancelAnimationFrame(animRef.current);
-      startTimeRef.current = 0;
-      lastTimeRef.current = 0;
-    };
+    return () => cancelAnimationFrame(animRef.current);
   }, [draw]);
 
   return (
