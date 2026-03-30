@@ -9,11 +9,4 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
-// Register service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {
-      // SW registration failed, app works without it
-    });
-  });
-}
+// Service worker is registered automatically by vite-plugin-pwa

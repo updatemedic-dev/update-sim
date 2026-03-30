@@ -45,7 +45,7 @@ interface VitalSignsStore {
   shockPause: () => void;
 }
 
-export const useVitalSignsStore = create<VitalSignsStore>((set) => ({
+export const useVitalSignsStore = create<VitalSignsStore>((set, get) => ({
   vitals: { ...DEFAULT_VITALS },
   rhythm: CardiacRhythm.NORMAL_SINUS,
   previousRhythm: null,
@@ -208,7 +208,7 @@ export const useVitalSignsStore = create<VitalSignsStore>((set) => ({
     })),
 
   shockPause: () => {
-    const state = useVitalSignsStore.getState();
+    const state = get();
     const savedRhythm = state.rhythm;
     const savedVitals = { ...state.vitals };
     // Switch to asystole

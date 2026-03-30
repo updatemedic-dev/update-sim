@@ -54,6 +54,7 @@ export default function WaveformCanvas({
     if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
       writeXRef.current = 0;
       bufferRef.current = null;
@@ -217,7 +218,11 @@ export default function WaveformCanvas({
 
   useEffect(() => {
     animRef.current = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(animRef.current);
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      startTimeRef.current = 0;
+      lastTimeRef.current = 0;
+    };
   }, [draw]);
 
   return (

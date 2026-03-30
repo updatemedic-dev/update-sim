@@ -14,7 +14,7 @@ export default function DefibPanel() {
   } = useDefibStore();
 
   const codeTrack = useCodeTrackStore();
-  const chargeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const chargeTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const handleCharge = () => {
     if (isCharging || isCharged) return;
@@ -23,14 +23,14 @@ export default function DefibPanel() {
 
     // Simulate charge time
     let progress = 0;
-    const interval = setInterval(() => {
+    chargeTimerRef.current = setInterval(() => {
       progress += 0.05;
       if (progress >= 1) {
-        clearInterval(interval);
+        if (chargeTimerRef.current) clearInterval(chargeTimerRef.current);
+        chargeTimerRef.current = null;
         completeCharge();
       }
     }, 150);
-    chargeTimerRef.current = interval as unknown as ReturnType<typeof setTimeout>;
   };
 
   const handleShock = () => {
@@ -45,8 +45,18 @@ export default function DefibPanel() {
 
   const handleDisarm = () => {
     disarm();
-    if (chargeTimerRef.current) clearTimeout(chargeTimerRef.current);
+    if (chargeTimerRef.current) {
+      clearInterval(chargeTimerRef.current);
+      chargeTimerRef.current = null;
+    }
   };
+
+  // Cleanup charge timer on unmount
+  useEffect(() => {
+    return () => {
+      if (chargeTimerRef.current) clearInterval(chargeTimerRef.current);
+    };
+  }, []);
 
   const handleTogglePacer = () => {
     const newState = !pacerOn;
@@ -57,14 +67,16 @@ export default function DefibPanel() {
     });
   };
 
-  // CPR metronome sync
+  // CPR metronome sync — subscribe to cprActive changes
+  const cprActive = useVitalSignsStore((s) => s.vitals.cprActive);
   useEffect(() => {
-    const vitals = useVitalSignsStore.getState().vitals;
-    if (vitals.cprActive) {
+    if (cprActive) {
       audioEngine.startMetronome(110);
+    } else {
+      audioEngine.stopMetronome();
     }
     return () => audioEngine.stopMetronome();
-  }, []);
+  }, [cprActive]);
 
   const lastShock = shockHistory.length > 0 ? shockHistory[shockHistory.length - 1] : null;
 

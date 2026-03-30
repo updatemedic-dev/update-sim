@@ -169,10 +169,13 @@ export class RhythmEngine {
     let value: number;
 
     // Special waveforms that don't use standard PQRST morphology
+    // t parameter = normalized phase within cycle, time = absolute for amplitude modulation
     if (def.id === CardiacRhythm.VENTRICULAR_FIBRILLATION) {
-      value = generateVFib(time, time);
+      const vfibPeriod = 1 / 4.5;
+      value = generateVFib(time % vfibPeriod, time);
     } else if (def.id === CardiacRhythm.TORSADES_DE_POINTES) {
-      value = generateTorsades(time, time);
+      const torsadesPeriod = 1 / 5;
+      value = generateTorsades(time % torsadesPeriod, time);
     } else if (def.id === CardiacRhythm.ASYSTOLE) {
       value = baselineWander(time, 0.01, 0.3) + noise(0.005);
     } else {
@@ -184,9 +187,11 @@ export class RhythmEngine {
       const prevDef = this.getDefinition(this.previousRhythm);
       let prevValue: number;
       if (prevDef.id === CardiacRhythm.VENTRICULAR_FIBRILLATION) {
-        prevValue = generateVFib(time, time);
+        const vfibPeriod = 1 / 4.5;
+        prevValue = generateVFib(time % vfibPeriod, time);
       } else if (prevDef.id === CardiacRhythm.TORSADES_DE_POINTES) {
-        prevValue = generateTorsades(time, time);
+        const torsadesPeriod = 1 / 5;
+        prevValue = generateTorsades(time % torsadesPeriod, time);
       } else if (prevDef.id === CardiacRhythm.ASYSTOLE) {
         prevValue = baselineWander(time, 0.01, 0.3) + noise(0.005);
       } else {

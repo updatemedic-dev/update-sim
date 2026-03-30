@@ -57,30 +57,8 @@ export default function MonitorScreen() {
     return () => clearInterval(interval);
   }, [soundEnabled, vitals.hr, vitals.spo2, vitals.hasPulse, isPaused, vitals.cprActive]);
 
-  // Unified alarm: only ONE alarm sound at a time (highest priority wins)
-  useEffect(() => {
-    if (!soundEnabled || isPaused || isStopped || vitals.cprActive) return;
-
-    // Determine highest priority alarm
-    let priority: 'high' | 'medium' | null = null;
-    let interval = 2000;
-
-    // High priority checks
-    if (vitals.hasPulse && vitals.hr > 0 && vitals.hr >= 150) { priority = 'high'; }
-    else if (vitals.hasPulse && vitals.spo2 > 0 && vitals.spo2 < 90) { priority = 'high'; }
-    else if (vitals.hasPulse && vitals.nibpHasReading && vitals.nibpLastSystolic < 90) { priority = 'high'; }
-    // Medium priority checks
-    else if (vitals.hasPulse && vitals.hr > 0 && vitals.hr <= 50) { priority = 'medium'; }
-    else if (vitals.etco2 > 0 && (vitals.etco2 < 20 || vitals.etco2 > 50)) { priority = 'medium'; }
-    else if (vitals.respiratoryRate > 0 && (vitals.respiratoryRate < 8 || vitals.respiratoryRate > 30)) { priority = 'medium'; }
-    else if (vitals.temperature < 35 || vitals.temperature > 38.5) { priority = 'medium'; interval = 3000; }
-
-    if (!priority) return;
-
-    audioEngine.playAlarmTone(priority);
-    const alarmInterval = setInterval(() => { audioEngine.playAlarmTone(priority!); }, interval);
-    return () => clearInterval(alarmInterval);
-  }, [soundEnabled, vitals.hr, vitals.spo2, vitals.etco2, vitals.temperature, vitals.respiratoryRate, vitals.hasPulse, vitals.nibpHasReading, vitals.nibpLastSystolic, isPaused, isStopped, vitals.cprActive]);
+  // Alarm sounds are handled centrally by AlarmIndicator (useAlarmStatus hook)
+  // which respects alarmsOff, alarmsSilenced, and alarm threshold configs.
 
   // Clock timer
   useEffect(() => {

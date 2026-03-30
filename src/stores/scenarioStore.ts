@@ -32,7 +32,8 @@ export const useScenarioStore = create<ScenarioStore>((set, get) => ({
   nextStep: () => {
     const { activeScenario, currentStepIndex } = get();
     if (!activeScenario) return null;
-    const nextIdx = Math.min(currentStepIndex + 1, activeScenario.steps.length - 1);
+    if (currentStepIndex >= activeScenario.steps.length - 1) return null;
+    const nextIdx = currentStepIndex + 1;
     set({ currentStepIndex: nextIdx });
     return activeScenario.steps[nextIdx];
   },

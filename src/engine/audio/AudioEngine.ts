@@ -534,7 +534,12 @@ export class AudioEngine {
 
   destroy(): void {
     this.stopMetronome();
+    this.stopChargedBeep();
     this.stopAlarm();
+    if (this.visibilityHandler) {
+      document.removeEventListener('visibilitychange', this.visibilityHandler);
+      this.visibilityHandler = null;
+    }
     if (this.ctx) {
       this.ctx.close();
       this.ctx = null;
