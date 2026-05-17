@@ -187,7 +187,7 @@ export default function JarvisPanel() {
         <div className="jarvis-header-left">
           <div className="jarvis-header-indicator" style={{ backgroundColor: color, boxShadow: `0 0 8px ${color}` }} />
           <span className="jarvis-title">J.A.R.V.I.S.</span>
-          <span className="jarvis-subtitle">{es ? 'Asistente Médico IA' : 'AI Medical Assistant'}</span>
+          <span className="jarvis-subtitle">{es ? 'Asistente de Simulación' : 'Simulation Assistant'}</span>
         </div>
         <div className="jarvis-header-actions">
           <button onClick={minimize} className="jarvis-btn-icon" title={es ? 'Minimizar' : 'Minimize'}>─</button>
@@ -207,6 +207,13 @@ export default function JarvisPanel() {
           {state === 'alert' && (es ? 'ALERTA DETECTADA' : 'ALERT DETECTED')}
           {state === 'listening' && (es ? 'ESCUCHANDO' : 'LISTENING')}
         </span>
+      </div>
+
+      {/* Clinical disclaimer */}
+      <div className="jarvis-disclaimer">
+        {es
+          ? '⚕ Solo simulación. No usar en pacientes reales. Toda sugerencia clínica requiere validación por experto.'
+          : '⚕ Simulation only. Do not use on real patients. All clinical suggestions require expert validation.'}
       </div>
 
       {/* Messages */}

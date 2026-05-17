@@ -284,6 +284,19 @@ html, body {
   letter-spacing: 2px;
 }
 
+/* Clinical Disclaimer */
+.jarvis-disclaimer {
+  padding: 4px 14px;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #cc8844;
+  background: #1a120a88;
+  border-bottom: 1px solid #332211;
+  text-align: center;
+  line-height: 1.4;
+}
+
 /* Messages */
 .jarvis-messages {
   flex: 1;
