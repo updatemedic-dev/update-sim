@@ -49,8 +49,12 @@ function App() {
     const v = vs.vitals;
 
     switch (e.key.toLowerCase()) {
-      case 'n': // NEXT STEP
+      case 'n':
         e.preventDefault();
+        if (v.cprActive) {
+          vs.setVital('cprActive', false);
+          audioEngine.stopMetronome();
+        }
         if (sc.activeScenario) {
           const step = sc.nextStep();
           if (step) {
@@ -101,13 +105,6 @@ function App() {
           vs.setVital('cprActive', newCpr);
           if (newCpr) audioEngine.startMetronome(useSettingsStore.getState().cprMetronomeRate);
           else audioEngine.stopMetronome();
-        }
-        break;
-      case 'n':
-        e.preventDefault();
-        if (v.cprActive) {
-          vs.setVital('cprActive', false);
-          audioEngine.stopMetronome();
         }
         break;
       case 'd':
