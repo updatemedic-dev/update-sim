@@ -10,6 +10,7 @@ import { useScenarioStore } from './stores/scenarioStore';
 import { useCodeTrackStore } from './stores/codeTrackStore';
 import { useMedicationStore } from './stores/medicationStore';
 import { audioEngine } from './engine/audio/AudioEngine';
+import { PRESET_SCENARIOS } from './data/presetScenarios';
 import { CardiacRhythm } from './types/rhythms';
 import { RHYTHM_DEFINITIONS } from './engine/rhythms/rhythmDefinitions';
 import { MedicationCategory } from './types/medications';
@@ -31,6 +32,7 @@ function App() {
   // ===== KEYBOARD SHORTCUTS =====
   const aKeyRef = useRef(false);
   const pKeyRef = useRef(false);
+  const oKeyTimestamp = useRef(0);
 
   const handleKeyUp = useCallback((e: KeyboardEvent) => {
     if (e.key.toLowerCase() === 'a') aKeyRef.current = false;
@@ -240,6 +242,10 @@ function App() {
         e.preventDefault();
         setShowControls((v) => !v);
         break;
+      case 'o':
+        e.preventDefault();
+        oKeyTimestamp.current = Date.now();
+        return;
       case 'escape':
         e.preventDefault();
         vs.togglePause();
@@ -249,6 +255,38 @@ function App() {
     // Number keys 1-9 for quick rhythm (only if A is not held)
     const num = parseInt(e.key);
     if (num >= 1 && num <= 9 && !aKeyRef.current && !pKeyRef.current) {
+      // O + number: Load OBSTACRIT scenario
+      if (Date.now() - oKeyTimestamp.current < 1500) {
+        e.preventDefault();
+        const scenarioId = `obstacrit-${num}`;
+        const scenario = PRESET_SCENARIOS.find((s) => s.id === scenarioId);
+        if (scenario) {
+          vs.stop();
+          df.reset();
+          useMedicationStore.getState().clearAdministered();
+          audioEngine.stopChargedBeep();
+          audioEngine.stopMetronome();
+          audioEngine.stopAlarm();
+          sc.loadScenario(scenarioId);
+          sc.start();
+          const step = scenario.steps[0];
+          vs.setRhythm(step.rhythm);
+          vs.setVitals({
+            hr: step.hr,
+            systolic: step.systolic,
+            diastolic: step.diastolic,
+            spo2: step.spo2,
+            etco2: step.etco2,
+            respiratoryRate: step.rr,
+            hasPulse: step.hasPulse,
+            ...(step.temperature !== undefined ? { temperature: step.temperature } : {}),
+          });
+          useCodeTrackStore.getState().start();
+          useCodeTrackStore.getState().addEntry('scenario_start', `Inicio escenario: ${scenario.name}`);
+        }
+        oKeyTimestamp.current = 0;
+        return;
+      }
       e.preventDefault();
       const quickRhythms = [
         CardiacRhythm.NORMAL_SINUS, CardiacRhythm.SINUS_BRADYCARDIA,
