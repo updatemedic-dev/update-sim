@@ -153,6 +153,17 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
             </button>
           </div>
 
+          {/* Show rhythm name */}
+          <div className="flex justify-between items-center">
+            <span>Mostrar nombre del ritmo</span>
+            <button
+              onClick={() => settings.set('showRhythmName', !settings.showRhythmName)}
+              className={`px-3 py-1 rounded ${settings.showRhythmName ? 'bg-green-700' : 'bg-gray-700'}`}
+            >
+              {settings.showRhythmName ? 'ON' : 'OFF'}
+            </button>
+          </div>
+
           {/* Alarm controls */}
           <div className="border-t border-gray-700 pt-2">
             <span className="font-bold text-red-400 block mb-1">ALARMAS</span>

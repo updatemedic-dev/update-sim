@@ -14,9 +14,10 @@ const CATEGORY_LABELS: Record<string, string> = {
   EPALS: 'EPALS',
   ACLS: 'ACLS 10-1',
   MEGA_LAERDAL: 'ACLS 10-2',
+  OBSTACRIT: 'OBSTACRIT',
 };
 
-const CATEGORY_ORDER: PresetScenario['category'][] = ['ACLS_MEGA', 'PALS', 'PH', 'NRP', 'MAVACRIT', 'EPALS', 'ACLS', 'MEGA_LAERDAL'];
+const CATEGORY_ORDER: PresetScenario['category'][] = ['ACLS_MEGA', 'PALS', 'PH', 'NRP', 'MAVACRIT', 'EPALS', 'ACLS', 'MEGA_LAERDAL', 'OBSTACRIT'];
 
 const CATEGORY_COLORS: Record<string, string> = {
   ACLS: 'bg-red-900/50 border-red-700',
@@ -27,6 +28,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   EPALS: 'bg-teal-900/50 border-teal-700',
   PH: 'bg-amber-900/50 border-amber-700',
   MAVACRIT: 'bg-emerald-900/50 border-emerald-700',
+  OBSTACRIT: 'bg-rose-900/50 border-rose-700',
 };
 
 export default function ScenarioSelector({ onClose }: { onClose: () => void }) {

@@ -17,13 +17,14 @@ export interface AppSettings {
   alarmsSilenced: boolean;
   alarmsSilencedUntil: number;
   alarmsOff: boolean;
+  showRhythmName: boolean;
 }
 
 // Keys that persist across sessions in localStorage
 const PERSISTED_KEYS: (keyof AppSettings)[] = [
   'language', 'waveformSpeed', 'soundEnabled', 'alarmVolume', 'beepVolume',
   'temperatureUnit', 'energyType', 'cprRatio', 'cprMetronomeRate',
-  'wakeLockEnabled', 'keyboardShortcutsEnabled',
+  'wakeLockEnabled', 'keyboardShortcutsEnabled', 'showRhythmName',
 ];
 
 const STORAGE_KEY = 'update-sim-settings';
@@ -80,6 +81,7 @@ const defaults: AppSettings = {
   alarmsSilenced: false,
   alarmsSilencedUntil: 0,
   alarmsOff: false,
+  showRhythmName: true,
 };
 
 const persisted = loadPersistedSettings();
