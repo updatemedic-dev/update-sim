@@ -11,6 +11,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   PALS: 'PALS',
   NRP: 'NRP Neonatal',
   MEGA_LAERDAL: 'MegaCódigo Laerdal',
+  OBSTACRIT: 'OBSTACRIT',
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -19,6 +20,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   PALS: 'bg-blue-900/50 border-blue-700',
   NRP: 'bg-pink-900/50 border-pink-700',
   MEGA_LAERDAL: 'bg-purple-900/50 border-purple-700',
+  OBSTACRIT: 'bg-rose-900/50 border-rose-700',
 };
 
 export default function ScenarioSelector({ onClose }: { onClose: () => void }) {

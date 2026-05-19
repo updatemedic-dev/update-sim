@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import MonitorScreen, { applyStep } from './components/monitor/MonitorScreen';
 import ScenarioSelector from './components/scenarios/ScenarioSelector';
 import SettingsPanel from './components/settings/SettingsPanel';
 import { useVitalSignsStore } from './stores/vitalSignsStore';
+import { PRESET_SCENARIOS } from './data/presetScenarios';
 import { useSettingsStore } from './stores/settingsStore';
 import { useDefibStore } from './stores/defibStore';
 import { useScenarioStore } from './stores/scenarioStore';
@@ -23,6 +24,7 @@ function App() {
   const { keyboardShortcutsEnabled, showRhythmName } = useSettingsStore();
   const vitals = useVitalSignsStore((s) => s.vitals);
   const defib = useDefibStore();
+  const oKeyTimestamp = useRef(0);
 
   // Listen for custom events from MonitorScreen sidebar buttons
   useEffect(() => {
@@ -143,6 +145,10 @@ function App() {
         e.preventDefault();
         vs.togglePause();
         break;
+      case 'o':
+        e.preventDefault();
+        oKeyTimestamp.current = Date.now();
+        return;
       case 'r':
         if (e.ctrlKey || e.metaKey) break;
         e.preventDefault();
@@ -152,10 +158,26 @@ function App() {
         break;
     }
 
-    // Number keys 1-9 for quick rhythm
+    // Number keys 1-9
     const num = parseInt(e.key);
     if (num >= 1 && num <= 9) {
       e.preventDefault();
+
+      // O+number: load OBSTACRIT scenario
+      if (Date.now() - oKeyTimestamp.current < 1500) {
+        oKeyTimestamp.current = 0;
+        const scenarioId = `obstacrit-${num}`;
+        const scenario = PRESET_SCENARIOS.find((s) => s.id === scenarioId);
+        if (scenario) {
+          useScenarioStore.getState().loadScenario(scenarioId);
+          const step = scenario.steps[0];
+          applyStep(step);
+          useCodeTrackStore.getState().addEntry('scenario_start', `OBSTACRIT ${num}: ${scenario.name}`);
+        }
+        return;
+      }
+
+      // Plain number: quick rhythm
       const quickRhythms = [
         CardiacRhythm.NORMAL_SINUS, CardiacRhythm.SINUS_BRADYCARDIA,
         CardiacRhythm.SINUS_TACHYCARDIA, CardiacRhythm.SVT,
