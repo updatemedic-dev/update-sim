@@ -16,7 +16,7 @@ export interface PresetScenarioStep {
 export interface PresetScenario {
   id: string;
   name: string;
-  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'EPALS' | 'PH' | 'MAVACRIT' | 'OBSTACRIT';
+  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'EPALS' | 'PH' | 'MAVACRIT' | 'OBSTACRIT' | 'EPC';
   description: string;
   steps: PresetScenarioStep[];
 }
@@ -3902,6 +3902,416 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         rr: 20,
         hasPulse: true,
         condition: 'Paciente estabilizada. Útero contraído en posición normal. Monitorización en UCI. Evaluar causa y prevenir recurrencia.',
+      },
+    ],
+  },
+
+  // ============================================================
+  // EPC Talcahuano Cases (12)
+  // ============================================================
+
+  // EPC 1 — Bradicardia Ahogamiento por Inmersión - Niño
+  {
+    id: 'epc-1',
+    name: 'EPC 1 — Bradicardia Ahogamiento Inmersión',
+    category: 'EPC',
+    description: 'Niño | Ahogamiento por inmersión | Bradicardia | Hipotermia',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_BRADYCARDIA,
+        hr: 71,
+        systolic: 78,
+        diastolic: 50,
+        spo2: 0,
+        etco2: 56,
+        rr: 6,
+        hasPulse: true,
+        condition: 'Niño rescatado del agua. Bradicardia, SpO2 no sensa, hipotermia 35°C. ETCO2 56. Evaluar vía aérea, O2, calentar.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 88,
+        systolic: 106,
+        diastolic: 64,
+        spo2: 98,
+        etco2: 52,
+        rr: 20,
+        hasPulse: true,
+        condition: 'Responde a ventilación asistida. SpO2 98%, PA mejora. T° 35.6°C. Continuar calentamiento y monitorización.',
+      },
+    ],
+  },
+
+  // EPC 2 — Taquicardia TSV Estable - Niño
+  {
+    id: 'epc-2',
+    name: 'EPC 2 — TSV Estable Niño',
+    category: 'EPC',
+    description: 'Niño | TSV estable | Trazado regular y estrecho | FC 243',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SVT,
+        hr: 243,
+        systolic: 123,
+        diastolic: 74,
+        spo2: 96,
+        etco2: 30,
+        rr: 23,
+        hasPulse: true,
+        condition: 'TSV estable, trazado regular y estrecho. FC 243. Maniobras vagales, considerar adenosina.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 76,
+        systolic: 123,
+        diastolic: 74,
+        spo2: 98,
+        etco2: 30,
+        rr: 18,
+        hasPulse: true,
+        condition: 'Conversión a ritmo sinusal. FC 76. Monitorización continua.',
+      },
+    ],
+  },
+
+  // EPC 3 — Shock Distributivo Séptico - Niño
+  {
+    id: 'epc-3',
+    name: 'EPC 3 — Shock Séptico Niño',
+    category: 'EPC',
+    description: 'Niño | Shock distributivo séptico | Taquicardia | Fiebre 39.1°C',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 173,
+        systolic: 110,
+        diastolic: 65,
+        spo2: 91,
+        etco2: 22,
+        rr: 38,
+        hasPulse: true,
+        condition: 'Shock séptico. FC 173, SpO2 91%, T° 39.1°C, ETCO2 22. Bolos SF 20 ml/kg, antibióticos, O2.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 155,
+        systolic: 110,
+        diastolic: 65,
+        spo2: 96,
+        etco2: 22,
+        rr: 29,
+        hasPulse: true,
+        condition: 'Responde a volemización. FC baja a 155, SpO2 96%, T° 38.5°C. Continuar tratamiento.',
+      },
+    ],
+  },
+
+  // EPC 4 — Respiratorio OVAI Asma - Niño
+  {
+    id: 'epc-4',
+    name: 'EPC 4 — Asma (OVAI) Niño',
+    category: 'EPC',
+    description: 'Niño | Obstrucción vía aérea inferior | Asma | SpO2 88%',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 119,
+        systolic: 124,
+        diastolic: 80,
+        spo2: 88,
+        etco2: 58,
+        rr: 40,
+        hasPulse: true,
+        condition: 'Crisis asmática severa. SpO2 88%, ETCO2 58, FR 40. Salbutamol NBZ, O2, corticoides.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 135,
+        systolic: 124,
+        diastolic: 80,
+        spo2: 95,
+        etco2: 45,
+        rr: 28,
+        hasPulse: true,
+        condition: 'Mejora con tratamiento. SpO2 95%, ETCO2 45, FR 28. Continuar salbutamol y monitorizar.',
+      },
+    ],
+  },
+
+  // EPC 5 — Respiratorio OVAS Laringitis - Niño
+  {
+    id: 'epc-5',
+    name: 'EPC 5 — Laringitis (OVAS) Niño',
+    category: 'EPC',
+    description: 'Niño | Obstrucción vía aérea superior | Laringitis | Fiebre 38.9°C',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 125,
+        systolic: 84,
+        diastolic: 60,
+        spo2: 93,
+        etco2: 40,
+        rr: 40,
+        hasPulse: true,
+        condition: 'Laringitis con estridor. SpO2 93%, T° 38.9°C, FR 40. Adrenalina nebulizada, dexametasona.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 110,
+        systolic: 84,
+        diastolic: 60,
+        spo2: 97,
+        etco2: 35,
+        rr: 28,
+        hasPulse: true,
+        condition: 'Mejora con nebulización. SpO2 97%, FR 28, T° 38°C. Mantener observación.',
+      },
+    ],
+  },
+
+  // EPC 6 — Shock Hipovolémico GECA - Lactante
+  {
+    id: 'epc-6',
+    name: 'EPC 6 — Shock Hipovolémico GECA Lactante',
+    category: 'EPC',
+    description: 'Lactante | Shock hipovolémico | Gastroenteritis aguda | Deshidratación',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 147,
+        systolic: 88,
+        diastolic: 40,
+        spo2: 93,
+        etco2: 31,
+        rr: 36,
+        hasPulse: true,
+        condition: 'Lactante deshidratado por GECA. FC 147, PA 88/40, SpO2 93%. Bolo SF 20 ml/kg.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 129,
+        systolic: 100,
+        diastolic: 59,
+        spo2: 96,
+        etco2: 27,
+        rr: 27,
+        hasPulse: true,
+        condition: 'Responde a volemización. FC 129, PA 100/59, SpO2 96%. Evaluar segundo bolo.',
+      },
+    ],
+  },
+
+  // EPC 7 — Shock Hemorrágico Politraumatismo - Niño
+  {
+    id: 'epc-7',
+    name: 'EPC 7 — Shock Hemorrágico Politrauma Niño',
+    category: 'EPC',
+    description: 'Niño | Politraumatismo | Shock hemorrágico | SpO2 no sensa',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 129,
+        systolic: 78,
+        diastolic: 56,
+        spo2: 0,
+        etco2: 30,
+        rr: 32,
+        hasPulse: true,
+        condition: 'Politrauma, shock hemorrágico. SpO2 no sensa. PA 78/56. Control hemorragia, O2, acceso vascular, bolos SF.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 100,
+        systolic: 95,
+        diastolic: 60,
+        spo2: 98,
+        etco2: 27,
+        rr: 23,
+        hasPulse: true,
+        condition: 'Responde a volemización. SpO2 98%, PA 95/60, FC 100. Evaluar hemoderivados y traslado.',
+      },
+    ],
+  },
+
+  // EPC 8 — PCR AESP - Lactante
+  {
+    id: 'epc-8',
+    name: 'EPC 8 — PCR AESP Lactante',
+    category: 'EPC',
+    description: 'Lactante | PCR | AESP | Hipotermia | ETCO2 18',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_BRADYCARDIA,
+        hr: 60,
+        systolic: 40,
+        diastolic: 20,
+        spo2: 98,
+        etco2: 18,
+        rr: 30,
+        hasPulse: false,
+        condition: 'PCR en lactante. AESP FC 60. Hipotermia 35.3°C. ETCO2 18. RCP, epinefrina, tratar causas reversibles (5H/5T).',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_BRADYCARDIA,
+        hr: 60,
+        systolic: 50,
+        diastolic: 30,
+        spo2: 98,
+        etco2: 28,
+        rr: 30,
+        hasPulse: false,
+        condition: 'AESP persiste. ETCO2 sube a 28. PA 50/30. T° 35.8°C. Continuar RCP, segunda dosis epinefrina.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 140,
+        systolic: 70,
+        diastolic: 58,
+        spo2: 98,
+        etco2: 39,
+        rr: 30,
+        hasPulse: true,
+        condition: 'ROSC. FC 140, PA 70/58, ETCO2 39. T° 35.8°C. Cuidados post-paro, calentar progresivamente.',
+      },
+    ],
+  },
+
+  // EPC 9 — PCR FV - Niño
+  {
+    id: 'epc-9',
+    name: 'EPC 9 — PCR FV Niño',
+    category: 'EPC',
+    description: 'Niño | PCR | Fibrilación ventricular | Desfibrilable',
+    steps: [
+      {
+        rhythm: CardiacRhythm.VENTRICULAR_FIBRILLATION,
+        hr: 0,
+        systolic: 50,
+        diastolic: 30,
+        spo2: 98,
+        etco2: 20,
+        rr: 20,
+        hasPulse: false,
+        condition: 'PCR en niño. FV en monitor. RCP + desfibrilación 2 J/kg. Epinefrina tras segundo shock.',
+      },
+      {
+        rhythm: CardiacRhythm.VENTRICULAR_FIBRILLATION,
+        hr: 0,
+        systolic: 60,
+        diastolic: 40,
+        spo2: 98,
+        etco2: 20,
+        rr: 20,
+        hasPulse: false,
+        condition: 'FV persiste. Segundo shock 4 J/kg. Amiodarona 5 mg/kg. Continuar RCP.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 140,
+        systolic: 98,
+        diastolic: 52,
+        spo2: 100,
+        etco2: 40,
+        rr: 20,
+        hasPulse: true,
+        condition: 'ROSC. FC 140, PA 98/52, SpO2 100%, ETCO2 40. Cuidados post-paro.',
+      },
+    ],
+  },
+
+  // EPC 10 — Cetoacidosis Diabética - Lactante
+  {
+    id: 'epc-10',
+    name: 'EPC 10 — Cetoacidosis Diabética Lactante',
+    category: 'EPC',
+    description: 'Lactante | Cetoacidosis diabética | Taquicardia | Fiebre | HGT 360',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 181,
+        systolic: 112,
+        diastolic: 58,
+        spo2: 94,
+        etco2: 27,
+        rr: 40,
+        hasPulse: true,
+        condition: 'Cetoacidosis diabética. FC 181, T° 38°C, ETCO2 27. SF 10-20 ml/kg. Insulina según protocolo.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 150,
+        systolic: 105,
+        diastolic: 65,
+        spo2: 98,
+        etco2: 30,
+        rr: 30,
+        hasPulse: true,
+        condition: 'Mejora con hidratación. FC 150, SpO2 98%, HGT 360. T° 37.8°C. Continuar insulina y monitoreo.',
+      },
+    ],
+  },
+
+  // EPC 11 — Neumotórax por Herida Arma de Fuego - Niño
+  {
+    id: 'epc-11',
+    name: 'EPC 11 — Neumotórax HAF Niño',
+    category: 'EPC',
+    description: 'Niño | Herida arma de fuego | Neumotórax | SpO2 85%',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 92,
+        diastolic: 62,
+        spo2: 85,
+        etco2: 49,
+        rr: 30,
+        hasPulse: true,
+        condition: 'Neumotórax por HAF. SpO2 85%, ETCO2 49. Descompresión con aguja, sello torácico, O2 alto flujo.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 92,
+        systolic: 108,
+        diastolic: 68,
+        spo2: 97,
+        etco2: 36,
+        rr: 20,
+        hasPulse: true,
+        condition: 'Mejora tras descompresión. SpO2 97%, ETCO2 36, PA 108/68. Tubo pleural y traslado.',
+      },
+    ],
+  },
+
+  // EPC 12 — Escaldadura (Quemadura) - Lactante
+  {
+    id: 'epc-12',
+    name: 'EPC 12 — Quemadura Escaldadura Lactante',
+    category: 'EPC',
+    description: 'Lactante | Escaldadura/Quemadura | Taquicardia | Dolor',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 162,
+        systolic: 116,
+        diastolic: 64,
+        spo2: 94,
+        etco2: 0,
+        rr: 38,
+        hasPulse: true,
+        condition: 'Quemadura por escaldadura. FC 162, SpO2 94%, ETCO2 no se obtiene. Analgesia, SF Parkland, cubrir.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 138,
+        systolic: 118,
+        diastolic: 70,
+        spo2: 98,
+        etco2: 36,
+        rr: 30,
+        hasPulse: true,
+        condition: 'Mejora con analgesia y volemización. FC 138, SpO2 98%, ETCO2 36. Continuar Parkland y evaluar SCQ.',
       },
     ],
   },
