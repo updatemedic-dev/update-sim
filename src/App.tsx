@@ -33,6 +33,7 @@ function App() {
   const aKeyRef = useRef(false);
   const pKeyRef = useRef(false);
   const oKeyTimestamp = useRef(0);
+  const eKeyTimestamp = useRef(0);
 
   const handleKeyUp = useCallback((e: KeyboardEvent) => {
     if (e.key.toLowerCase() === 'a') aKeyRef.current = false;
@@ -100,6 +101,34 @@ function App() {
         return;
       }
     }
+
+    const loadScenarioById = (scenarioId: string) => {
+      const scenario = PRESET_SCENARIOS.find((s) => s.id === scenarioId);
+      if (scenario) {
+        vs.stop();
+        df.reset();
+        useMedicationStore.getState().clearAdministered();
+        audioEngine.stopChargedBeep();
+        audioEngine.stopMetronome();
+        audioEngine.stopAlarm();
+        sc.loadScenario(scenarioId);
+        sc.start();
+        const step = scenario.steps[0];
+        vs.setRhythm(step.rhythm);
+        vs.setVitals({
+          hr: step.hr,
+          systolic: step.systolic,
+          diastolic: step.diastolic,
+          spo2: step.spo2,
+          etco2: step.etco2,
+          respiratoryRate: step.rr,
+          hasPulse: step.hasPulse,
+          ...(step.temperature !== undefined ? { temperature: step.temperature } : {}),
+        });
+        useCodeTrackStore.getState().start();
+        useCodeTrackStore.getState().addEntry('scenario_start', `Inicio escenario: ${scenario.name}`);
+      }
+    };
 
     switch (e.key.toLowerCase()) {
       case 'n': // NEXT STEP + stop compressions + stop pacer
@@ -246,6 +275,10 @@ function App() {
         e.preventDefault();
         oKeyTimestamp.current = Date.now();
         return;
+      case 'e':
+        e.preventDefault();
+        eKeyTimestamp.current = Date.now();
+        return;
       case 'escape':
         e.preventDefault();
         vs.togglePause();
@@ -258,33 +291,15 @@ function App() {
       // O + number: Load OBSTACRIT scenario
       if (Date.now() - oKeyTimestamp.current < 1500) {
         e.preventDefault();
-        const scenarioId = `obstacrit-${num}`;
-        const scenario = PRESET_SCENARIOS.find((s) => s.id === scenarioId);
-        if (scenario) {
-          vs.stop();
-          df.reset();
-          useMedicationStore.getState().clearAdministered();
-          audioEngine.stopChargedBeep();
-          audioEngine.stopMetronome();
-          audioEngine.stopAlarm();
-          sc.loadScenario(scenarioId);
-          sc.start();
-          const step = scenario.steps[0];
-          vs.setRhythm(step.rhythm);
-          vs.setVitals({
-            hr: step.hr,
-            systolic: step.systolic,
-            diastolic: step.diastolic,
-            spo2: step.spo2,
-            etco2: step.etco2,
-            respiratoryRate: step.rr,
-            hasPulse: step.hasPulse,
-            ...(step.temperature !== undefined ? { temperature: step.temperature } : {}),
-          });
-          useCodeTrackStore.getState().start();
-          useCodeTrackStore.getState().addEntry('scenario_start', `Inicio escenario: ${scenario.name}`);
-        }
+        loadScenarioById(`obstacrit-${num}`);
         oKeyTimestamp.current = 0;
+        return;
+      }
+      // E + number (1-9): Load EPC scenario
+      if (Date.now() - eKeyTimestamp.current < 1500) {
+        e.preventDefault();
+        loadScenarioById(`epc-${num}`);
+        eKeyTimestamp.current = 0;
         return;
       }
       e.preventDefault();
@@ -305,6 +320,18 @@ function App() {
         diastolic: def.physiologicalDefaults.diastolicBP,
         spo2: def.physiologicalDefaults.spo2,
       });
+    }
+
+    // E + 0/q/w: Load EPC scenarios 10-12
+    if (Date.now() - eKeyTimestamp.current < 1500) {
+      const epcMap: Record<string, number> = { '0': 10, 'q': 11, 'w': 12 };
+      const epcNum = epcMap[e.key.toLowerCase()];
+      if (epcNum) {
+        e.preventDefault();
+        loadScenarioById(`epc-${epcNum}`);
+        eKeyTimestamp.current = 0;
+        return;
+      }
     }
   }, [keyboardShortcutsEnabled]);
 
