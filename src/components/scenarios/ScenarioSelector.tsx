@@ -16,9 +16,10 @@ const CATEGORY_LABELS: Record<string, string> = {
   MEGA_LAERDAL: 'ACLS 10-2',
   OBSTACRIT: 'OBSTACRIT',
   EPC: 'EPC',
+  AEROCRIT: 'AEROCRIT',
 };
 
-const CATEGORY_ORDER: PresetScenario['category'][] = ['ACLS_MEGA', 'PALS', 'PH', 'NRP', 'MAVACRIT', 'EPALS', 'ACLS', 'MEGA_LAERDAL', 'OBSTACRIT', 'EPC'];
+const CATEGORY_ORDER: PresetScenario['category'][] = ['ACLS_MEGA', 'PALS', 'PH', 'NRP', 'MAVACRIT', 'EPALS', 'ACLS', 'MEGA_LAERDAL', 'OBSTACRIT', 'EPC', 'AEROCRIT'];
 
 const CATEGORY_COLORS: Record<string, string> = {
   ACLS: 'bg-red-900/50 border-red-700',
@@ -30,6 +31,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   PH: 'bg-amber-900/50 border-amber-700',
   MAVACRIT: 'bg-emerald-900/50 border-emerald-700',
   OBSTACRIT: 'bg-rose-900/50 border-rose-700',
+  AEROCRIT: 'bg-amber-900/50 border-amber-700',
   EPC: 'bg-sky-900/50 border-sky-700',
 };
 
