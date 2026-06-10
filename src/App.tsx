@@ -34,6 +34,8 @@ function App() {
   const pKeyRef = useRef(false);
   const oKeyTimestamp = useRef(0);
   const eKeyTimestamp = useRef(0);
+  const aKeyTimestamp = useRef(0);
+  const aeKeyTimestamp = useRef(0);
 
   const handleKeyUp = useCallback((e: KeyboardEvent) => {
     if (e.key.toLowerCase() === 'a') aKeyRef.current = false;
@@ -49,9 +51,38 @@ function App() {
     const sc = useScenarioStore.getState();
     const v = vs.vitals;
 
+    const loadScenarioById = (scenarioId: string) => {
+      const scenario = PRESET_SCENARIOS.find((s) => s.id === scenarioId);
+      if (scenario) {
+        vs.stop();
+        df.reset();
+        useMedicationStore.getState().clearAdministered();
+        audioEngine.stopChargedBeep();
+        audioEngine.stopMetronome();
+        audioEngine.stopAlarm();
+        sc.loadScenario(scenarioId);
+        sc.start();
+        const step = scenario.steps[0];
+        vs.setRhythm(step.rhythm);
+        vs.setVitals({
+          hr: step.hr,
+          systolic: step.systolic,
+          diastolic: step.diastolic,
+          spo2: step.spo2,
+          etco2: step.etco2,
+          respiratoryRate: step.rr,
+          hasPulse: step.hasPulse,
+          ...(step.temperature !== undefined ? { temperature: step.temperature } : {}),
+        });
+        useCodeTrackStore.getState().start();
+        useCodeTrackStore.getState().addEntry('scenario_start', `Inicio escenario: ${scenario.name}`);
+      }
+    };
+
     // Track 'A' key hold
     if (e.key.toLowerCase() === 'a') {
       aKeyRef.current = true;
+      aKeyTimestamp.current = Date.now();
       e.preventDefault();
       return;
     }
@@ -60,6 +91,16 @@ function App() {
     if (e.key.toLowerCase() === 'p') {
       pKeyRef.current = true;
       e.preventDefault();
+      return;
+    }
+
+    // A + E + 1-7: Load AEROCRIT scenario (tiene prioridad sobre A+número)
+    if (Date.now() - aeKeyTimestamp.current < 1500 && e.key >= '1' && e.key <= '7') {
+      e.preventDefault();
+      loadScenarioById(`aerocrit-${e.key}`);
+      aeKeyTimestamp.current = 0;
+      eKeyTimestamp.current = 0;
+      aKeyRef.current = false;
       return;
     }
 
@@ -101,34 +142,6 @@ function App() {
         return;
       }
     }
-
-    const loadScenarioById = (scenarioId: string) => {
-      const scenario = PRESET_SCENARIOS.find((s) => s.id === scenarioId);
-      if (scenario) {
-        vs.stop();
-        df.reset();
-        useMedicationStore.getState().clearAdministered();
-        audioEngine.stopChargedBeep();
-        audioEngine.stopMetronome();
-        audioEngine.stopAlarm();
-        sc.loadScenario(scenarioId);
-        sc.start();
-        const step = scenario.steps[0];
-        vs.setRhythm(step.rhythm);
-        vs.setVitals({
-          hr: step.hr,
-          systolic: step.systolic,
-          diastolic: step.diastolic,
-          spo2: step.spo2,
-          etco2: step.etco2,
-          respiratoryRate: step.rr,
-          hasPulse: step.hasPulse,
-          ...(step.temperature !== undefined ? { temperature: step.temperature } : {}),
-        });
-        useCodeTrackStore.getState().start();
-        useCodeTrackStore.getState().addEntry('scenario_start', `Inicio escenario: ${scenario.name}`);
-      }
-    };
 
     switch (e.key.toLowerCase()) {
       case 'n': // NEXT STEP + stop compressions + stop pacer
@@ -277,7 +290,13 @@ function App() {
         return;
       case 'e':
         e.preventDefault();
-        eKeyTimestamp.current = Date.now();
+        // A+E: arma el combo AEROCRIT (A sostenida o presionada hace <1.5s)
+        if (aKeyRef.current || Date.now() - aKeyTimestamp.current < 1500) {
+          aeKeyTimestamp.current = Date.now();
+          eKeyTimestamp.current = 0;
+        } else {
+          eKeyTimestamp.current = Date.now();
+        }
         return;
       case 'escape':
         e.preventDefault();
