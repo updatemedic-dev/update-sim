@@ -15,7 +15,7 @@ export interface PresetScenarioStep {
 export interface PresetScenario {
   id: string;
   name: string;
-  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'OBSTACRIT';
+  category: 'ACLS' | 'ACLS_MEGA' | 'PALS' | 'NRP' | 'MEGA_LAERDAL' | 'OBSTACRIT' | 'EPC' | 'AEROCRIT';
   description: string;
   steps: PresetScenarioStep[];
 }
@@ -2842,6 +2842,234 @@ export const PRESET_SCENARIOS: PresetScenario[] = [
         rr: 20,
         hasPulse: true,
         condition: 'Paciente estabilizada. Útero contraído en posición normal. Monitorización en UCI. Evaluar causa y prevenir recurrencia.',
+      },
+    ],
+  },
+
+  // ============================================================
+  // AEROCRIT Cases (Aeroevacuación Médica)
+  // ============================================================
+
+  // AEROCRIT 1 — Neumotórax Trauma Zona Rural
+  {
+    id: 'aerocrit-1',
+    name: 'AEROCRIT 1 — Neumotórax Trauma Zona Rural',
+    category: 'AEROCRIT',
+    description: 'Masculino 45 años | Accidente automovilístico | Zona rural | Neumotórax | Aeroevacuación',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 120,
+        systolic: 80,
+        diastolic: 50,
+        spo2: 85,
+        etco2: 0,
+        rr: 24,
+        hasPulse: true,
+        condition: 'Paciente eyectado de vehículo. MV disminuido en hemitórax izq. Desviación traqueal. SpO2 85%. Descompresión con aguja, O2 alto flujo.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 105,
+        systolic: 95,
+        diastolic: 60,
+        spo2: 94,
+        etco2: 35,
+        rr: 20,
+        hasPulse: true,
+        condition: 'Post descompresión. SpO2 mejora a 94%. Inmovilización, acceso venoso, analgesia. Preparar aeroevacuación a centro de trauma.',
+      },
+    ],
+  },
+
+  // AEROCRIT 2 — Dolor Torácico IAM
+  {
+    id: 'aerocrit-2',
+    name: 'AEROCRIT 2 — Dolor Torácico IAM',
+    category: 'AEROCRIT',
+    description: 'Masculino 52 años | Dolor torácico súbito | IAM previo | DM II | Hospital rural',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 110,
+        systolic: 85,
+        diastolic: 50,
+        spo2: 92,
+        etco2: 0,
+        rr: 24,
+        hasPulse: true,
+        condition: 'Dolor torácico opresivo irradiado a ESI. Disnea, mareos. Glasgow 12. Llene capilar 3 seg. O2, AAS, NTG si PA lo permite.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 95,
+        systolic: 100,
+        diastolic: 65,
+        spo2: 96,
+        etco2: 35,
+        rr: 18,
+        hasPulse: true,
+        condition: 'Responde a tratamiento inicial. PA mejora. Monitorización continua. Traslado aéreo a centro cardiológico. 2h de vuelo.',
+      },
+    ],
+  },
+
+  // AEROCRIT 3 — TEC Abierto Burbuja Aire Subdural
+  {
+    id: 'aerocrit-3',
+    name: 'AEROCRIT 3 — TEC Abierto Burbuja Aire Subdural',
+    category: 'AEROCRIT',
+    description: 'Masculino 25 años | Volcamiento | TEC abierto | Burbuja aire subdural | NO VOLAR',
+    steps: [
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 100,
+        systolic: 98,
+        diastolic: 68,
+        spo2: 95,
+        etco2: 0,
+        rr: 26,
+        hasPulse: true,
+        condition: 'TEC abierto con burbuja aire subdural 4cm. Glasgow 11. Herida parietal 10cm. Hematoma antebrazo izq. Llene capilar 4 seg.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 95,
+        systolic: 105,
+        diastolic: 70,
+        spo2: 97,
+        etco2: 35,
+        rr: 22,
+        hasPulse: true,
+        condition: 'CONTRAINDICADO vuelo por burbuja aire subdural (expansión con altitud). Traslado TERRESTRE 5h. Fasciotomía si síndrome compartimental.',
+      },
+    ],
+  },
+
+  // AEROCRIT 4 — Politrauma Motocicleta
+  {
+    id: 'aerocrit-4',
+    name: 'AEROCRIT 4 — Politrauma Motocicleta',
+    category: 'AEROCRIT',
+    description: 'Masculino 35 años | Colisión motocicleta | TCE moderado | Fracturas costales | Contusión pulmonar',
+    steps: [
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 82,
+        systolic: 105,
+        diastolic: 65,
+        spo2: 89,
+        etco2: 0,
+        rr: 18,
+        hasPulse: true,
+        condition: 'Politrauma. Asimetría torácica, crepitaciones costales. Glasgow 13. SpO2 89%. Descartar neumotórax. O2, inmovilización.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 88,
+        systolic: 110,
+        diastolic: 68,
+        spo2: 95,
+        etco2: 38,
+        rr: 20,
+        hasPulse: true,
+        condition: 'Estabilizado. SpO2 mejora con O2. Considerar neumotórax a tensión en vuelo. Aeroevacuación en cabina presurizada. 2h de vuelo.',
+      },
+    ],
+  },
+
+  // AEROCRIT 5 — ACV Isquémico Ventana Trombólisis
+  {
+    id: 'aerocrit-5',
+    name: 'AEROCRIT 5 — ACV Isquémico Ventana Trombólisis',
+    category: 'AEROCRIT',
+    description: 'Femenina 62 años | ACV isquémico | Hemiparesia derecha | Ventana terapéutica | HTA',
+    steps: [
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 78,
+        systolic: 158,
+        diastolic: 65,
+        spo2: 95,
+        etco2: 0,
+        rr: 18,
+        hasPulse: true,
+        condition: 'ACV isquémico 3h evolución. Glasgow 12. Hemiparesia derecha, afasia. PA 158/65. Control PA estricto. Evitar hipocapnia.',
+      },
+      {
+        rhythm: CardiacRhythm.NORMAL_SINUS,
+        hr: 75,
+        systolic: 145,
+        diastolic: 70,
+        spo2: 97,
+        etco2: 35,
+        rr: 16,
+        hasPulse: true,
+        condition: 'PA controlada con antihipertensivo. Traslado aéreo 1h a centro con radiología intervencional y neurocirugía.',
+      },
+    ],
+  },
+
+  // AEROCRIT 6 — SDRA Severo COVID-19
+  {
+    id: 'aerocrit-6',
+    name: 'AEROCRIT 6 — SDRA Severo COVID-19',
+    category: 'AEROCRIT',
+    description: 'Masculino 48 años | SDRA severo | Neumonía COVID-19 bilateral | Requiere ECMO',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 130,
+        systolic: 115,
+        diastolic: 75,
+        spo2: 90,
+        etco2: 50,
+        rr: 18,
+        hasPulse: true,
+        condition: 'SDRA severo por COVID-19. Cianosis labial, fatiga respiratoria. SpO2 90%, ETCO2 50. Considerar intubación electiva.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 115,
+        systolic: 110,
+        diastolic: 70,
+        spo2: 94,
+        etco2: 42,
+        rr: 16,
+        hasPulse: true,
+        condition: 'Intubado y conectado a VM. Parámetros ajustados para cabina presurizada. Traslado a centro con ECMO. 1.5h de vuelo.',
+      },
+    ],
+  },
+
+  // AEROCRIT 7 — Shock Séptico Peritonitis
+  {
+    id: 'aerocrit-7',
+    name: 'AEROCRIT 7 — Shock Séptico Peritonitis',
+    category: 'AEROCRIT',
+    description: 'Femenina 55 años | Shock séptico | Peritonitis | Abdomen distendido | Requiere cirugía',
+    steps: [
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 126,
+        systolic: 84,
+        diastolic: 52,
+        spo2: 92,
+        etco2: 40,
+        rr: 17,
+        hasPulse: true,
+        condition: 'Shock séptico por peritonitis. Abdomen distendido, piel moteada. Glasgow 12. Llene capilar >4 seg. Cristaloides, vasopresores, ATB.',
+      },
+      {
+        rhythm: CardiacRhythm.SINUS_TACHYCARDIA,
+        hr: 110,
+        systolic: 95,
+        diastolic: 60,
+        spo2: 96,
+        etco2: 38,
+        rr: 18,
+        hasPulse: true,
+        condition: 'Responde parcialmente a volemización y vasopresores. Traslado aéreo a hospital con cirugía avanzada.',
       },
     ],
   },
