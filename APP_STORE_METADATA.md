@@ -12,6 +12,10 @@ Medical
 ## Categoría Secundaria
 Education
 
+## Dispositivos
+**Solo iPad** (`TARGETED_DEVICE_FAMILY = 2`). El layout actual se corta en pantallas de iPhone;
+cuando se haga responsive, volver a `"1,2"` en `ios/App/App.xcodeproj/project.pbxproj` y agregar screenshots de iPhone.
+
 ## Descripción (máx 4000 caracteres)
 
 ### Español (Chile)
@@ -22,12 +26,12 @@ Ideal para instructores y centros de simulación clínica que necesitan una herr
 CARACTERÍSTICAS PRINCIPALES:
 
 - Monitor de signos vitales con ondas en tiempo real (ECG, SpO2, capnografía, presión arterial)
-- 37 ritmos cardíacos incluyendo sinusal, fibrilación auricular, taquicardias, bloqueos AV y más
+- 38 ritmos cardíacos incluyendo sinusal, fibrilación auricular, taquicardias, bloqueos AV y más
 - 18 ondas de capnografía
 - Desfibrilador con cardioversión y desfibrilación
 - Marcapasos transcutáneo
-- Más de 38 medicamentos con efectos fisiológicos realistas
-- Más de 40 escenarios clínicos preconfigurados
+- Más de 50 medicamentos con efectos fisiológicos realistas
+- Más de 100 escenarios clínicos preconfigurados (ACLS, PALS, EPALS, PREHOSP, MAVACRIT, OBSTACRIT, EPC, AEROCRIT y más)
 - Compresiones torácicas con retroalimentación visual
 - Interfaz en español
 - Funciona sin conexión a internet
@@ -43,12 +47,12 @@ Ideal for instructors and clinical simulation centers that need a reliable, port
 KEY FEATURES:
 
 - Vital signs monitor with real-time waveforms (ECG, SpO2, capnography, blood pressure)
-- 37 cardiac rhythms including sinus, atrial fibrillation, tachycardias, AV blocks and more
+- 38 cardiac rhythms including sinus, atrial fibrillation, tachycardias, AV blocks and more
 - 18 capnography waveforms
 - Defibrillator with cardioversion and defibrillation
 - Transcutaneous pacemaker
-- Over 38 medications with realistic physiological effects
-- Over 40 preconfigured clinical scenarios
+- Over 50 medications with realistic physiological effects
+- Over 100 preconfigured clinical scenarios (ACLS, PALS, EPALS, PREHOSP, MAVACRIT, OBSTACRIT, EPC, AEROCRIT and more)
 - Chest compressions with visual feedback
 - Spanish interface
 - Works offline
@@ -66,7 +70,8 @@ simulator,patient,monitor,ECG,defibrillator,ACLS,PALS,medical,emergency,capnogra
 https://updatemedic-dev.github.io/update-sim/
 
 ## URL de Política de Privacidad (OBLIGATORIO)
-[NECESITAS CREAR UNA - ver instrucciones abajo]
+https://updatemedic-dev.github.io/update-sim/privacidad.html
+(archivo `public/privacidad.html` — queda publicado con el próximo push a main)
 
 ## Clasificación por Edad
 4+ (sin contenido objetable)
@@ -77,31 +82,48 @@ Gratis (o el precio que definas)
 ## Disponibilidad
 Todos los países / Chile solamente (tú decides)
 
-## Screenshots Requeridos
+## Screenshots — LISTOS ✔
+Generados en `app-store/screenshots/ipad-13/` (2732×2048 landscape, iPad 13"/12.9"):
+1. `01-monitor.png` — monitor con ritmo sinusal y PNI medida
+2. `02-escenarios.png` — panel de 105 escenarios
+3. `03-ritmos.png` — teclado de 38 ritmos
+4. `04-meds.png` — panel de medicamentos
+5. `05-defib.png` — desfibrilador cargado a 200 J
 
-### iPad (12.9 pulgadas) - OBLIGATORIO
-- 2048 x 2732 px (portrait) o 2732 x 2048 px (landscape)
-- Mínimo 2, máximo 10 screenshots
-
-### iPhone 6.7 pulgadas - OBLIGATORIO
-- 1290 x 2796 px (portrait) o 2796 x 1290 px (landscape)
-- Mínimo 2, máximo 10 screenshots
-
-### iPhone 6.5 pulgadas - OBLIGATORIO
-- 1242 x 2688 px (portrait) o 2688 x 1242 px (landscape)
-- Mínimo 2, máximo 10 screenshots
+Al ser app solo-iPad, NO se requieren screenshots de iPhone.
+Para regenerarlos: script en el scratchpad de la sesión (`screenshots.mjs`, Playwright contra `vite preview`).
 
 ## App Privacy (Declaración de Privacidad)
-Si la app NO recopila datos del usuario:
-- Seleccionar "Data Not Collected"
+La app NO recopila datos → seleccionar **"Data Not Collected"** en App Store Connect.
+
+## Export Compliance
+`ITSAppUsesNonExemptEncryption = false` ya está en Info.plist → App Store Connect no preguntará por cifrado en cada build.
 
 ---
 
-## PENDIENTES ANTES DE ENVIAR:
+## ESTADO DE PREPARACIÓN (actualizado 2026-07-11)
 
-1. [ ] Crear página de Política de Privacidad (puede ser una página simple en GitHub Pages)
-2. [ ] Tomar screenshots en iPad y iPhone
-3. [ ] Ícono de app 1024x1024 (ya existe en el proyecto)
-4. [ ] Cuenta Apple Developer activada
-5. [ ] Crear la app en App Store Connect
-6. [ ] Archive y Upload desde Xcode
+### Hecho ✔
+1. [x] Build de producción verificado (`npm run build` — tsc + vite OK)
+2. [x] Tests 334/334 verdes (correr desde ruta SIN espacios — ver nota abajo)
+3. [x] `npx cap copy ios` — assets web sincronizados al proyecto iOS
+4. [x] Ícono 1024×1024 en `AppIcon.appiconset`
+5. [x] Screenshots iPad (5, resolución exacta App Store)
+6. [x] Política de privacidad (`public/privacidad.html`)
+7. [x] `ITSAppUsesNonExemptEncryption = false` en Info.plist
+8. [x] App solo-iPad (`TARGETED_DEVICE_FAMILY = 2`)
+9. [x] Metadata ES/EN con conteos reales (38 ritmos / 50+ meds / 105 escenarios)
+
+### Pendiente (requiere a Osvaldo)
+1. [ ] **Instalar Xcode** desde Mac App Store (solo hay Command Line Tools) y correr `sudo xcode-select -s /Applications/Xcode.app`
+2. [ ] **Cuenta Apple Developer** activa (US$99/año) — enrollment en developer.apple.com
+3. [ ] Commit + push a main (publica también la política de privacidad en GitHub Pages)
+4. [ ] Crear la app en App Store Connect (bundle ID `com.updatecapacitacion.updatesim`)
+5. [ ] Abrir `ios/App/App.xcodeproj` en Xcode → Signing & Capabilities → seleccionar tu Team
+6. [ ] Product → Archive → Distribute App → App Store Connect
+7. [ ] En App Store Connect: pegar metadata de este archivo, subir screenshots de `app-store/screenshots/ipad-13/`, marcar "Data Not Collected", enviar a revisión
+
+### Nota: tests y rutas con espacios
+`npm test` falla en esta carpeta porque vitest 4 + Node 22.22 no soporta rutas con espacios
+(`ANTI PRUEBA/SOFTWARE/UPDATE SIM`). Los workers mueren con "Timeout waiting for worker to respond".
+Workaround: copiar el proyecto a una ruta sin espacios y correr ahí, o renombrar las carpetas.
